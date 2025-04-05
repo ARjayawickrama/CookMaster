@@ -52,7 +52,7 @@ public class LearningSystemController {
     @GetMapping("/learningSystem")
     List<LearningSystemModel> getAll() {
         List<LearningSystemModel> posts = learningSystemRepository.findAll();
-        posts.forEach(post -> System.out.println("Fetched post: " + post)); // Debugging line
+        posts.forEach(post -> System.out.println("Fetched post: " + post));
         return posts; // Ensure postOwnerID is included in the response
     }
 
