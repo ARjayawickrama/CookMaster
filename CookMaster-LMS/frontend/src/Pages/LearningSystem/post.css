@@ -9,35 +9,60 @@
 }
 .actionButton_add {
   position: fixed;
-  background-color: #0f6fb2;
+  bottom: 30px;
+  right: 30px;
+  background-color: #1877f2; /* Facebook Blue */
   color: white;
   cursor: pointer;
-  font-size: 16px;
-  padding: 12px 20px;
-  border-radius: 6px;
-  font-weight: 500;
-  border: 1px solid #0f6fb2;
-  text-transform: capitalize;
-  left: 1260px;
-  width: 220px;
-  text-align: start;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  font-size: 28px;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  z-index: 999;
 }
+
+.actionButton_add:hover {
+  background-color: #166fe5;
+}
+
 .action_btn_my {
   position: fixed;
-  background-color: #0f6fb2;
-  color: white;
-  cursor: pointer;
-  padding: 12px 20px;
-  border-radius: 6px;
-  font-weight: 500;
-  font-size: 16px;
-  border: 1px solid #0f6fb2;
-  text-transform: capitalize;
+  top: 10px;
   left: 1260px;
   width: 220px;
-  top: 160px;
-  text-align: start;
+  padding: 12px 20px;
+  background-color: #0f6fb2; /* Primary Blue */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: capitalize;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+  transition: all 0.25s ease-in-out;
+  z-index: 1000;
 }
+
+.action_btn_my:hover {
+  background-color: #0d63a1; /* Slightly darker blue */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.18);
+  transform: translateY(-2px);
+}
+
+.action_btn_my:active {
+  transform: scale(0.98);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
 .not_found_box {
   width: 670px;
   border: 1px solid #0f6eb263;
@@ -50,7 +75,7 @@
   display: flex;
 }
 .post_card {
-  width: 670px;
+  width: 800px;
   border: 1px solid #0f6eb263;
   border-radius: 5px;
   justify-content: center;

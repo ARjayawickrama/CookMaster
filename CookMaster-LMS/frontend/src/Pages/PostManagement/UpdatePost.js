@@ -1,71 +1,243 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import SideBar from '../../Components/SideBar/SideBar';
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import SideBar from "../../Components/SideBar/SideBar";
+
 function UpdatePost() {
-  const { id } = useParams(); // Get the post ID from the URL
+  const { id } = useParams();
   const navigate = useNavigate();
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [existingMedia, setExistingMedia] = useState([]); // Initialize as an empty array
-  const [newMedia, setNewMedia] = useState([]); // New media files to upload
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    existingMedia: [],
+    newMedia: [],
+  });
+  const [loading, setLoading] = useState(true);
+  const [mediaPreviews, setMediaPreviews] = useState([]);
+
+  // Styles
+  const styles = {
+    container: {
+    
+      backgroundColor: "#f0f2f5",
+      minHeight: "100vh",
+      fontFamily: "Segoe UI, Roboto, sans-serif",
+    },
+    contentSection: {
+      marginLeft: "240px",
+      padding: "20px",
+      width: "calc(100% - 280px)",
+      display: "flex",
+      justifyContent: "center",
+    },
+    formContainer: {
+      marginTop:"90px",
+      backgroundColor: "#ffffff",
+      borderRadius: "8px",
+      boxShadow: "0 1px 2px rgba(0, 0, 0, 0.1)",
+      padding: "24px",
+      width: "100%",
+      maxWidth: "600px",
+    },
+    formHeading: {
+      fontSize: "20px",
+      fontWeight: "600",
+      color: "#050505",
+      marginBottom: "24px",
+      textAlign: "center",
+    },
+    formGroup: {
+      marginBottom: "20px",
+    },
+    label: {
+      display: "block",
+      fontSize: "15px",
+      fontWeight: "600",
+      color: "#050505",
+      marginBottom: "8px",
+    },
+    input: {
+      width: "100%",
+      padding: "12px",
+      borderRadius: "6px",
+      border: "1px solid #dddfe2",
+      fontSize: "15px",
+      backgroundColor: "#f0f2f5",
+      boxSizing: "border-box",
+      transition: "border-color 0.2s, background-color 0.2s",
+      ":focus": {
+        outline: "none",
+        borderColor: "#1877f2",
+        backgroundColor: "#ffffff",
+      },
+    },
+    textarea: {
+      width: "100%",
+      padding: "12px",
+      borderRadius: "6px",
+      border: "1px solid #dddfe2",
+      fontSize: "15px",
+      minHeight: "100px",
+      resize: "vertical",
+      backgroundColor: "#f0f2f5",
+      boxSizing: "border-box",
+      transition: "border-color 0.2s, background-color 0.2s",
+      ":focus": {
+        outline: "none",
+        borderColor: "#1877f2",
+        backgroundColor: "#ffffff",
+      },
+    },
+    mediaPreviewContainer: {
+      display: "grid",
+      gridTemplateColumns: "repeat(auto-fill, minmax(120px, 1fr))",
+      gap: "10px",
+      marginBottom: "15px",
+    },
+    mediaPreviewWrapper: {
+      position: "relative",
+      borderRadius: "8px",
+      overflow: "hidden",
+    },
+    mediaPreview: {
+      width: "100%",
+      height: "120px",
+      objectFit: "cover",
+      borderRadius: "8px",
+      border: "1px solid #dddfe2",
+    },
+    deleteButton: {
+      position: "absolute",
+      top: "5px",
+      right: "5px",
+      backgroundColor: "rgba(255, 0, 0, 0.7)",
+      color: "white",
+      border: "none",
+      borderRadius: "50%",
+      width: "24px",
+      height: "24px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      cursor: "pointer",
+      transition: "background-color 0.2s",
+      ":hover": {
+        backgroundColor: "rgba(255, 0, 0, 0.9)",
+      },
+    },
+    fileInput: {
+      width: "100%",
+      padding: "10px",
+      borderRadius: "6px",
+      border: "1px dashed #dddfe2",
+      backgroundColor: "#f0f2f5",
+      textAlign: "center",
+      cursor: "pointer",
+      transition: "border-color 0.2s",
+      ":hover": {
+        borderColor: "#1877f2",
+      },
+    },
+    submitButton: {
+      width: "100%",
+      padding: "12px",
+      borderRadius: "6px",
+      border: "none",
+      backgroundColor: "#1877f2",
+      color: "white",
+      fontSize: "16px",
+      fontWeight: "600",
+      cursor: "pointer",
+      transition: "background-color 0.2s",
+      ":hover": {
+        backgroundColor: "#166fe5",
+      },
+    },
+    loading: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      height: "100vh",
+      fontSize: "18px",
+      color: "#65676b",
+    },
+  };
 
   useEffect(() => {
-    // Fetch the post details
     const fetchPost = async () => {
       try {
         const response = await axios.get(`http://localhost:8080/posts/${id}`);
         const post = response.data;
-        setTitle(post.title || ''); // Ensure title is not undefined
-        setDescription(post.description || ''); // Ensure description is not undefined
-        setExistingMedia(post.media || []); // Ensure media is an array
-        setLoading(false); // Set loading to false after data is fetched
+        setFormData({
+          title: post.title || "",
+          description: post.description || "",
+          existingMedia: post.media || [],
+          newMedia: [],
+        });
+        setLoading(false);
       } catch (error) {
-        console.error('Error fetching post:', error);
-        alert('Failed to fetch post details.');
-        setLoading(false); // Set loading to false even if there's an error
+        console.error("Error fetching post:", error);
+        alert("Failed to fetch post details.");
+        setLoading(false);
       }
     };
 
     fetchPost();
   }, [id]);
 
+  useEffect(() => {
+    // Create previews for new media files
+    const newPreviews = formData.newMedia.map((file) => ({
+      type: file.type,
+      url: URL.createObjectURL(file),
+    }));
+    setMediaPreviews(newPreviews);
+
+    // Clean up preview URLs when component unmounts
+    return () => {
+      newPreviews.forEach((preview) => URL.revokeObjectURL(preview.url));
+    };
+  }, [formData.newMedia]);
+
   const handleDeleteMedia = async (mediaUrl) => {
-    const confirmDelete = window.confirm('Are you sure you want to delete this media file?');
-    if (!confirmDelete) {
-      return;
-    }
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this media file?"
+    );
+    if (!confirmDelete) return;
 
     try {
       await axios.delete(`http://localhost:8080/posts/${id}/media`, {
         data: { mediaUrl },
       });
-      setExistingMedia(existingMedia.filter((url) => url !== mediaUrl)); // Remove from UI
-      alert('Media file deleted successfully!');
+      setFormData((prev) => ({
+        ...prev,
+        existingMedia: prev.existingMedia.filter((url) => url !== mediaUrl),
+      }));
+      alert("Media file deleted successfully!");
     } catch (error) {
-      console.error('Error deleting media file:', error);
-      alert('Failed to delete media file.');
+      console.error("Error deleting media file:", error);
+      alert("Failed to delete media file.");
     }
   };
 
-  const validateVideoDuration = (file) => {
+  const validateVideoDuration = async (file) => {
     return new Promise((resolve, reject) => {
-      const video = document.createElement('video');
-      video.preload = 'metadata';
+      const video = document.createElement("video");
+      video.preload = "metadata";
       video.src = URL.createObjectURL(file);
 
       video.onloadedmetadata = () => {
         URL.revokeObjectURL(video.src);
         if (video.duration > 30) {
-          reject(`Video ${file.name} exceeds the maximum duration of 30 seconds.`);
+          reject(`Video exceeds maximum duration of 30 seconds.`);
         } else {
           resolve();
         }
       };
 
       video.onerror = () => {
-        reject(`Failed to load video metadata for ${file.name}.`);
+        reject("Failed to load video metadata.");
       };
     });
   };
@@ -75,130 +247,188 @@ function UpdatePost() {
     const maxFileSize = 50 * 1024 * 1024; // 50MB
     const maxImageCount = 3;
 
-    let imageCount = existingMedia.filter((url) => !url.endsWith('.mp4')).length;
-    let videoCount = existingMedia.filter((url) => url.endsWith('.mp4')).length;
+    let imageCount = formData.existingMedia.filter(
+      (url) => !url.endsWith(".mp4")
+    ).length;
+    let videoCount = formData.existingMedia.filter((url) =>
+      url.endsWith(".mp4")
+    ).length;
+
+    const validFiles = [];
 
     for (const file of files) {
-      if (file.size > maxFileSize) {
-        alert(`File ${file.name} exceeds the maximum size of 50MB.`);
-        return;
-      }
-
-      if (file.type.startsWith('image/')) {
-        imageCount++;
-        if (imageCount > maxImageCount) {
-          alert('You can upload a maximum of 3 images.');
-          return;
-        }
-      } else if (file.type === 'video/mp4') {
-        videoCount++;
-        if (videoCount > 1) {
-          alert('You can upload only 1 video.');
-          return;
+      try {
+        // Validate file size
+        if (file.size > maxFileSize) {
+          throw new Error(`File exceeds maximum size of 50MB.`);
         }
 
-        try {
+        // Validate file type
+        if (file.type.startsWith("image/")) {
+          imageCount++;
+          if (imageCount > maxImageCount) {
+            throw new Error("Maximum of 3 images allowed.");
+          }
+        } else if (file.type === "video/mp4") {
+          videoCount++;
+          if (videoCount > 1) {
+            throw new Error("Only 1 video allowed.");
+          }
           await validateVideoDuration(file);
-        } catch (error) {
-          alert(error);
-          return;
+        } else {
+          throw new Error("Unsupported file type.");
         }
-      } else {
-        alert(`Unsupported file type: ${file.type}`);
-        return;
+
+        validFiles.push(file);
+      } catch (error) {
+        alert(`${file.name}: ${error.message}`);
       }
     }
 
-    setNewMedia(files);
+    setFormData((prev) => ({
+      ...prev,
+      newMedia: [...prev.newMedia, ...validFiles],
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('description', description);
-    newMedia.forEach((file) => formData.append('newMediaFiles', file));
+    const formDataToSend = new FormData();
+    formDataToSend.append("title", formData.title);
+    formDataToSend.append("description", formData.description);
+    formData.newMedia.forEach((file) =>
+      formDataToSend.append("newMediaFiles", file)
+    );
 
     try {
-      await axios.put(`http://localhost:8080/posts/${id}`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+      await axios.put(`http://localhost:8080/posts/${id}`, formDataToSend, {
+        headers: { "Content-Type": "multipart/form-data" },
       });
-      alert('Post updated successfully!');
-      navigate('/allPost');
+      alert("Post updated successfully!");
+      navigate("/allPost");
     } catch (error) {
-      console.error('Error updating post:', error);
-      alert('Failed to update post.');
+      console.error("Error updating post:", error);
+      alert("Failed to update post.");
     }
   };
 
   if (loading) {
-    return <div>Loading...</div>; // Display a loading message while fetching data
+    return <div style={styles.loading}>Loading post data...</div>;
   }
 
   return (
-    <div>
-      <div className='continer'>
-        <div>   <SideBar /></div>
-        <div className='continSection'>
-          <div className="from_continer">
-            <p className="Auth_heading">Create New Post</p>
-            <form onSubmit={handleSubmit} className='from_data'>
-              <div className="Auth_formGroup">
-                <label className="Auth_label">Title</label>
-                <input
-                  className="Auth_input"
-                  type="text"
-                  placeholder="Title"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="Auth_formGroup">
-                <label className="Auth_label">Description</label>
-                <textarea
-                  className="Auth_input"
-                  placeholder="Description"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  required
-                  rows={3}
-                />
-              </div>
-              <div className="Auth_formGroup">
-                <label className="Auth_label">Media</label>
-                <div className='seket_media'>
-                  {existingMedia.map((mediaUrl, index) => (
-                    <div key={index}>
-                      {mediaUrl.endsWith('.mp4') ? (
-                        <video controls className='media_file_se'>
-                          <source src={`http://localhost:8080${mediaUrl}`} type="video/mp4" />
-                          Your browser does not support the video tag.
-                        </video>
-                      ) : (
-                        <img className='media_file_se' src={`http://localhost:8080${mediaUrl}`} alt={`Media ${index}`} />
-                      )}
-                      <button
-                      className='rem_btn'
-                        onClick={() => handleDeleteMedia(mediaUrl)}
+    <div style={styles.container}>
+      <SideBar />
+      <div style={styles.contentSection}>
+        <div style={styles.formContainer}>
+          <h2 style={styles.formHeading}>Update Post</h2>
+          <form onSubmit={handleSubmit}>
+            <div style={styles.formGroup}>
+              <label style={styles.label}>Title</label>
+              <input
+                style={styles.input}
+                type="text"
+                placeholder="Enter post title"
+                value={formData.title}
+                onChange={(e) =>
+                  setFormData({ ...formData, title: e.target.value })
+                }
+                required
+              />
+            </div>
 
-                      >
-                        X
-                      </button>
-                    </div>
-                  ))}
-                </div>
-                <input
-                  className="Auth_input"
-                  type="file"
-                  accept="image/jpeg,image/png,image/jpg,video/mp4"
-                  multiple
-                  onChange={handleNewMediaChange}
-                />
+            <div style={styles.formGroup}>
+              <label style={styles.label}>Description</label>
+              <textarea
+                style={styles.textarea}
+                placeholder="Describe your post..."
+                value={formData.description}
+                onChange={(e) =>
+                  setFormData({ ...formData, description: e.target.value })
+                }
+                required
+              />
+            </div>
+
+            <div style={styles.formGroup}>
+              <label style={styles.label}>Media</label>
+
+              {/* Existing Media */}
+              <div style={styles.mediaPreviewContainer}>
+                {formData.existingMedia.map((mediaUrl, index) => (
+                  <div
+                    key={`existing-${index}`}
+                    style={styles.mediaPreviewWrapper}
+                  >
+                    {mediaUrl.endsWith(".mp4") ? (
+                      <video controls style={styles.mediaPreview}>
+                        <source
+                          src={`http://localhost:8080${mediaUrl}`}
+                          type="video/mp4"
+                        />
+                      </video>
+                    ) : (
+                      <img
+                        src={`http://localhost:8080${mediaUrl}`}
+                        alt={`Media ${index}`}
+                        style={styles.mediaPreview}
+                      />
+                    )}
+                    <button
+                      style={styles.deleteButton}
+                      onClick={() => handleDeleteMedia(mediaUrl)}
+                      title="Delete media"
+                    >
+                      <RiDeleteBin6Line size={14} />
+                    </button>
+                  </div>
+                ))}
+
+                {/* New Media Previews */}
+                {mediaPreviews.map((preview, index) => (
+                  <div key={`new-${index}`} style={styles.mediaPreviewWrapper}>
+                    {preview.type.startsWith("video/") ? (
+                      <video controls style={styles.mediaPreview}>
+                        <source src={preview.url} type={preview.type} />
+                      </video>
+                    ) : (
+                      <img
+                        src={preview.url}
+                        alt={`New media ${index}`}
+                        style={styles.mediaPreview}
+                      />
+                    )}
+                    <button
+                      style={styles.deleteButton}
+                      onClick={() =>
+                        setFormData({
+                          ...formData,
+                          newMedia: formData.newMedia.filter(
+                            (_, i) => i !== index
+                          ),
+                        })
+                      }
+                      title="Remove media"
+                    >
+                      <RiDeleteBin6Line size={14} />
+                    </button>
+                  </div>
+                ))}
               </div>
-              <button type="submit" className="Auth_button">Submit</button>
-            </form>
-          </div>
+
+              <input
+                style={styles.fileInput}
+                type="file"
+                accept="image/jpeg,image/png,image/jpg,video/mp4"
+                multiple
+                onChange={handleNewMediaChange}
+              />
+            </div>
+
+            <button type="submit" style={styles.submitButton}>
+              Update Post
+            </button>
+          </form>
         </div>
       </div>
     </div>
