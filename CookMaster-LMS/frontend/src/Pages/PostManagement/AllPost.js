@@ -4,6 +4,7 @@ import axios from "axios";
 import { IoSend } from "react-icons/io5";
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBin6Fill } from "react-icons/ri";
+import { FaPen } from "react-icons/fa"; // Importing a pencil icon
 import { BiSolidLike } from "react-icons/bi";
 import SideBar from "../../Components/SideBar/SideBar";
 import Modal from "react-modal"; // Import Modal library
@@ -401,7 +402,6 @@ function AllPost() {
       justifyContent: "center",
       zIndex: 1000,
     },
-    
   };
   useEffect(() => {
     // Fetch all posts from the backend
@@ -701,7 +701,7 @@ function AllPost() {
             className="actionButton_add"
             onClick={() => (window.location.href = "/addNewPost")}
           >
-            create post
+            <FaPen className="mr-2" />{" "}
           </button>
           <button className="action_btn_my" onClick={handleMyPostsToggle}>
             {showMyPosts ? "All Posts" : "My Posts"}

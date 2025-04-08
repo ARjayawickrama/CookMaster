@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBin6Fill } from "react-icons/ri";
+import { FaPen } from "react-icons/fa"; // Importing a pencil icon
 import SideBar from "../../Components/SideBar/SideBar";
 import { FaUserCircle } from "react-icons/fa";
 import { HiCalendarDateRange } from "react-icons/hi2";
@@ -70,7 +71,7 @@ function AllLearningProgress() {
             className="actionButton_add"
             onClick={() => (window.location.href = "/addLearningProgress")}
           >
-            create post
+            <FaPen className="mr-2" />{" "}
           </button>
           <button className="action_btn_my" onClick={toggleFilter}>
             {showMyPosts ? "Show All Posts" : "Show My Posts"}

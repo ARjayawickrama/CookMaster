@@ -18,13 +18,10 @@ function SideBar() {
 
   return (
     <div className="side_bar">
-    
-      <div className="side_logoo"
-      
-      />
+      <div className="side_logoo" />
 
       <div className="side_bar_nav_item_con">
-      <NavBar />
+        <NavBar />
         <div
           className={`side_bar_nav_item ${
             currentPath === "/" ? "side_bar_nav_item--active" : ""
@@ -77,7 +74,7 @@ function SideBar() {
             <i>
               <FaLightbulb />
             </i>
-            <span>SkillPulse</span>
+            <span>Course Creator</span>
           </div>
         )}
       </div>
@@ -117,7 +114,6 @@ function SideBar() {
           </i>
           <span>See More</span>
         </div>
-        
       </div>
     </div>
   );
