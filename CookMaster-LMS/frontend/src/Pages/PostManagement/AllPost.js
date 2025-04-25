@@ -558,7 +558,7 @@ function AllPost() {
       alert("Please log in to comment.");
       return;
     }
-    const content = newComment[postId] || ""; // Get the comment content for the specific post
+    const content = newComment[postId] || "";
     if (!content.trim()) {
       alert("Comment cannot be empty.");
       return;
@@ -572,7 +572,6 @@ function AllPost() {
         }
       );
 
-      // Update the specific post's comments in the state
       setPosts((prevPosts) =>
         prevPosts.map((post) =>
           post.id === postId
@@ -605,7 +604,6 @@ function AllPost() {
         }
       );
 
-      // Update state to remove the deleted comment
       setPosts((prevPosts) =>
         prevPosts.map((post) =>
           post.id === postId
@@ -647,7 +645,6 @@ function AllPost() {
         }
       );
 
-      // Update the comment in state
       setPosts((prevPosts) =>
         prevPosts.map((post) =>
           post.id === postId
@@ -674,7 +671,7 @@ function AllPost() {
         )
       );
 
-      setEditingComment({}); // Clear editing state
+      setEditingComment({});
     } catch (error) {
       console.error("Error saving comment:", error);
     }
@@ -728,14 +725,22 @@ function AllPost() {
                       <p
                         className="name_section_post_owner_name"
                         style={{
-                          color: "#ff0000", // professional blue tone
-                          fontSize: "25px",
-                          fontWeight: "800",
+                          color: "#2e2eff", // More vibrant blue
+                          fontSize: "28px",
+                          fontWeight: "900",
                           textTransform: "capitalize",
                           fontFamily:
                             "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-                          letterSpacing: "0.5px",
+                          letterSpacing: "1px",
                           margin: "5px 0",
+                          textShadow: "1px 1px 2px rgba(0,0,0,0.2)", // Subtle shadow
+                          background:
+                            "linear-gradient(to right, #dbeafe, #bfdbfe)", // Light gradient background
+                          padding: "5px 10px",
+                          borderRadius: "8px",
+                          display: "inline-block",
+                          transition: "transform 0.3s ease",
+                          cursor: "pointer",
                         }}
                       >
                         {postOwners[post.userID] || "Anonymous"}
@@ -743,16 +748,120 @@ function AllPost() {
 
                       {post.userID !== loggedInUserID && (
                         <button
-                          className={
-                            followedUsers.includes(post.userID)
-                              ? "flow_btn_unfalow"
-                              : "flow_btn"
-                          }
                           onClick={() => handleFollowToggle(post.userID)}
+                          style={{
+                            position: "relative",
+                            overflow: "hidden",
+                            borderRadius: "20px",
+                            border: followedUsers.includes(post.userID)
+                              ? "1px solid #ddd"
+                              : "none",
+                            backgroundColor: followedUsers.includes(post.userID)
+                              ? "transparent"
+                              : "#1877f2",
+                            color: followedUsers.includes(post.userID)
+                              ? "#65676b"
+                              : "white",
+                            padding: "6px 16px",
+                            fontSize: "14px",
+                            fontWeight: "600",
+                            cursor: "pointer",
+                            transition: "all 0.4s ease",
+                            marginLeft: "10px",
+                            transform: "translateY(0)",
+                            ...(followedUsers.includes(post.userID)
+                              ? {
+                                  "&:hover": {
+                                    backgroundColor: "#f5f5f5",
+                                    borderColor: "#ccc",
+                                    color: "#ff4d4f",
+                                  },
+                                }
+                              : {
+                                  boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                                  "&:hover": {
+                                    boxShadow:
+                                      "0 4px 12px rgba(24, 119, 242, 0.3)",
+                                    transform: "translateY(-2px)",
+                                  },
+                                }),
+                            ":hover::before": {
+                              content: '""',
+                              position: "absolute",
+                              top: 0,
+                              left: followedUsers.includes(post.userID)
+                                ? "-100%"
+                                : "100%",
+                              width: "100%",
+                              height: "100%",
+                              background: followedUsers.includes(post.userID)
+                                ? "linear-gradient(90deg, #fff0f0, #ffcccc, #fff0f0)"
+                                : "linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)",
+                              transition: "all 0.6s ease",
+                              ...(followedUsers.includes(post.userID) && {
+                                animation: "$slideIn 0.4s forwards",
+                              }),
+                            },
+                          }}
                         >
-                          {followedUsers.includes(post.userID)
-                            ? "Unfollow"
-                            : "Follow"}
+                          <span
+                            style={{
+                              position: "relative",
+                              zIndex: 2,
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "10px",
+                            }}
+                          >
+                            {followedUsers.includes(post.userID) ? (
+                              <>
+                                <span>Following</span>
+                                <svg
+                                  stroke="currentColor"
+                                  fill="none"
+                                  strokeWidth="2"
+                                  viewBox="0 0 24 24"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  height="16"
+                                  width="16"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  style={{
+                                    transition: "transform 0.3s ease",
+                                    transform: "scale(1)",
+                                  }}
+                                >
+                                  <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                  <circle cx="8.5" cy="7" r="4"></circle>
+                                  <polyline points="17 11 19 13 23 9"></polyline>
+                                </svg>
+                              </>
+                            ) : (
+                              <>
+                                <span>Follow</span>
+                                <svg
+                                  stroke="currentColor"
+                                  fill="none"
+                                  strokeWidth="2"
+                                  viewBox="0 0 24 24"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  height="16"
+                                  width="16"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  style={{
+                                    transition: "transform 0.3s ease",
+                                    transform: "scale(1)",
+                                  }}
+                                >
+                                  <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                  <circle cx="8.5" cy="7" r="4"></circle>
+                                  <line x1="20" y1="8" x2="20" y2="14"></line>
+                                  <line x1="23" y1="11" x2="17" y2="11"></line>
+                                </svg>
+                              </>
+                            )}
+                          </span>
                         </button>
                       )}
                     </div>
@@ -779,18 +888,52 @@ function AllPost() {
                         "Segoe UI, Roboto, Helvetica, Arial, sans-serif",
                     }}
                   >
-                    <p
-                      style={{
-                        fontSize: "17px",
-                        fontWeight: "600",
-                        color: "#050505",
-                        marginBottom: "8px",
-                        lineHeight: "1.4",
-                        marginTop: "0",
-                      }}
-                    >
-                      {post.title}
-                    </p>
+                    <div style={{ position: "relative" }}>
+                      <p
+                        style={{
+                          fontSize: "24px",
+                          fontWeight: "700",
+                          color: "#1a1a1a",
+                          margin: "0 0 12px 0",
+                          lineHeight: "1.3",
+                          position: "relative",
+                          display: "inline-block",
+                          paddingBottom: "8px",
+                          background:
+                            "linear-gradient(to right, #f5f5f5, white)",
+                          width: "100%",
+                          fontFamily:
+                            "'Segoe UI', 'Helvetica Neue', sans-serif",
+                          letterSpacing: "-0.2px",
+                          textShadow: "0.5px 0.5px 1px rgba(0,0,0,0.05)",
+                        }}
+                      >
+                        {post.title}
+                        <span
+                          style={{
+                            position: "absolute",
+                            bottom: "0",
+                            left: "0",
+                            width: "50px",
+                            height: "3px",
+                            background:
+                              "linear-gradient(90deg, #3b82f6, #8b5cf6)",
+                            borderRadius: "3px",
+                            boxShadow: "0 2px 4px rgba(124, 58, 237, 0.2)",
+                          }}
+                        ></span>
+                      </p>
+
+                      <hr
+                        style={{
+                          border: "0",
+                          height: "1px",
+                          backgroundImage:
+                            "linear-gradient(to right, rgba(0, 0, 0, 0), rgba(59, 130, 246, 0.5), rgba(0, 0, 0, 0))",
+                          margin: "16px 0 24px 0",
+                        }}
+                      />
+                    </div>
                     <p
                       style={{
                         whiteSpace: "pre-line",
@@ -1021,7 +1164,6 @@ function AllPost() {
         </div>
       </div>
 
-      {/* Modal for displaying full media */}
       <Modal
         isOpen={isModalOpen}
         onRequestClose={closeModal}

@@ -76,7 +76,7 @@
   }
   
   .filter-button.active {
-    background-color: #1877f2;
+    background-color: #006eff;
     color: white;
   }
   
@@ -195,7 +195,7 @@
   }
   
   .icon-button.delete {
-    color: #f02849;
+    color: #5028f0;
   }
   
   .icon-button.delete:hover {

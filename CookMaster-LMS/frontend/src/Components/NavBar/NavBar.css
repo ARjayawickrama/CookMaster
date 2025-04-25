@@ -7,21 +7,20 @@
   top: 0;
   left: 0;
   z-index: 10;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* subtle shadow for elevation */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Navbar Section */
 .navbar {
   width: 100%;
   display: flex;
   padding: 15px 25px;
   align-items: center;
   justify-content: space-between;
-  background-color: #f8f9fa; /* light background for subtle look */
-  border-bottom: 2px solid #e0e0e0; /* thin border at the bottom */
+  background-color: #f8f9fa; 
+  border-bottom: 2px solid #e0e0e0; 
 }
 
-/* Navbar Items Container */
+
 .nav_item_set {
   display: flex;
   align-items: center;
@@ -30,28 +29,27 @@
   width: 100%;
 }
 
-/* Icon Style */
 .nav_item_icon {
   font-size: 28px;
   color: #555555;
   cursor: pointer;
-  transition: color 0.3s ease, transform 0.2s ease; /* smooth transition */
+  transition: color 0.3s ease, transform 0.2s ease;
 }
 
-/* Icon Hover Effect */
+
 .nav_item_icon:hover {
-  color: #007bff; /* blue for active hover */
-  transform: scale(1.1); /* slight scale-up effect */
+  color: #007bff; 
+  transform: scale(1.1); 
 }
 
-/* Notification Icon with Active State */
+
 .nav_item_icon_noty {
   font-size: 28px;
-  color: #ff4500; /* bright orange for unread notifications */
+  color: #ff4500; 
   cursor: pointer;
 }
 
-/* Navbar Right Items */
+
 .nav_bar_item {
   display: flex;
   align-items: center;
@@ -59,7 +57,6 @@
   gap: 25px;
 }
 
-/* User Card */
 .user-card {
   position: absolute;
   top: 60px;

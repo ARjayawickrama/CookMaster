@@ -129,17 +129,92 @@ function AllLearningPost() {
           </button>
           <div className="post_card_continer">
             {filteredPosts.length === 0 ? (
-              <div className="not_found_box">
-                <div className="not_found_img"></div>
-                <p className="not_found_msg">
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: "60vh",
+                  textAlign: "center",
+                  padding: "2rem",
+                  backgroundColor: "#f8fafc",
+                  borderRadius: "12px",
+                  boxShadow:
+                    "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+                }}
+              >
+                <div
+                  style={{
+                    width: "150px",
+                    height: "150px",
+                    backgroundImage:
+                      "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z' /%3E%3C/svg%3E\")",
+                    backgroundSize: "contain",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center",
+                    marginBottom: "1.5rem",
+                    opacity: 0.7,
+                  }}
+                ></div>
+
+                <p
+                  style={{
+                    fontSize: "1.25rem",
+                    color: "#4b5563",
+                    marginBottom: "2rem",
+                    fontWeight: 500,
+                    lineHeight: 1.5,
+                    maxWidth: "400px",
+                  }}
+                >
                   No posts found. Please create a new post.
                 </p>
+
                 <button
-                  className="not_found_btn"
                   onClick={() =>
                     (window.location.href = "/learningSystem/addLeariningPost")
                   }
+                  style={{
+                    backgroundColor: "#4f46e5",
+                    color: "white",
+                    border: "none",
+                    padding: "0.75rem 1.5rem",
+                    borderRadius: "8px",
+                    fontSize: "1rem",
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    transition: "all 0.2s ease",
+                    boxShadow:
+                      "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                    ":hover": {
+                      backgroundColor: "#4338ca",
+                      transform: "translateY(-1px)",
+                      boxShadow:
+                        "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+                    },
+                  }}
                 >
+                  <svg
+                    style={{
+                      width: "1.25rem",
+                      height: "1.25rem",
+                    }}
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                    />
+                  </svg>
                   Create New Post
                 </button>
               </div>

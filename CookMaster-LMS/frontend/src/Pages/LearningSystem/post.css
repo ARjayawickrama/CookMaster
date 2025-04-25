@@ -40,7 +40,7 @@
   left: 1260px;
   width: 220px;
   padding: 12px 20px;
-  background-color: #0f6fb2; /* Primary Blue */
+  background-color: #141414; /* Primary Blue */
   color: white;
   border: none;
   border-radius: 8px;
@@ -55,7 +55,7 @@
 }
 
 .action_btn_my:hover {
-  background-color: #0d63a1; /* Slightly darker blue */
+  background-color: #000000; /* Slightly darker blue */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.18);
   transform: translateY(-2px);
 }
