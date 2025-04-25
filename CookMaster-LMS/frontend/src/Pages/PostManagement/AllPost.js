@@ -889,40 +889,44 @@ function AllPost() {
                     }}
                   >
                     <div style={{ position: "relative" }}>
-                      <p
-                        style={{
-                          fontSize: "24px",
-                          fontWeight: "700",
-                          color: "#1a1a1a",
-                          margin: "0 0 12px 0",
-                          lineHeight: "1.3",
-                          position: "relative",
-                          display: "inline-block",
-                          paddingBottom: "8px",
-                          background:
-                            "linear-gradient(to right, #f5f5f5, white)",
-                          width: "100%",
-                          fontFamily:
-                            "'Segoe UI', 'Helvetica Neue', sans-serif",
-                          letterSpacing: "-0.2px",
-                          textShadow: "0.5px 0.5px 1px rgba(0,0,0,0.05)",
-                        }}
+                      <div
+                        style={{ textAlign: "center", margin: "0 0 20px 0" }}
                       >
-                        {post.title}
-                        <span
+                        <p
                           style={{
-                            position: "absolute",
-                            bottom: "0",
-                            left: "0",
-                            width: "50px",
-                            height: "3px",
-                            background:
-                              "linear-gradient(90deg, #3b82f6, #8b5cf6)",
-                            borderRadius: "3px",
-                            boxShadow: "0 2px 4px rgba(124, 58, 237, 0.2)",
+                            fontSize: "24px",
+                            fontWeight: "700",
+                            color: "#1a1a1a",
+                            margin: "0 auto 12px auto", // Center by setting left/right margins to auto
+                            lineHeight: "1.3",
+                            position: "relative",
+                            display: "inline-block", // Changed to inline-block for proper centering
+                            paddingBottom: "8px",
+
+                            fontFamily:
+                              "'Segoe UI', 'Helvetica Neue', sans-serif",
+                            letterSpacing: "-0.2px",
+                            textShadow: "0.5px 0.5px 1px rgba(0,0,0,0.05)",
+                            textAlign: "center", // Ensure text is centered within the element
                           }}
-                        ></span>
-                      </p>
+                        >
+                          {post.title}
+                          <span
+                            style={{
+                              position: "absolute",
+                              bottom: "0",
+                              left: "50%", // Center the underline
+                              transform: "translateX(-50%)", // Adjust for exact centering
+                              width: "50px",
+                              height: "3px",
+                              background:
+                                "linear-gradient(90deg, #3b82f6, #8b5cf6)",
+                              borderRadius: "3px",
+                              boxShadow: "0 2px 4px rgba(124, 58, 237, 0.2)",
+                            }}
+                          ></span>
+                        </p>
+                      </div>
 
                       <hr
                         style={{
@@ -934,17 +938,53 @@ function AllPost() {
                         }}
                       />
                     </div>
-                    <p
-                      style={{
-                        whiteSpace: "pre-line",
-                        fontSize: "15px",
-                        color: "#050505",
-                        lineHeight: "1.5",
-                        margin: "0",
-                      }}
+                    <div
+                      style={{ position: "relative", margin: "16px 0 24px 0" }}
                     >
-                      {post.description}
-                    </p>
+                      <p
+                        style={{
+                          whiteSpace: "pre-line",
+                          fontSize: "20px",
+                          color: "#333",
+                          lineHeight: "1.7",
+                          margin: "0",
+                          padding: "16px",
+                          backgroundColor: "#f8fafc",
+                          borderRadius: "8px",
+                          borderLeft: "4px solidrgb(243, 246, 59)",
+
+                          fontFamily:
+                            "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
+                          textAlign: "left",
+                          wordBreak: "break-word",
+                          overflowWrap: "break-word",
+                        }}
+                      >
+                        {post.description
+                          .split("\n")
+                          .map((paragraph, index) => (
+                            <React.Fragment key={index}>
+                              {paragraph}
+                              <br />
+                            </React.Fragment>
+                          ))}
+                      </p>
+
+                      <div
+                        style={{
+                          position: "absolute",
+                          top: "-10px",
+                          left: "20px",
+                          fontSize: "48px",
+
+                          fontFamily: "serif",
+                          lineHeight: "1",
+                          zIndex: "0",
+                        }}
+                      >
+                        "
+                      </div>
+                    </div>
                   </div>
                   <div
                     className="media-collage"
@@ -1047,11 +1087,18 @@ function AllPost() {
                         }
                       </p>
                     </div>
-                    <div className="add_comennt_con">
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "12px",
+                        marginTop: "16px",
+                        position: "relative",
+                      }}
+                    >
                       <input
                         type="text"
-                        className="add_coment_input"
-                        placeholder="Add a comment"
+                        placeholder="Add a comment..."
                         value={newComment[post.id] || ""}
                         onChange={(e) =>
                           setNewComment({
@@ -1059,11 +1106,55 @@ function AllPost() {
                             [post.id]: e.target.value,
                           })
                         }
+                        style={{
+                          flex: 1,
+                          padding: "12px 280px",
+                          borderRadius: "24px",
+                          border: "1px solid #e2e8f0",
+                          backgroundColor: "#f8fafc",
+                          fontSize: "14px",
+                          color: "#334155",
+                          transition: "all 0.2s ease",
+                          outline: "none",
+                          boxShadow: "0 1px 2px rgba(0,0,0,0.03)",
+                          fontFamily:
+                            "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
+                          ":focus": {
+                            borderColor: "#3b82f6",
+                            backgroundColor: "#ffffff",
+                            boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.1)",
+                          },
+                          "::placeholder": {
+                            color: "#94a3b8",
+                          },
+                        }}
                       />
-                      <IoSend
+
+                      <div
                         onClick={() => handleAddComment(post.id)}
-                        className="add_coment_btn"
-                      />
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          width: "40px",
+                          height: "40px",
+                          borderRadius: "80%",
+                          backgroundColor: "#3b82f6",
+                          color: "white",
+                          cursor: "pointer",
+                          transition: "all 0.2s ease",
+                          boxShadow: "0 2px 4px rgba(59, 130, 246, 0.2)",
+                          ":hover": {
+                            backgroundColor: "#2563eb",
+                            transform: "scale(1.05)",
+                          },
+                          ":active": {
+                            transform: "scale(0.98)",
+                          },
+                        }}
+                      >
+                        <IoSend style={{ fontSize: "18px" }} />
+                      </div>
                     </div>
                   </div>
                   <div>
