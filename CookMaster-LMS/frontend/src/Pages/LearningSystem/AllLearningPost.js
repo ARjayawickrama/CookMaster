@@ -169,7 +169,7 @@ function AllLearningPost() {
                     )}
                   </div>
                   <div className="user_details_card_di">
-                    <p className="card_post_title">{post.title}</p>
+                    <p className="post_user_name">{post.title}</p>
                     <p
                       className="card_post_description"
                       style={{ whiteSpace: "pre-line" }}

@@ -16,6 +16,7 @@ function AddNewPost() {
 
   const styles = {
     container: {
+      
       backgroundImage: `url(${image})`,
       minHeight: "100vh",
       backgroundRepeat: "no-repeat",

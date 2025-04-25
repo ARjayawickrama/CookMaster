@@ -725,9 +725,22 @@ function AllPost() {
                 <div key={post.id} className="post_card">
                   <div className="user_details_card">
                     <div className="name_section_post">
-                      <p className="name_section_post_owner_name">
+                      <p
+                        className="name_section_post_owner_name"
+                        style={{
+                          color: "#ff0000", // professional blue tone
+                          fontSize: "25px",
+                          fontWeight: "800",
+                          textTransform: "capitalize",
+                          fontFamily:
+                            "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+                          letterSpacing: "0.5px",
+                          margin: "5px 0",
+                        }}
+                      >
                         {postOwners[post.userID] || "Anonymous"}
                       </p>
+
                       {post.userID !== loggedInUserID && (
                         <button
                           className={
@@ -758,28 +771,76 @@ function AllPost() {
                       </div>
                     )}
                   </div>
-                  <div className="user_details_card_di">
-                    <p className="card_post_title">{post.title}</p>
+                  <div
+                    style={{
+                      marginBottom: "12px",
+                      padding: "0 8px",
+                      fontFamily:
+                        "Segoe UI, Roboto, Helvetica, Arial, sans-serif",
+                    }}
+                  >
                     <p
-                      className="card_post_description"
-                      style={{ whiteSpace: "pre-line" }}
+                      style={{
+                        fontSize: "17px",
+                        fontWeight: "600",
+                        color: "#050505",
+                        marginBottom: "8px",
+                        lineHeight: "1.4",
+                        marginTop: "0",
+                      }}
+                    >
+                      {post.title}
+                    </p>
+                    <p
+                      style={{
+                        whiteSpace: "pre-line",
+                        fontSize: "15px",
+                        color: "#050505",
+                        lineHeight: "1.5",
+                        margin: "0",
+                      }}
                     >
                       {post.description}
                     </p>
                   </div>
-                  <div className="media-collage">
+                  <div
+                    className="media-collage"
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns:
+                        "repeat(auto-fit, minmax(150px, 1fr))",
+                      gap: "8px",
+                      margin: "12px 0",
+                      borderRadius: "8px",
+                      overflow: "hidden",
+                    }}
+                  >
                     {post.media.slice(0, 4).map((mediaUrl, index) => (
                       <div
                         key={index}
-                        className={`media-item ${
-                          post.media.length > 4 && index === 3
-                            ? "media-overlay"
-                            : ""
-                        }`}
+                        style={{
+                          position: "relative",
+                          borderRadius: "4px",
+                          overflow: "hidden",
+                          cursor: "pointer",
+                          aspectRatio: "1/1",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          backgroundColor: "#f0f2f5",
+                        }}
                         onClick={() => openModal(mediaUrl)}
                       >
                         {mediaUrl.endsWith(".mp4") ? (
-                          <video controls>
+                          <video
+                            controls
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                              objectFit: "cover",
+                              display: "block",
+                            }}
+                          >
                             <source
                               src={`http://localhost:8080${mediaUrl}`}
                               type="video/mp4"
@@ -790,10 +851,31 @@ function AllPost() {
                           <img
                             src={`http://localhost:8080${mediaUrl}`}
                             alt="Post Media"
+                            style={{
+                              width: "70%",
+                              height: "80%",
+                              objectFit: "cover",
+                              display: "block",
+                            }}
                           />
                         )}
                         {post.media.length > 4 && index === 3 && (
-                          <div className="overlay-text">
+                          <div
+                            style={{
+                              position: "absolute",
+                              top: 0,
+                              left: 0,
+                              right: 0,
+                              bottom: 0,
+                              backgroundColor: "rgba(0, 0, 0, 0.5)",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              color: "white",
+                              fontSize: "24px",
+                              fontWeight: "bold",
+                            }}
+                          >
                             +{post.media.length - 4}
                           </div>
                         )}
