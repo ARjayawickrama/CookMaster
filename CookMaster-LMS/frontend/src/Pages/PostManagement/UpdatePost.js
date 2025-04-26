@@ -17,129 +17,150 @@ function UpdatePost() {
   const [mediaPreviews, setMediaPreviews] = useState([]);
 
   // Styles
-  const containerStyle = {
-    backgroundColor: "#f0f2f5",
-    minHeight: "100vh",
-    fontFamily: "Segoe UI, Roboto, sans-serif",
-  };
-  const contentSectionStyle = {
-    marginLeft: "240px",
-    padding: "20px",
-    width: "calc(100% - 280px)",
-    display: "flex",
-    justifyContent: "center",
-  };
-  const formContainerStyle = {
-    marginTop: "90px",
-    backgroundColor: "#ffffff",
-    borderRadius: "8px",
-    boxShadow: "0 1px 2px rgba(0, 0, 0, 0.1)",
-    padding: "24px",
-    width: "100%",
-    maxWidth: "600px",
-  };
-  const formHeadingStyle = {
-    fontSize: "20px",
-    fontWeight: "600",
-    color: "#050505",
-    marginBottom: "24px",
-    textAlign: "center",
-  };
-  const formGroupStyle = {
-    marginBottom: "20px",
-  };
-  const labelStyle = {
-    display: "block",
-    fontSize: "15px",
-    fontWeight: "600",
-    color: "#050505",
-    marginBottom: "8px",
-  };
-  const inputStyle = {
-    width: "100%",
-    padding: "12px",
-    borderRadius: "6px",
-    border: "1px solid #dddfe2",
-    fontSize: "15px",
-    backgroundColor: "#f0f2f5",
-    boxSizing: "border-box",
-    transition: "border-color 0.2s, background-color 0.2s",
-  };
-  const textareaStyle = {
-    width: "100%",
-    padding: "12px",
-    borderRadius: "6px",
-    border: "1px solid #dddfe2",
-    fontSize: "15px",
-    minHeight: "100px",
-    resize: "vertical",
-    backgroundColor: "#f0f2f5",
-    boxSizing: "border-box",
-    transition: "border-color 0.2s, background-color 0.2s",
-  };
-  const mediaPreviewContainerStyle = {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(120px, 1fr))",
-    gap: "10px",
-    marginBottom: "15px",
-  };
-  const mediaPreviewWrapperStyle = {
-    position: "relative",
-    borderRadius: "8px",
-    overflow: "hidden",
-  };
-  const mediaPreviewStyle = {
-    width: "100%",
-    height: "120px",
-    objectFit: "cover",
-    borderRadius: "8px",
-    border: "1px solid #dddfe2",
-  };
-  const deleteButtonStyle = {
-    position: "absolute",
-    top: "5px",
-    right: "5px",
-    backgroundColor: "rgba(255, 0, 0, 0.7)",
-    color: "white",
-    border: "none",
-    borderRadius: "50%",
-    width: "24px",
-    height: "24px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    cursor: "pointer",
-    transition: "background-color 0.2s",
-  };
-  const fileInputStyle = {
-    width: "100%",
-    padding: "10px",
-    borderRadius: "6px",
-    border: "1px dashed #dddfe2",
-    backgroundColor: "#f0f2f5",
-    textAlign: "center",
-    cursor: "pointer",
-    transition: "border-color 0.2s",
-  };
-  const submitButtonStyle = {
-    width: "100%",
-    padding: "12px",
-    borderRadius: "6px",
-    border: "none",
-    backgroundColor: "#1877f2",
-    color: "white",
-    fontSize: "16px",
-    fontWeight: "600",
-    cursor: "pointer",
-    transition: "background-color 0.2s",
-  };
-  const loadingStyle = {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100vh",
-    fontSize: "18px",
-    color: "#65676b",
+  const styles = {
+    container: {
+      backgroundColor: "#f0f2f5",
+      minHeight: "100vh",
+      fontFamily: "Segoe UI, Roboto, sans-serif",
+    },
+    contentSection: {
+      marginLeft: "240px",
+      padding: "20px",
+      width: "calc(100% - 280px)",
+      display: "flex",
+      justifyContent: "center",
+    },
+    formContainer: {
+      marginTop: "90px",
+      backgroundColor: "#ffffff",
+      borderRadius: "8px",
+      boxShadow: "0 1px 2px rgba(0, 0, 0, 0.1)",
+      padding: "24px",
+      width: "100%",
+      maxWidth: "600px",
+    },
+    formHeading: {
+      fontSize: "20px",
+      fontWeight: "600",
+      color: "#050505",
+      marginBottom: "24px",
+      textAlign: "center",
+    },
+    formGroup: {
+      marginBottom: "20px",
+    },
+    label: {
+      display: "block",
+      fontSize: "15px",
+      fontWeight: "600",
+      color: "#050505",
+      marginBottom: "8px",
+    },
+    input: {
+      width: "100%",
+      padding: "12px",
+      borderRadius: "6px",
+      border: "1px solid #dddfe2",
+      fontSize: "15px",
+      backgroundColor: "#f0f2f5",
+      boxSizing: "border-box",
+      transition: "border-color 0.2s, background-color 0.2s",
+      ":focus": {
+        outline: "none",
+        borderColor: "#1877f2",
+        backgroundColor: "#ffffff",
+      },
+    },
+    textarea: {
+      width: "100%",
+      padding: "12px",
+      borderRadius: "6px",
+      border: "1px solid #dddfe2",
+      fontSize: "15px",
+      minHeight: "100px",
+      resize: "vertical",
+      backgroundColor: "#f0f2f5",
+      boxSizing: "border-box",
+      transition: "border-color 0.2s, background-color 0.2s",
+      ":focus": {
+        outline: "none",
+        borderColor: "#1877f2",
+        backgroundColor: "#ffffff",
+      },
+    },
+    mediaPreviewContainer: {
+      display: "grid",
+      gridTemplateColumns: "repeat(auto-fill, minmax(120px, 1fr))",
+      gap: "10px",
+      marginBottom: "15px",
+    },
+    mediaPreviewWrapper: {
+      position: "relative",
+      borderRadius: "8px",
+      overflow: "hidden",
+    },
+    mediaPreview: {
+      width: "100%",
+      height: "120px",
+      objectFit: "cover",
+      borderRadius: "8px",
+      border: "1px solid #dddfe2",
+    },
+    deleteButton: {
+      position: "absolute",
+      top: "5px",
+      right: "5px",
+      backgroundColor: "rgba(255, 0, 0, 0.7)",
+      color: "white",
+      border: "none",
+      borderRadius: "50%",
+      width: "24px",
+      height: "24px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      cursor: "pointer",
+      transition: "background-color 0.2s",
+      ":hover": {
+        backgroundColor: "rgba(255, 0, 0, 0.9)",
+      },
+    },
+    fileInput: {
+      width: "100%",
+      padding: "10px",
+      borderRadius: "6px",
+      border: "1px dashed #dddfe2",
+      backgroundColor: "#f0f2f5",
+      textAlign: "center",
+      cursor: "pointer",
+      transition: "border-color 0.2s",
+      ":hover": {
+        borderColor: "#1877f2",
+      },
+    },
+    submitButton: {
+      width: "100%",
+      padding: "12px",
+      borderRadius: "6px",
+      border: "none",
+      backgroundColor: "#1877f2",
+      color: "white",
+      fontSize: "16px",
+      fontWeight: "600",
+      cursor: "pointer",
+      transition: "background-color 0.2s",
+      ":hover": {
+        backgroundColor: "#166fe5",
+      },
+    },
+    loading: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      height: "100vh",
+      fontSize: "18px",
+      color: "#65676b",
+    },
   };
 
   useEffect(() => {
@@ -291,20 +312,20 @@ function UpdatePost() {
   };
 
   if (loading) {
-    return <div style={loadingStyle}>Loading post data...</div>;
+    return <div style={styles.loading}>Loading post data...</div>;
   }
 
   return (
-    <div style={containerStyle}>
+    <div style={styles.container}>
       <SideBar />
-      <div style={contentSectionStyle}>
-        <div style={formContainerStyle}>
-          <h2 style={formHeadingStyle}>Update Post</h2>
+      <div style={styles.contentSection}>
+        <div style={styles.formContainer}>
+          <h2 style={styles.formHeading}>Update Post</h2>
           <form onSubmit={handleSubmit}>
-            <div style={formGroupStyle}>
-              <label style={labelStyle}>Title</label>
+            <div style={styles.formGroup}>
+              <label style={styles.label}>Title</label>
               <input
-                style={inputStyle}
+                style={styles.input}
                 type="text"
                 placeholder="Enter post title"
                 value={formData.title}
@@ -315,10 +336,10 @@ function UpdatePost() {
               />
             </div>
 
-            <div style={formGroupStyle}>
-              <label style={labelStyle}>Description</label>
+            <div style={styles.formGroup}>
+              <label style={styles.label}>Description</label>
               <textarea
-                style={textareaStyle}
+                style={styles.textarea}
                 placeholder="Describe your post..."
                 value={formData.description}
                 onChange={(e) =>
@@ -328,18 +349,18 @@ function UpdatePost() {
               />
             </div>
 
-            <div style={formGroupStyle}>
-              <label style={labelStyle}>Media</label>
+            <div style={styles.formGroup}>
+              <label style={styles.label}>Media</label>
 
               {/* Existing Media */}
-              <div style={mediaPreviewContainerStyle}>
+              <div style={styles.mediaPreviewContainer}>
                 {formData.existingMedia.map((mediaUrl, index) => (
                   <div
                     key={`existing-${index}`}
-                    style={mediaPreviewWrapperStyle}
+                    style={styles.mediaPreviewWrapper}
                   >
                     {mediaUrl.endsWith(".mp4") ? (
-                      <video controls style={mediaPreviewStyle}>
+                      <video controls style={styles.mediaPreview}>
                         <source
                           src={`http://localhost:8080${mediaUrl}`}
                           type="video/mp4"
@@ -349,11 +370,11 @@ function UpdatePost() {
                       <img
                         src={`http://localhost:8080${mediaUrl}`}
                         alt={`Media ${index}`}
-                        style={mediaPreviewStyle}
+                        style={styles.mediaPreview}
                       />
                     )}
                     <button
-                      style={deleteButtonStyle}
+                      style={styles.deleteButton}
                       onClick={() => handleDeleteMedia(mediaUrl)}
                       title="Delete media"
                     >
@@ -364,20 +385,20 @@ function UpdatePost() {
 
                 {/* New Media Previews */}
                 {mediaPreviews.map((preview, index) => (
-                  <div key={`new-${index}`} style={mediaPreviewWrapperStyle}>
+                  <div key={`new-${index}`} style={styles.mediaPreviewWrapper}>
                     {preview.type.startsWith("video/") ? (
-                      <video controls style={mediaPreviewStyle}>
+                      <video controls style={styles.mediaPreview}>
                         <source src={preview.url} type={preview.type} />
                       </video>
                     ) : (
                       <img
                         src={preview.url}
                         alt={`New media ${index}`}
-                        style={mediaPreviewStyle}
+                        style={styles.mediaPreview}
                       />
                     )}
                     <button
-                      style={deleteButtonStyle}
+                      style={styles.deleteButton}
                       onClick={() =>
                         setFormData({
                           ...formData,
@@ -395,7 +416,7 @@ function UpdatePost() {
               </div>
 
               <input
-                style={fileInputStyle}
+                style={styles.fileInput}
                 type="file"
                 accept="image/jpeg,image/png,image/jpg,video/mp4"
                 multiple
@@ -403,7 +424,7 @@ function UpdatePost() {
               />
             </div>
 
-            <button type="submit" style={submitButtonStyle}>
+            <button type="submit" style={styles.submitButton}>
               Update Post
             </button>
           </form>

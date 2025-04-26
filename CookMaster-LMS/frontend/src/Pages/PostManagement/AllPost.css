@@ -2,7 +2,7 @@
 .all-post-container {
     display: flex;
     min-height: 100vh;
-    background-color: #f8fafc;
+    background-color: white;
   }
   
   .all-post-content {

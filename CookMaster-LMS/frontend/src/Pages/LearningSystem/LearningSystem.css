@@ -1,17 +1,18 @@
 /* LearningSystem.css - Enhanced Design with New Color Scheme */
 
 :root {
-  --primary: #CC5500;
-  --primary-dark: #552200;
-  --primary-light: #FF8C42;
-  --background: #F4E9D8;
-  --background-light: #FFF9F0;
-  --text: #222222;
-  --text-light: #555555;
-  --error: #D32F2F;
-  --success: #388E3C;
-  --border: rgba(85, 34, 0, 0.1);
+  --primary: #191b1b; /* Burnt orange */
+  --primary-dark: #2e2620; /* Dark brown */
+  --primary-light: #FF8C42; /* Light orange */
+  --background: rgb(255, 255, 255); /* Cream */
+  --background-light: #FFF9F0; /* Light cream */
+  --text: #222222; /* Dark gray */
+  --text-light: #5A4A42; /* Warm gray */
+  --error: #D32F2F; /* Tomato red */
+  --success: #388E3C; /* Fresh green */
+  --border: rgba(204, 85, 0, 0.2); /* Primary with opacity */
   --shadow: 0 2px 8px rgba(85, 34, 0, 0.1);
+  --card-shadow: 0 4px 12px rgba(85, 34, 0, 0.08);
 }
 
 /* Base Styles */

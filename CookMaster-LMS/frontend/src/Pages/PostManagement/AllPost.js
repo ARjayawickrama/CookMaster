@@ -230,15 +230,22 @@ function AllPost() {
 
   const handleDeleteComment = async (postId, commentId) => {
     const userID = localStorage.getItem("userID");
+    const token = localStorage.getItem("token"); // Make sure you store the token after login
+
     try {
-      await axios.delete(
+      const response = await axios.delete(
         `http://localhost:8080/posts/${postId}/comment/${commentId}`,
         {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
           params: { userID },
+          withCredentials: true, // Important for session-based auth
         }
       );
 
-      // Update state to remove the deleted comment
+      // Update state
       setPosts((prevPosts) =>
         prevPosts.map((post) =>
           post.id === postId
@@ -266,9 +273,14 @@ function AllPost() {
       );
     } catch (error) {
       console.error("Error deleting comment:", error);
+      if (error.response?.status === 401) {
+        // Handle unauthorized (redirect to login)
+        window.location.href = "/login";
+      } else {
+        alert("Failed to delete comment. Please try again.");
+      }
     }
   };
-
   const handleSaveComment = async (postId, commentId, content) => {
     try {
       const userID = localStorage.getItem("userID");

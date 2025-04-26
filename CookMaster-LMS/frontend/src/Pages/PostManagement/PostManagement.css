@@ -1,9 +1,9 @@
 /* PostManagement.css - Cooking/Recipe Theme */
 :root {
-  --primary: #CC5500; /* Burnt orange */
-  --primary-dark: #552200; /* Dark brown */
+  --primary: #191b1b; /* Burnt orange */
+  --primary-dark: #2e2620; /* Dark brown */
   --primary-light: #FF8C42; /* Light orange */
-  --background: #F4E9D8; /* Cream */
+  --background: rgb(255, 255, 255); /* Cream */
   --background-light: #FFF9F0; /* Light cream */
   --text: #222222; /* Dark gray */
   --text-light: #5A4A42; /* Warm gray */
