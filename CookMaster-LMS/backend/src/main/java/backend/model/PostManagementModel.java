@@ -16,6 +16,7 @@ public class PostManagementModel {
     private String title;
     private String description;
     private List<String> media;
+    
     private Map<String, Boolean> likes = new HashMap<>(); // Map to store user likes
     private List<Comment> comments = new ArrayList<>(); // List to store comments
 
@@ -70,6 +71,8 @@ public class PostManagementModel {
     public void setMedia(List<String> media) {
         this.media = media;
     }
+
+
 
     public Map<String, Boolean> getLikes() {
         return likes;

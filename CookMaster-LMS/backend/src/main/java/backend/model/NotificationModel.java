@@ -13,7 +13,6 @@ public class NotificationModel {
     private String message; 
     private boolean read; 
     private String createdAt; 
-
     
     public NotificationModel() {}
 
@@ -63,5 +62,6 @@ public class NotificationModel {
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
+    
     
 }
