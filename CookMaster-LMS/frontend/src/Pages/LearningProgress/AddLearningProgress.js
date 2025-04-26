@@ -64,7 +64,37 @@ function AddLearningProgress() {
       <div className="add-learning-progress-content">
         <div className="add-learning-progress-card">
           <div className="add-learning-progress-header">
-            <IoMdAdd className="header-icon" />
+          <IoMdAdd 
+  className="header-icon" 
+  style={{ 
+    color: '#ff7733', 
+    fontSize: '28px', 
+    cursor: 'pointer', 
+    marginLeft: '8px', 
+    transition: 'all 0.3s ease-in-out', // Smooth transition for hover effects
+    padding: '8px', // Increased padding around the icon
+    borderRadius: '50%', // Rounded edges for a circular background
+    boxShadow: '0 4px 15px rgba(0, 0, 0, 0.15)', // Softer and more prominent shadow
+    backgroundColor: 'rgba(255, 119, 51, 0.1)', // Light background color on the icon
+    display: 'inline-flex', // Ensures it stays inline with text or other icons
+    alignItems: 'center', // Centers icon vertically
+    justifyContent: 'center', // Centers icon horizontally
+    width: '40px', // Increased width for a larger clickable area
+    height: '40px', // Increased height for a larger clickable area
+  }} 
+  onMouseEnter={(e) => {
+    e.target.style.transform = 'scale(1.15)'; // Slightly enlarge icon on hover
+    e.target.style.backgroundColor = 'rgba(255, 119, 51, 0.2)'; // Darker background on hover
+  }} 
+  onMouseLeave={(e) => {
+    e.target.style.transform = 'scale(1)'; // Return to normal size on mouse leave
+    e.target.style.backgroundColor = 'rgba(255, 119, 51, 0.1)'; // Reset background color
+  }} 
+/>
+
+
+
+
             <h2>Add Learning Progress</h2>
             <p>Track your skill development journey</p>
           </div>
@@ -179,9 +209,14 @@ function AddLearningProgress() {
               </div>
             </div>
 
-            <button type="submit" className="submit-button">
-              Save Learning Progress
-            </button>
+            <button
+  type="submit"
+  className="submit-button"
+  style={{ backgroundColor: '#ff7733', color: 'white' }}
+>
+  Save Learning Progress
+</button>
+
           </form>
         </div>
       </div>
