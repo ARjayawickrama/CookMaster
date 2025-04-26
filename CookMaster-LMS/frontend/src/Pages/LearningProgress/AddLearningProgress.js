@@ -100,124 +100,183 @@ function AddLearningProgress() {
           </div>
 
           <form onSubmit={handleSubmit} className="add-learning-progress-form">
-            <div className="form-row">
-              <div className="form-group">
-                <label htmlFor="skillTitle">Skill Title*</label>
-                <input
-                  type="text"
-                  id="skillTitle"
-                  name="skillTitle"
-                  placeholder="Enter dish name (e.g., Lasagna)"
-                  value={formData.skillTitle}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+  <div className="form-row">
+    <div className="form-group">
+      <label
+        htmlFor="skillTitle"
+        style={{
+          display: "block",
+          marginBottom: "0.5rem",
+          fontWeight: "600",
+          color: "#e67e22",
+        }}
+      >
+        Skill Title*
+      </label>
+      <input
+        type="text"
+        id="skillTitle"
+        name="skillTitle"
+        placeholder="Enter dish name (e.g., Lasagna)"
+        value={formData.skillTitle}
+        onChange={handleChange}
+        required
+      />
+    </div>
 
-              <div className="form-group">
-                <label htmlFor="field">Field*</label>
-                <select
-                  id="field"
-                  name="field"
-                  value={formData.field}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="" disabled>
-                   Select cooking category
-                  </option>
-                  <option value="Baking">Baking</option>
-                  <option value="Grilling">Grilling</option>
-                  <option value="Stir-Fry">Stir-Fry</option>
-                  <option value="Roasting">Roasting</option>
-                  <option value="Steaming">Steaming</option>
-                  <option value="Frying">Frying</option>
-                  <option value="Other">Other</option>
-                 
-                </select>
-              </div>
-            </div>
+    <div className="form-group">
+      <label
+        htmlFor="field"
+        style={{
+          display: "block",
+          marginBottom: "0.5rem",
+          fontWeight: "600",
+          color: "#e67e22",
+        }}
+      >
+        Field*
+      </label>
+      <select
+        id="field"
+        name="field"
+        value={formData.field}
+        onChange={handleChange}
+        required
+      >
+        <option value="" disabled>
+          Select cooking category
+        </option>
+        <option value="Baking">Baking</option>
+        <option value="Grilling">Grilling</option>
+        <option value="Stir-Fry">Stir-Fry</option>
+        <option value="Roasting">Roasting</option>
+        <option value="Steaming">Steaming</option>
+        <option value="Frying">Frying</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+  </div>
 
-            <div className="form-group">
-              <label htmlFor="description">Cooking Description*</label>
-              <textarea
-                id="description"
-                name="description"
-                placeholder="Describe your cooking process, ingredients, techniques..."
-                value={formData.description}
-                onChange={handleChange}
-                rows="4"
-                required
-              />
-            </div>
+  <div className="form-group">
+    <label
+      htmlFor="description"
+      style={{
+        display: "block",
+        marginBottom: "0.5rem",
+        fontWeight: "600",
+        color: "#e67e22",
+      }}
+    >
+      Cooking Description*
+    </label>
+    <textarea
+      id="description"
+      name="description"
+      placeholder="Describe your cooking process, ingredients, techniques..."
+      value={formData.description}
+      onChange={handleChange}
+      rows="4"
+      required
+    />
+  </div>
 
-            <div className="form-row">
-              <div className="form-group">
-                <label htmlFor="startDate">Start Date*</label>
-                <input
-                  type="date"
-                  id="startDate"
-                  name="startDate"
-                  value={formData.startDate}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+  <div className="form-row">
+    <div className="form-group">
+      <label
+        htmlFor="startDate"
+        style={{
+          display: "block",
+          marginBottom: "0.5rem",
+          fontWeight: "600",
+          color: "#e67e22",
+        }}
+      >
+        Start Date*
+      </label>
+      <input
+        type="date"
+        id="startDate"
+        name="startDate"
+        value={formData.startDate}
+        onChange={handleChange}
+        required
+      />
+    </div>
 
-              <div className="form-group">
-                <label htmlFor="endDate">End Date*</label>
-                <input
-                  type="date"
-                  id="endDate"
-                  name="endDate"
-                  value={formData.endDate}
-                  onChange={(e) => {
-                    const { name, value } = e.target;
-                    if (new Date(value) < new Date(formData.startDate)) {
-                      alert("End date cannot be earlier than start date.");
-                      return;
-                    }
-                    handleChange(e);
-                  }}
-                  required
-                />
-              </div>
+    <div className="form-group">
+      <label
+        htmlFor="endDate"
+        style={{
+          display: "block",
+          marginBottom: "0.5rem",
+          fontWeight: "600",
+          color: "#e67e22",
+        }}
+      >
+        End Date*
+      </label>
+      <input
+        type="date"
+        id="endDate"
+        name="endDate"
+        value={formData.endDate}
+        onChange={(e) => {
+          const { name, value } = e.target;
+          if (new Date(value) < new Date(formData.startDate)) {
+            alert("End date cannot be earlier than start date.");
+            return;
+          }
+          handleChange(e);
+        }}
+        required
+      />
+    </div>
 
-              <div className="form-group">
-                <label htmlFor="level">Progress Level (0-100)*</label>
-                <div className="level-input-container">
-                  <input
-                    type="number"
-                    id="level"
-                    name="level"
-                    min="0"
-                    max="100"
-                    placeholder="50"
-                    value={formData.level}
-                    onChange={(e) => {
-                      const { name, value } = e.target;
-                      if (value < 0 || value > 100) {
-                        alert("Level must be between 0 and 100.");
-                        return;
-                      }
-                      handleChange(e);
-                    }}
-                    required
-                  />
-                  <span>%</span>
-                </div>
-              </div>
-            </div>
+    <div className="form-group">
+      <label
+        htmlFor="level"
+        style={{
+          display: "block",
+          marginBottom: "0.5rem",
+          fontWeight: "600",
+          color: "#e67e22",
+        }}
+      >
+        Progress Level (0-100)*
+      </label>
+      <div className="level-input-container">
+        <input
+          type="number"
+          id="level"
+          name="level"
+          min="0"
+          max="100"
+          placeholder="50"
+          value={formData.level}
+          onChange={(e) => {
+            const { name, value } = e.target;
+            if (value < 0 || value > 100) {
+              alert("Level must be between 0 and 100.");
+              return;
+            }
+            handleChange(e);
+          }}
+          required
+        />
+        <span>%</span>
+      </div>
+    </div>
+  </div>
 
-            <button
-  type="submit"
-  className="submit-button"
-  style={{ backgroundColor: '#ff7733', color: 'white' }}
->
-  Save Learning Progress
-</button>
+  <button
+    type="submit"
+    className="submit-button"
+    style={{ backgroundColor: "#ff7733", color: "white" }}
+  >
+    Save Learning Progress
+  </button>
+</form>
 
-          </form>
         </div>
       </div>
     </div>
