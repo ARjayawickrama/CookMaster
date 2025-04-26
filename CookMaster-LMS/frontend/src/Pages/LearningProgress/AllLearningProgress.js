@@ -424,7 +424,7 @@ function AllLearningProgress() {
                         gap: "0.5rem",
                       }}
                     >
-                      <FaBookOpen /> Cooking Notes
+                      <FaBookOpen /> Notes
                     </p>
                     <p
                       style={{
