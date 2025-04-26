@@ -16,7 +16,6 @@ function AddNewPost() {
 
   const styles = {
     container: {
-      
       backgroundImage: `url(${image})`,
       minHeight: "100vh",
       backgroundRepeat: "no-repeat",
@@ -25,7 +24,7 @@ function AddNewPost() {
       justifyContent: "center",
       alignItems: "center",
     },
-  
+
     contentSection: {
       marginLeft: "230px",
       width: "calc(100% - 280px)",
@@ -197,7 +196,6 @@ function AddNewPost() {
       marginTop: "10px",
     },
   };
-  
 
   const handleMediaChange = (e) => {
     const files = Array.from(e.target.files);
