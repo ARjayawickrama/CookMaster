@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { IoMdAdd } from "react-icons/io";
 import SideBar from "../../Components/SideBar/SideBar";
-import "./AddLearningProgress.css";
+import "./AddLearningProgress.css"; // We'll create this CSS file
 
 function AddLearningProgress() {
   const [formData, setFormData] = useState({
-    dishName: "",
+    skillTitle: "",
     description: "",
-    cookingCategory: "",
+    field: "",
     startDate: "",
     endDate: "",
-    skillLevel: "",
+    level: "",
     postOwnerID: "",
     postOwnerName: "",
   });
@@ -47,10 +48,10 @@ function AddLearningProgress() {
         body: JSON.stringify(formData),
       });
       if (response.ok) {
-        alert("Cooking Progress added successfully!");
+        alert("Learning Progress added successfully!");
         window.location.href = "/allLearningProgress";
       } else {
-        alert("Failed to add Cooking Progress.");
+        alert("Failed to add Learning Progress.");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -64,36 +65,36 @@ function AddLearningProgress() {
         <div className="add-learning-progress-card">
           <div className="add-learning-progress-header">
             <IoMdAdd className="header-icon" />
-            <h2>Add Cooking Progress</h2>
-            <p>Track your cooking journey</p>
+            <h2>Add Learning Progress</h2>
+            <p>Track your skill development journey</p>
           </div>
 
           <form onSubmit={handleSubmit} className="add-learning-progress-form">
             <div className="form-row">
               <div className="form-group">
-                <label htmlFor="dishName">Dish Name*</label>
+                <label htmlFor="skillTitle">Skill Title*</label>
                 <input
                   type="text"
-                  id="dishName"
-                  name="dishName"
+                  id="skillTitle"
+                  name="skillTitle"
                   placeholder="Enter dish name (e.g., Lasagna)"
-                  value={formData.dishName}
+                  value={formData.skillTitle}
                   onChange={handleChange}
                   required
                 />
               </div>
 
               <div className="form-group">
-                <label htmlFor="cookingCategory">Cooking Category*</label>
+                <label htmlFor="field">Field*</label>
                 <select
-                  id="cookingCategory"
-                  name="cookingCategory"
-                  value={formData.cookingCategory}
+                  id="field"
+                  name="field"
+                  value={formData.field}
                   onChange={handleChange}
                   required
                 >
                   <option value="" disabled>
-                    Select cooking category
+                   Select cooking category
                   </option>
                   <option value="Baking">Baking</option>
                   <option value="Grilling">Grilling</option>
@@ -102,6 +103,7 @@ function AddLearningProgress() {
                   <option value="Steaming">Steaming</option>
                   <option value="Frying">Frying</option>
                   <option value="Other">Other</option>
+                 
                 </select>
               </div>
             </div>
@@ -152,20 +154,20 @@ function AddLearningProgress() {
               </div>
 
               <div className="form-group">
-                <label htmlFor="skillLevel">Skill Mastery (0-100%)*</label>
+                <label htmlFor="level">Progress Level (0-100)*</label>
                 <div className="level-input-container">
                   <input
                     type="number"
-                    id="skillLevel"
-                    name="skillLevel"
+                    id="level"
+                    name="level"
                     min="0"
                     max="100"
-                    placeholder="e.g., 75"
-                    value={formData.skillLevel}
+                    placeholder="50"
+                    value={formData.level}
                     onChange={(e) => {
                       const { name, value } = e.target;
                       if (value < 0 || value > 100) {
-                        alert("Skill mastery must be between 0 and 100.");
+                        alert("Level must be between 0 and 100.");
                         return;
                       }
                       handleChange(e);
@@ -178,7 +180,7 @@ function AddLearningProgress() {
             </div>
 
             <button type="submit" className="submit-button">
-              Save Cooking Progress
+              Save Learning Progress
             </button>
           </form>
         </div>
