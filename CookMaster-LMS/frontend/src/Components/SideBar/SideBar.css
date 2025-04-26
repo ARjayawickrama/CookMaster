@@ -1,59 +1,143 @@
 .side_bar {
   position: fixed;
-  background-color: white;
-  width: 300px;
+  background: #fdfdfd; /* Soft Cream, representing a kitchen countertop */
+  width: 280px;
   height: 100vh;
-  padding: 100px 20px 20px 0;
+  padding: 15px 10px;
+  top: 0;
+  left: 0;
+  box-shadow: 1px 0 5px rgba(0, 0, 0, 0.1);
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
   flex-direction: column;
-  gap: 20px;
+  gap: 5px;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  overflow-y: auto;
 }
 
 .side_logoo {
   background-image: url("./img/logo.png");
-  width: 150px;
+  width: 120px;
   height: 40px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
   cursor: pointer;
+  margin: 15px 0 25px 15px;
+  transition: transform 0.3s ease;
+}
+
+.side_logoo:hover {
+  transform: scale(1.05);
 }
 
 .side_bar_nav_item_con {
   display: flex;
-  align-items: flex-start;
-  gap: 15px;
   flex-direction: column;
+  gap: 5px;
   width: 100%;
 }
 
 .side_bar_nav_item {
-  font-size: 16px;
-  color: #555555;
+  font-size: 15px;
+  color: #4B3C31; /* Dark brown (coffee or cooked meat) for text */
   cursor: pointer;
   text-align: left;
-  padding: 12px 20px;
-  border-radius: 6px;
+  padding: 10px 15px;
+  border-radius: 8px;
   font-weight: 500;
   width: 100%;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  background: transparent;
 }
 
 .side_bar_nav_item:hover {
-  background-color: #0f6fb2;
-  color: white;
+  background: #FF6F61; /* Tomato Red (spicy and flavorful) on hover */
 }
 
 .side_bar_nav_item--active {
-  font-size: 16px;
-  color: white;
-  cursor: pointer;
-  text-align: left;
-  background-color: #0f6fb2;
-  padding: 12px 20px;
-  border-radius: 6px;
+  background: #F39C12; /* Warm Golden Yellow (like a delicious cooked dish) */
+  color: white; /* White text for contrast */
   font-weight: 600;
-  width: 100%;
+}
+
+.side_bar_nav_item--active:hover {
+  background: #F1C40F; /* Brighter yellow when hovered */
+}
+
+/* Icon styling */
+.side_bar_nav_item i {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  background: #A8D5BA; /* Fresh Basil Green for icons */
+  border-radius: 50%;
+  color: #4B3C31; /* Dark brown color for icons */
+  transition: all 0.2s ease;
+}
+
+.side_bar_nav_item--active i {
+  background: #6DBE45; /* Fresh Green (like herbs or vegetables) for active icon */
+  color: white;
+}
+
+.side_bar_nav_item:hover i {
+  background: #FF6F61; /* Tomato Red (spicy, vibrant) for icon on hover */
+}
+
+.side_bar_nav_item--active:hover i {
+  background: #1F8A3C; /* Dark Green when the active item is hovered */
+}
+
+/* Divider */
+.sidebar_divider {
+  height: 1px;
+  background: #D8D8D8; /* Light Grey Divider (reminiscent of countertops) */
+  margin: 10px 15px;
+}
+
+/* Section header */
+.sidebar_section_header {
+  font-size: 17px;
+  font-weight: 600;
+  color: #7E7B6F; /* Olive Green for section headers */
+  padding: 10px 15px;
+  margin-top: 5px;
+}
+
+/* Responsive behavior */
+@media (max-width: 900px) {
+  .side_bar {
+    width: 80px;
+    padding: 10px 5px;
+    align-items: center;
+  }
+
+  .side_logoo {
+    width: 40px;
+    height: 40px;
+    margin: 15px 0 25px 0;
+    background-image: url("./img/logo.png");
+  }
+
+  .side_bar_nav_item {
+    justify-content: center;
+    padding: 10px 5px;
+  }
+
+  .side_bar_nav_item span {
+    display: none;
+  }
+
+  .sidebar_divider,
+  .sidebar_section_header {
+    display: none;
+  }
 }

@@ -1,0 +1,141 @@
+.add-learning-progress-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f8fafc;
+  }
+  
+  .add-learning-progress-content {
+    flex: 1;
+    padding: 2rem;
+    margin-left: 250px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .add-learning-progress-card {
+    width: 100%;
+    max-width: 800px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    padding: 2.5rem;
+  }
+  
+  .add-learning-progress-header {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .add-learning-progress-header h2 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0.5rem 0 0.25rem;
+  }
+  
+  .add-learning-progress-header p {
+    color: #64748b;
+    font-size: 0.875rem;
+    margin: 0;
+  }
+  
+  .header-icon {
+    font-size: 2rem;
+    color: #3b82f6;
+  }
+  
+  .add-learning-progress-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .form-row {
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .form-row .form-group {
+    flex: 1;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .form-group label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #475569;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 0.75rem 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+    background-color: #f8fafc;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: #93c5fd;
+    box-shadow: 0 0 0 3px rgba(147, 197, 253, 0.3);
+    background-color: white;
+  }
+  
+  .form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  
+  .level-input-container {
+    position: relative;
+  }
+  
+  .level-input-container span {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #64748b;
+  }
+  
+  .submit-button {
+    background-color: #3b82f6;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 1rem;
+    align-self: flex-end;
+    width: 100%;
+  }
+  
+  .submit-button:hover {
+    background-color: #2563eb;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .add-learning-progress-content {
+      margin-left: 0;
+      padding: 1rem;
+    }
+    
+    .form-row {
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }

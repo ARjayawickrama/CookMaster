@@ -1,6 +1,8 @@
+
 .continer {
   width: 1440px;
   margin: 0 auto;
+  
 }
 .continSection {
   padding-left: 400px;
@@ -9,35 +11,60 @@
 }
 .actionButton_add {
   position: fixed;
-  background-color: #0f6fb2;
+  bottom: 30px;
+  right: 30px;
+  background-color: #1877f2; /* Facebook Blue */
   color: white;
   cursor: pointer;
-  font-size: 16px;
-  padding: 12px 20px;
-  border-radius: 6px;
-  font-weight: 500;
-  border: 1px solid #0f6fb2;
-  text-transform: capitalize;
-  left: 1260px;
-  width: 220px;
-  text-align: start;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  font-size: 28px;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  z-index: 999;
 }
+
+.actionButton_add:hover {
+  background-color: #166fe5;
+}
+
 .action_btn_my {
   position: fixed;
-  background-color: #0f6fb2;
-  color: white;
-  cursor: pointer;
-  padding: 12px 20px;
-  border-radius: 6px;
-  font-weight: 500;
-  font-size: 16px;
-  border: 1px solid #0f6fb2;
-  text-transform: capitalize;
+  top: 10px;
   left: 1260px;
   width: 220px;
-  top: 160px;
-  text-align: start;
+  padding: 12px 20px;
+  background-color: #141414; /* Primary Blue */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: capitalize;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+  transition: all 0.25s ease-in-out;
+  z-index: 1000;
 }
+
+.action_btn_my:hover {
+  background-color: #000000; /* Slightly darker blue */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.18);
+  transform: translateY(-2px);
+}
+
+.action_btn_my:active {
+  transform: scale(0.98);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
 .not_found_box {
   width: 670px;
   border: 1px solid #0f6eb263;
@@ -50,16 +77,63 @@
   display: flex;
 }
 .post_card {
-  width: 670px;
-  border: 1px solid #0f6eb263;
-  border-radius: 5px;
-  justify-content: center;
-  padding: 15px;
-  gap: 15px;
-  flex-direction: column;
-  align-items: flex-start;
+  width: 100%;
+  max-width: 900px;
+  background-color: #ffffff;
+  border: 1px solid #e1e9ee;
+  border-radius: 10px;
+  padding: 20px;
   display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
+
+.post_header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.profile_pic {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.post_user_info {
+  display: flex;
+  flex-direction: column;
+}
+
+.post_user_name {
+  font-weight: 600;
+  font-size: 16px;
+  color: #ff0000;
+}
+
+.post_user_title {
+  font-size: 14px;
+  color: #6b6b6b;
+}
+
+.post_content {
+  font-size: 15px;
+  color: #404040;
+  line-height: 1.5;
+}
+
+.post_actions {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 10px;
+  border-top: 1px solid #e6e6e6;
+  font-size: 14px;
+  color: #0073b1;
+}
+
 .not_found_img {
   background-image: url("./img/notfound.png");
   width: 500px;
