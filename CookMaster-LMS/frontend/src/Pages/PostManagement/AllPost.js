@@ -1,15 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { IoSend } from "react-icons/io5";
-import { FaEdit } from "react-icons/fa";
-import { RiDeleteBin6Fill } from "react-icons/ri";
-import { FaPen } from "react-icons/fa"; // Importing a pencil icon
-import { BiSolidLike } from "react-icons/bi";
+import {
+  MessageCircle,
+  Edit,
+  Trash2,
+  ThumbsUp,
+  Plus,
+  User,
+  MessageSquare,
+  X,
+  Save,
+  Heart,
+  Share,
+  Clock,
+  UserCheck,
+  UserPlus,
+} from "lucide-react";
 import SideBar from "../../Components/SideBar/SideBar";
-import Modal from "react-modal"; // Import Modal library
-// We'll create this CSS file
-Modal.setAppElement("#root"); // Bind modal to the root element
+import Modal from "react-modal";
+import "./PostManagement.css";
+
+Modal.setAppElement("#root");
 
 function AllPost() {
   const [posts, setPosts] = useState([]);
@@ -23,386 +35,7 @@ function AllPost() {
   const [editingComment, setEditingComment] = useState({}); // State for editing comments
   const navigate = useNavigate();
   const loggedInUserID = localStorage.getItem("userID"); // Get the logged-in user's ID
-  const styles = {
-    container: {
-      display: "flex",
-      backgroundColor: "#f0f2f5",
-      minHeight: "100vh",
-      fontFamily: "Segoe UI, Roboto, Helvetica, Arial, sans-serif",
-    },
-    contentSection: {
-      marginLeft: "280px",
-      padding: "20px",
-      width: "calc(100% - 280px)",
-      position: "relative",
-    },
-    floatingButton: {
-      position: "fixed",
-      bottom: "30px",
-      right: "30px",
-      backgroundColor: "#1877f2",
-      color: "white",
-      border: "none",
-      borderRadius: "50%",
-      width: "60px",
-      height: "60px",
-      fontSize: "16px",
-      fontWeight: "600",
-      cursor: "pointer",
-      boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      zIndex: 100,
-      transition: "all 0.3s ease",
-      ":hover": {
-        backgroundColor: "#166fe5",
-        transform: "scale(1.05)",
-      },
-    },
-    filterButton: {
-      position: "fixed",
-      top: "70px",
-      right: "30px",
-      backgroundColor: "#1877f2",
-      color: "white",
-      border: "none",
-      borderRadius: "8px",
-      padding: "10px 15px",
-      fontSize: "14px",
-      fontWeight: "600",
-      cursor: "pointer",
-      boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
-      zIndex: 100,
-      transition: "all 0.2s ease",
-      ":hover": {
-        backgroundColor: "#166fe5",
-      },
-    },
-    postsContainer: {
-      display: "flex",
-      flexDirection: "column",
-      gap: "20px",
-      maxWidth: "680px",
-      margin: "0 auto",
-    },
-    postCard: {
-      backgroundColor: "#ffffff",
-      borderRadius: "8px",
-      boxShadow: "0 1px 2px rgba(0, 0, 0, 0.1)",
-      padding: "16px",
-      transition: "transform 0.2s ease, box-shadow 0.2s ease",
-      ":hover": {
-        transform: "translateY(-2px)",
-        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.15)",
-      },
-    },
-    userHeader: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      marginBottom: "12px",
-    },
-    userInfo: {
-      display: "flex",
-      alignItems: "center",
-      gap: "8px",
-    },
-    userName: {
-      fontSize: "15px",
-      fontWeight: "600",
-      color: "#050505",
-    },
-    followButton: {
-      marginLeft: "10px",
-      backgroundColor: "transparent",
-      border: "1px solid #1877f2",
-      color: "#1877f2",
-      borderRadius: "6px",
-      padding: "4px 8px",
-      fontSize: "12px",
-      fontWeight: "600",
-      cursor: "pointer",
-      transition: "all 0.2s ease",
-      ":hover": {
-        backgroundColor: "#e7f3ff",
-      },
-    },
-    unfollowButton: {
-      marginLeft: "10px",
-      backgroundColor: "transparent",
-      border: "1px solid #65676b",
-      color: "#65676b",
-      borderRadius: "6px",
-      padding: "4px 8px",
-      fontSize: "12px",
-      fontWeight: "600",
-      cursor: "pointer",
-      transition: "all 0.2s ease",
-      ":hover": {
-        backgroundColor: "#f0f2f5",
-      },
-    },
-    actionButtons: {
-      display: "flex",
-      gap: "12px",
-    },
-    actionIcon: {
-      fontSize: "18px",
-      color: "#65676b",
-      cursor: "pointer",
-      transition: "color 0.2s ease",
-      ":hover": {
-        color: "#1877f2",
-      },
-    },
-    postTitle: {
-      fontSize: "17px",
-      fontWeight: "600",
-      color: "#050505",
-      marginBottom: "8px",
-    },
-    postDescription: {
-      fontSize: "15px",
-      color: "#050505",
-      lineHeight: "1.5",
-      whiteSpace: "pre-line",
-      marginBottom: "12px",
-    },
-    mediaGrid: {
-      display: "grid",
-      gridTemplateColumns: "repeat(2, 1fr)",
-      gap: "8px",
-      marginBottom: "12px",
-    },
-    mediaItem: {
-      position: "relative",
-      borderRadius: "8px",
-      overflow: "hidden",
-      cursor: "pointer",
-      aspectRatio: "1/1",
-    },
-    mediaImage: {
-      width: "100%",
-      height: "100%",
-      objectFit: "cover",
-      transition: "transform 0.3s ease",
-      ":hover": {
-        transform: "scale(1.03)",
-      },
-    },
-    mediaVideo: {
-      width: "100%",
-      height: "100%",
-      objectFit: "cover",
-    },
-    mediaOverlay: {
-      position: "absolute",
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      backgroundColor: "rgba(0, 0, 0, 0.5)",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      color: "white",
-      fontSize: "24px",
-      fontWeight: "bold",
-    },
-    interactions: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      padding: "8px 0",
-      borderTop: "1px solid #dddfe2",
-      borderBottom: "1px solid #dddfe2",
-      marginBottom: "12px",
-    },
-    likeContainer: {
-      display: "flex",
-      alignItems: "center",
-      gap: "8px",
-    },
-    likeButton: {
-      fontSize: "24px",
-      cursor: "pointer",
-      color: "#65676b",
-      transition: "color 0.2s ease",
-      ":hover": {
-        color: "#1877f2",
-      },
-    },
-    likedButton: {
-      color: "#1877f2",
-    },
-    likeCount: {
-      fontSize: "15px",
-      color: "#65676b",
-      fontWeight: "600",
-    },
-    commentInputContainer: {
-      display: "flex",
-      alignItems: "center",
-      gap: "8px",
-      width: "100%",
-    },
-    commentInput: {
-      flex: 1,
-      padding: "8px 12px",
-      borderRadius: "18px",
-      border: "1px solid #dddfe2",
-      backgroundColor: "#f0f2f5",
-      fontSize: "14px",
-      transition: "border-color 0.2s ease",
-      ":focus": {
-        outline: "none",
-        borderColor: "#1877f2",
-        backgroundColor: "#ffffff",
-      },
-    },
-    sendButton: {
-      fontSize: "20px",
-      color: "#1877f2",
-      cursor: "pointer",
-      transition: "transform 0.2s ease",
-      ":hover": {
-        transform: "scale(1.1)",
-      },
-    },
-    commentsSection: {
-      marginTop: "12px",
-    },
-    commentCard: {
-      backgroundColor: "#f0f2f5",
-      borderRadius: "18px",
-      padding: "8px 12px",
-      marginBottom: "8px",
-    },
-    commentHeader: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      marginBottom: "4px",
-    },
-    commentUser: {
-      fontSize: "13px",
-      fontWeight: "600",
-      color: "#050505",
-    },
-    commentContent: {
-      fontSize: "14px",
-      color: "#050505",
-      lineHeight: "1.4",
-    },
-    commentActions: {
-      display: "flex",
-      gap: "12px",
-      marginTop: "4px",
-    },
-    commentAction: {
-      fontSize: "12px",
-      color: "#65676b",
-      fontWeight: "600",
-      cursor: "pointer",
-      transition: "color 0.2s ease",
-      ":hover": {
-        color: "#1877f2",
-      },
-    },
-    editInput: {
-      width: "100%",
-      padding: "8px 12px",
-      borderRadius: "18px",
-      border: "1px solid #dddfe2",
-      fontSize: "14px",
-      marginBottom: "8px",
-    },
-    notFoundContainer: {
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      gap: "20px",
-      padding: "40px",
-      backgroundColor: "#ffffff",
-      borderRadius: "8px",
-      boxShadow: "0 1px 2px rgba(0, 0, 0, 0.1)",
-      textAlign: "center",
-    },
-    notFoundImage: {
-      width: "200px",
-      height: "200px",
-      backgroundColor: "#f0f2f5",
-      borderRadius: "8px",
-    },
-    notFoundMessage: {
-      fontSize: "16px",
-      color: "#65676b",
-    },
-    notFoundButton: {
-      backgroundColor: "#1877f2",
-      color: "white",
-      border: "none",
-      borderRadius: "6px",
-      padding: "10px 20px",
-      fontSize: "14px",
-      fontWeight: "600",
-      cursor: "pointer",
-      transition: "background-color 0.2s ease",
-      ":hover": {
-        backgroundColor: "#166fe5",
-      },
-    },
-    modalContent: {
-      position: "relative",
-      backgroundColor: "#ffffff",
-      borderRadius: "12px",
-      padding: "20px",
-      maxWidth: "90vw",
-      maxHeight: "90vh",
-      outline: "none",
-    },
-    modalMedia: {
-      maxWidth: "100%",
-      maxHeight: "80vh",
-      display: "block",
-      margin: "0 auto",
-    },
-    closeButton: {
-      position: "absolute",
-      top: "10px",
-      right: "10px",
-      backgroundColor: "#1877f2",
-      color: "white",
-      border: "none",
-      borderRadius: "50%",
-      width: "30px",
-      height: "30px",
-      fontSize: "14px",
-      fontWeight: "bold",
-      cursor: "pointer",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      transition: "background-color 0.2s ease",
-      ":hover": {
-        backgroundColor: "#166fe5",
-      },
-    },
-    modalOverlay: {
-      position: "fixed",
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      backgroundColor: "rgba(0, 0, 0, 0.75)",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      zIndex: 1000,
-    },
-  };
+
   useEffect(() => {
     // Fetch all posts from the backend
     const fetchPosts = async () => {
@@ -558,7 +191,7 @@ function AllPost() {
       alert("Please log in to comment.");
       return;
     }
-    const content = newComment[postId] || "";
+    const content = newComment[postId] || ""; // Get the comment content for the specific post
     if (!content.trim()) {
       alert("Comment cannot be empty.");
       return;
@@ -572,6 +205,7 @@ function AllPost() {
         }
       );
 
+      // Update the specific post's comments in the state
       setPosts((prevPosts) =>
         prevPosts.map((post) =>
           post.id === postId
@@ -604,6 +238,7 @@ function AllPost() {
         }
       );
 
+      // Update state to remove the deleted comment
       setPosts((prevPosts) =>
         prevPosts.map((post) =>
           post.id === postId
@@ -645,6 +280,7 @@ function AllPost() {
         }
       );
 
+      // Update the comment in state
       setPosts((prevPosts) =>
         prevPosts.map((post) =>
           post.id === postId
@@ -671,7 +307,7 @@ function AllPost() {
         )
       );
 
-      setEditingComment({});
+      setEditingComment({}); // Clear editing state
     } catch (error) {
       console.error("Error saving comment:", error);
     }
@@ -687,600 +323,340 @@ function AllPost() {
     setIsModalOpen(false);
   };
 
-  return (
-    <div>
-      <div className="continer">
-        <div>
-          <SideBar />
-        </div>
-        <div className="continSection">
-          <button
-            className="actionButton_add"
-            onClick={() => (window.location.href = "/addNewPost")}
-          >
-            <FaPen className="mr-2" />{" "}
-          </button>
-          <button className="action_btn_my" onClick={handleMyPostsToggle}>
-            {showMyPosts ? "All Posts" : "My Posts"}
-          </button>
-          <div className="post_card_continer">
-            {filteredPosts.length === 0 ? (
-              <div className="not_found_box">
-                <div className="not_found_img"></div>
-                <p className="not_found_msg">
-                  No posts found. Please create a new post.
-                </p>
-                <button
-                  className="not_found_btn"
-                  onClick={() => (window.location.href = "/addNewPost")}
-                >
-                  Create New Post
-                </button>
-              </div>
-            ) : (
-              filteredPosts.map((post) => (
-                <div key={post.id} className="post_card">
-                  <div className="user_details_card">
-                    <div className="name_section_post">
-                      <p
-                        className="name_section_post_owner_name"
-                        style={{
-                          color: "#2e2eff", // More vibrant blue
-                          fontSize: "28px",
-                          fontWeight: "900",
-                          textTransform: "capitalize",
-                          fontFamily:
-                            "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-                          letterSpacing: "1px",
-                          margin: "5px 0",
-                          textShadow: "1px 1px 2px rgba(0,0,0,0.2)", // Subtle shadow
-                          background:
-                            "linear-gradient(to right, #dbeafe, #bfdbfe)", // Light gradient background
-                          padding: "5px 10px",
-                          borderRadius: "8px",
-                          display: "inline-block",
-                          transition: "transform 0.3s ease",
-                          cursor: "pointer",
-                        }}
-                      >
-                        {postOwners[post.userID] || "Anonymous"}
-                      </p>
+  console.log("Filtered Posts:", filteredPosts); // Debug log to verify filtered posts
 
-                      {post.userID !== loggedInUserID && (
-                        <button
-                          onClick={() => handleFollowToggle(post.userID)}
-                          style={{
-                            position: "relative",
-                            overflow: "hidden",
-                            borderRadius: "20px",
-                            border: followedUsers.includes(post.userID)
-                              ? "1px solid #ddd"
-                              : "none",
-                            backgroundColor: followedUsers.includes(post.userID)
-                              ? "transparent"
-                              : "#1877f2",
-                            color: followedUsers.includes(post.userID)
-                              ? "#65676b"
-                              : "white",
-                            padding: "6px 16px",
-                            fontSize: "14px",
-                            fontWeight: "600",
-                            cursor: "pointer",
-                            transition: "all 0.4s ease",
-                            marginLeft: "10px",
-                            transform: "translateY(0)",
-                            ...(followedUsers.includes(post.userID)
-                              ? {
-                                  "&:hover": {
-                                    backgroundColor: "#f5f5f5",
-                                    borderColor: "#ccc",
-                                    color: "#ff4d4f",
-                                  },
-                                }
-                              : {
-                                  boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                                  "&:hover": {
-                                    boxShadow:
-                                      "0 4px 12px rgba(24, 119, 242, 0.3)",
-                                    transform: "translateY(-2px)",
-                                  },
-                                }),
-                            ":hover::before": {
-                              content: '""',
-                              position: "absolute",
-                              top: 0,
-                              left: followedUsers.includes(post.userID)
-                                ? "-100%"
-                                : "100%",
-                              width: "100%",
-                              height: "100%",
-                              background: followedUsers.includes(post.userID)
-                                ? "linear-gradient(90deg, #fff0f0, #ffcccc, #fff0f0)"
-                                : "linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)",
-                              transition: "all 0.6s ease",
-                              ...(followedUsers.includes(post.userID) && {
-                                animation: "$slideIn 0.4s forwards",
-                              }),
-                            },
-                          }}
-                        >
-                          <span
-                            style={{
-                              position: "relative",
-                              zIndex: 2,
-                              display: "flex",
-                              alignItems: "center",
-                              gap: "10px",
-                            }}
-                          >
-                            {followedUsers.includes(post.userID) ? (
-                              <>
-                                <span>Following</span>
-                                <svg
-                                  stroke="currentColor"
-                                  fill="none"
-                                  strokeWidth="2"
-                                  viewBox="0 0 24 24"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  height="16"
-                                  width="16"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  style={{
-                                    transition: "transform 0.3s ease",
-                                    transform: "scale(1)",
-                                  }}
-                                >
-                                  <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                  <circle cx="8.5" cy="7" r="4"></circle>
-                                  <polyline points="17 11 19 13 23 9"></polyline>
-                                </svg>
-                              </>
-                            ) : (
-                              <>
-                                <span>Follow</span>
-                                <svg
-                                  stroke="currentColor"
-                                  fill="none"
-                                  strokeWidth="2"
-                                  viewBox="0 0 24 24"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  height="16"
-                                  width="16"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  style={{
-                                    transition: "transform 0.3s ease",
-                                    transform: "scale(1)",
-                                  }}
-                                >
-                                  <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                  <circle cx="8.5" cy="7" r="4"></circle>
-                                  <line x1="20" y1="8" x2="20" y2="14"></line>
-                                  <line x1="23" y1="11" x2="17" y2="11"></line>
-                                </svg>
-                              </>
-                            )}
-                          </span>
-                        </button>
-                      )}
+  return (
+    <div className="posts-container">
+      <SideBar />
+      <main>
+        <div className="posts-header">
+          <div className="posts-header-title">
+            <MessageSquare size={24} />
+            <h1>Cooking & Baking Recipe-Sharing Post</h1>
+          </div>
+          <div className="posts-actions">
+            <button
+              className="posts-btn posts-btn-primary"
+              onClick={() => navigate("/addNewPost")}
+            >
+              <Plus size={18} />
+              <span>Create Post</span>
+            </button>
+            <button
+              className="posts-btn posts-btn-secondary"
+              onClick={handleMyPostsToggle}
+            >
+              {showMyPosts ? (
+                <>
+                  <MessageSquare size={18} />
+                  <span>All Posts</span>
+                </>
+              ) : (
+                <>
+                  <User size={18} />
+                  <span>My Posts</span>
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+
+        {filteredPosts.length === 0 ? (
+          <div className="posts-empty">
+            <div className="posts-empty-icon">
+              <MessageSquare size={32} />
+            </div>
+            <h3>No Posts Found</h3>
+            <p>Be the first to share with the community!</p>
+            <button
+              className="posts-btn posts-btn-primary"
+              onClick={() => navigate("/addNewPost")}
+            >
+              <Plus size={18} />
+              <span>Create New Post</span>
+            </button>
+          </div>
+        ) : (
+          <div className="posts-feed">
+            {filteredPosts.map((post) => (
+              <div key={post.id} className="post-card">
+                <div className="post-header">
+                  <div className="post-author">
+                    <div className="post-avatar">
+                      {postOwners[post.userID]?.charAt(0) || "U"}
                     </div>
-                    {post.userID === loggedInUserID && (
-                      <div>
-                        <div className="action_btn_icon_post">
-                          <FaEdit
-                            onClick={() => handleUpdate(post.id)}
-                            className="action_btn_icon"
-                          />
-                          <RiDeleteBin6Fill
-                            onClick={() => handleDelete(post.id)}
-                            className="action_btn_icon"
-                          />
-                        </div>
+                    <div className="post-user-info">
+                      <div className="post-user-name">
+                        {postOwners[post.userID] || "Anonymous"}
                       </div>
+                      <div className="post-date">
+                        <Clock size={14} />
+                        {new Date(post.createdAt).toLocaleDateString()}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="post-actions">
+                    {post.userID !== loggedInUserID && (
+                      <button
+                        className={`post-follow-btn ${
+                          followedUsers.includes(post.userID) ? "following" : ""
+                        }`}
+                        onClick={() => handleFollowToggle(post.userID)}
+                      >
+                        {followedUsers.includes(post.userID) ? (
+                          <>
+                            <UserCheck size={16} />
+                            <span>Following</span>
+                          </>
+                        ) : (
+                          <>
+                            <UserPlus size={16} />
+                            <span>Follow</span>
+                          </>
+                        )}
+                      </button>
+                    )}
+
+                    {post.userID === loggedInUserID && (
+                      <>
+                        <button
+                          onClick={() => handleUpdate(post.id)}
+                          className="post-action-btn"
+                        >
+                          <Edit size={18} />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(post.id)}
+                          className="post-action-btn danger"
+                        >
+                          <Trash2 size={18} />
+                        </button>
+                      </>
                     )}
                   </div>
-                  <div
-                    style={{
-                      marginBottom: "12px",
-                      padding: "0 8px",
-                      fontFamily:
-                        "Segoe UI, Roboto, Helvetica, Arial, sans-serif",
-                    }}
-                  >
-                    <div style={{ position: "relative" }}>
-                      <div
-                        style={{ textAlign: "center", margin: "0 0 20px 0" }}
-                      >
-                        <p
-                          style={{
-                            fontSize: "24px",
-                            fontWeight: "700",
-                            color: "#1a1a1a",
-                            margin: "0 auto 12px auto", // Center by setting left/right margins to auto
-                            lineHeight: "1.3",
-                            position: "relative",
-                            display: "inline-block", // Changed to inline-block for proper centering
-                            paddingBottom: "8px",
+                </div>
 
-                            fontFamily:
-                              "'Segoe UI', 'Helvetica Neue', sans-serif",
-                            letterSpacing: "-0.2px",
-                            textShadow: "0.5px 0.5px 1px rgba(0,0,0,0.05)",
-                            textAlign: "center", // Ensure text is centered within the element
-                          }}
-                        >
-                          {post.title}
-                          <span
-                            style={{
-                              position: "absolute",
-                              bottom: "0",
-                              left: "50%", // Center the underline
-                              transform: "translateX(-50%)", // Adjust for exact centering
-                              width: "50px",
-                              height: "3px",
-                              background:
-                                "linear-gradient(90deg, #3b82f6, #8b5cf6)",
-                              borderRadius: "3px",
-                              boxShadow: "0 2px 4px rgba(124, 58, 237, 0.2)",
-                            }}
-                          ></span>
-                        </p>
-                      </div>
+                <div className="post-content">
+                  <h2 className="post-title">{post.title}</h2>
+                  <p className="post-description">{post.description}</p>
 
-                      <hr
-                        style={{
-                          border: "0",
-                          height: "1px",
-                          backgroundImage:
-                            "linear-gradient(to right, rgba(0, 0, 0, 0), rgba(59, 130, 246, 0.5), rgba(0, 0, 0, 0))",
-                          margin: "16px 0 24px 0",
-                        }}
-                      />
-                    </div>
-                    <div
-                      style={{ position: "relative", margin: "16px 0 24px 0" }}
-                    >
-                      <p
-                        style={{
-                          whiteSpace: "pre-line",
-                          fontSize: "20px",
-                          color: "#333",
-                          lineHeight: "1.7",
-                          margin: "0",
-                          padding: "16px",
-                          backgroundColor: "#f8fafc",
-                          borderRadius: "8px",
-                          borderLeft: "4px solidrgb(243, 246, 59)",
+                  {post.media && post.media.length > 0 && (
+                    <div className="post-media-grid">
+                      {post.media.map((url, index) => {
+                        const fullUrl = url.startsWith("http")
+                          ? url
+                          : `http://localhost:8080${url}`;
+                        const isVideo = url.includes(".mp4");
 
-                          fontFamily:
-                            "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
-                          textAlign: "left",
-                          wordBreak: "break-word",
-                          overflowWrap: "break-word",
-                        }}
-                      >
-                        {post.description
-                          .split("\n")
-                          .map((paragraph, index) => (
-                            <React.Fragment key={index}>
-                              {paragraph}
-                              <br />
-                            </React.Fragment>
-                          ))}
-                      </p>
-
-                      <div
-                        style={{
-                          position: "absolute",
-                          top: "-10px",
-                          left: "20px",
-                          fontSize: "48px",
-
-                          fontFamily: "serif",
-                          lineHeight: "1",
-                          zIndex: "0",
-                        }}
-                      >
-                        "
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    className="media-collage"
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns:
-                        "repeat(auto-fit, minmax(150px, 1fr))",
-                      gap: "8px",
-                      margin: "12px 0",
-                      borderRadius: "8px",
-                      overflow: "hidden",
-                    }}
-                  >
-                    {post.media.slice(0, 4).map((mediaUrl, index) => (
-                      <div
-                        key={index}
-                        style={{
-                          position: "relative",
-                          borderRadius: "4px",
-                          overflow: "hidden",
-                          cursor: "pointer",
-                          aspectRatio: "1/1",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          backgroundColor: "#f0f2f5",
-                        }}
-                        onClick={() => openModal(mediaUrl)}
-                      >
-                        {mediaUrl.endsWith(".mp4") ? (
-                          <video
-                            controls
-                            style={{
-                              width: "100%",
-                              height: "100%",
-                              objectFit: "cover",
-                              display: "block",
-                            }}
-                          >
-                            <source
-                              src={`http://localhost:8080${mediaUrl}`}
-                              type="video/mp4"
-                            />
-                            Your browser does not support the video tag.
-                          </video>
-                        ) : (
-                          <img
-                            src={`http://localhost:8080${mediaUrl}`}
-                            alt="Post Media"
-                            style={{
-                              width: "70%",
-                              height: "80%",
-                              objectFit: "cover",
-                              display: "block",
-                            }}
-                          />
-                        )}
-                        {post.media.length > 4 && index === 3 && (
-                          <div
-                            style={{
-                              position: "absolute",
-                              top: 0,
-                              left: 0,
-                              right: 0,
-                              bottom: 0,
-                              backgroundColor: "rgba(0, 0, 0, 0.5)",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              color: "white",
-                              fontSize: "24px",
-                              fontWeight: "bold",
-                            }}
-                          >
-                            +{post.media.length - 4}
+                        return (
+                          <div key={index} className="post-media-item">
+                            {isVideo ? (
+                              <video src={fullUrl} controls muted />
+                            ) : (
+                              // In your post media rendering section, update the onError handler:
+                              <img
+                                src={fullUrl}
+                                alt={`Post media ${index + 1}`}
+                                onClick={() => openModal(fullUrl)}
+                                onError={(e) => {
+                                  console.error(
+                                    "Image failed to load:",
+                                    fullUrl
+                                  );
+                                  e.target.src =
+                                    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23eee'/%3E%3Ctext x='50%' y='50%' font-family='Arial' font-size='16' fill='%23000' text-anchor='middle' dominant-baseline='middle'%3EImage not found%3C/text%3E%3C/svg%3E";
+                                  e.target.onerror = null; // Prevent infinite loop if the fallback also fails
+                                }}
+                              />
+                            )}
                           </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                  <div className="like_coment_lne">
-                    <div className="like_btn_con">
-                      <BiSolidLike
-                        className={
-                          post.likes?.[localStorage.getItem("userID")]
-                            ? "unlikebtn"
-                            : "likebtn"
-                        }
-                        onClick={() => handleLike(post.id)}
-                      >
-                        {post.likes?.[localStorage.getItem("userID")]
-                          ? "Unlike"
-                          : "Like"}
-                      </BiSolidLike>
-                      <p className="like_num">
-                        {
-                          Object.values(post.likes || {}).filter(
-                            (liked) => liked
-                          ).length
-                        }
-                      </p>
+                        );
+                      })}
                     </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "12px",
-                        marginTop: "16px",
-                        position: "relative",
-                      }}
+                  )}
+                </div>
+
+                <div className="post-actions">
+                  <div className="post-action-buttons">
+                    <button
+                      onClick={() => handleLike(post.id)}
+                      className={`post-action-btn ${
+                        post.likes?.[loggedInUserID] ? "liked" : ""
+                      }`}
                     >
-                      <input
-                        type="text"
-                        placeholder="Add a comment..."
-                        value={newComment[post.id] || ""}
-                        onChange={(e) =>
-                          setNewComment({
-                            ...newComment,
-                            [post.id]: e.target.value,
-                          })
-                        }
-                        style={{
-                          flex: 1,
-                          padding: "12px 280px",
-                          borderRadius: "24px",
-                          border: "1px solid #e2e8f0",
-                          backgroundColor: "#f8fafc",
-                          fontSize: "14px",
-                          color: "#334155",
-                          transition: "all 0.2s ease",
-                          outline: "none",
-                          boxShadow: "0 1px 2px rgba(0,0,0,0.03)",
-                          fontFamily:
-                            "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
-                          ":focus": {
-                            borderColor: "#3b82f6",
-                            backgroundColor: "#ffffff",
-                            boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.1)",
-                          },
-                          "::placeholder": {
-                            color: "#94a3b8",
-                          },
-                        }}
+                      <Heart
+                        size={18}
+                        fill={post.likes?.[loggedInUserID] ? "#493D9E" : "none"}
                       />
+                      <span>
+                        {Object.values(post.likes || {}).filter(Boolean).length}
+                      </span>
+                    </button>
 
-                      <div
-                        onClick={() => handleAddComment(post.id)}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          width: "40px",
-                          height: "40px",
-                          borderRadius: "80%",
-                          backgroundColor: "#3b82f6",
-                          color: "white",
-                          cursor: "pointer",
-                          transition: "all 0.2s ease",
-                          boxShadow: "0 2px 4px rgba(59, 130, 246, 0.2)",
-                          ":hover": {
-                            backgroundColor: "#2563eb",
-                            transform: "scale(1.05)",
-                          },
-                          ":active": {
-                            transform: "scale(0.98)",
-                          },
-                        }}
-                      >
-                        <IoSend style={{ fontSize: "18px" }} />
-                      </div>
-                    </div>
+                    <button className="post-action-btn">
+                      <MessageCircle size={18} />
+                      <span>{post.comments?.length || 0}</span>
+                    </button>
+
+                    <button className="post-action-btn">
+                      <Share size={18} />
+                      <span>Share</span>
+                    </button>
                   </div>
-                  <div>
-                    {post.comments?.map((comment) => (
-                      <div key={comment.id} className="coment_full_card">
-                        <div className="comnt_card">
-                          <p className="comnt_card_username">
-                            {comment.userFullName}
-                          </p>
-                          {editingComment.id === comment.id ? (
-                            <input
-                              type="text"
-                              className="edit_comment_input"
-                              value={editingComment.content}
-                              onChange={(e) =>
-                                setEditingComment({
-                                  ...editingComment,
-                                  content: e.target.value,
-                                })
-                              }
-                              autoFocus
-                            />
-                          ) : (
-                            <p className="comnt_card_coment">
-                              {comment.content}
-                            </p>
-                          )}
-                        </div>
+                </div>
 
-                        <div className="coment_action_btn">
-                          {comment.userID === loggedInUserID && (
+                <div className="post-comments-section">
+                  <div className="post-comments-header">
+                    Comments ({post.comments?.length || 0})
+                  </div>
+
+                  <div className="post-comments-list">
+                    {post.comments?.map((comment) => (
+                      <div key={comment.id} className="post-comment">
+                        <div className="post-comment-avatar">
+                          {comment.userFullName?.charAt(0) || "U"}
+                        </div>
+                        <div className="post-comment-content">
+                          <div className="post-comment-user">
+                            {comment.userFullName || "Anonymous"}
+                          </div>
+                          {editingComment[comment.id] ? (
+                            <div className="post-comment-edit-form">
+                              <input
+                                type="text"
+                                className="post-comment-input"
+                                value={editingComment[comment.id]}
+                                onChange={(e) =>
+                                  setEditingComment({
+                                    ...editingComment,
+                                    [comment.id]: e.target.value,
+                                  })
+                                }
+                              />
+                              <div className="post-comment-actions">
+                                <button
+                                  onClick={() =>
+                                    setEditingComment({
+                                      ...editingComment,
+                                      [comment.id]: undefined,
+                                    })
+                                  }
+                                  className="post-action-btn"
+                                >
+                                  <X size={16} />
+                                </button>
+                                <button
+                                  onClick={() =>
+                                    handleSaveComment(
+                                      post.id,
+                                      comment.id,
+                                      editingComment[comment.id]
+                                    )
+                                  }
+                                  className="post-action-btn"
+                                >
+                                  <Save size={16} />
+                                </button>
+                              </div>
+                            </div>
+                          ) : (
                             <>
-                              {editingComment.id === comment.id ? (
-                                <>
+                              <div className="post-comment-text">
+                                {comment.content}
+                              </div>
+                              {comment.userID === loggedInUserID && (
+                                <div className="post-comment-actions">
                                   <button
-                                    className="coment_btn"
-                                    onClick={() =>
-                                      handleSaveComment(
-                                        post.id,
-                                        comment.id,
-                                        editingComment.content
-                                      )
-                                    }
-                                  >
-                                    Save
-                                  </button>
-                                  <button
-                                    className="coment_btn"
-                                    onClick={() => setEditingComment({})}
-                                  >
-                                    Cancel
-                                  </button>
-                                </>
-                              ) : (
-                                <>
-                                  <button
-                                    className="coment_btn"
                                     onClick={() =>
                                       setEditingComment({
-                                        id: comment.id,
-                                        content: comment.content,
+                                        ...editingComment,
+                                        [comment.id]: comment.content,
                                       })
                                     }
                                   >
-                                    Update
+                                    <Edit size={14} />
+                                    <span>Edit</span>
                                   </button>
                                   <button
-                                    className="coment_btn"
                                     onClick={() =>
                                       handleDeleteComment(post.id, comment.id)
                                     }
+                                    className="danger"
                                   >
-                                    Delete
+                                    <Trash2 size={14} />
+                                    <span>Delete</span>
                                   </button>
-                                </>
+                                </div>
                               )}
                             </>
                           )}
-                          {post.userID === loggedInUserID &&
-                            comment.userID !== loggedInUserID && (
-                              <button
-                                className="coment_btn"
-                                onClick={() =>
-                                  handleDeleteComment(post.id, comment.id)
-                                }
-                              >
-                                Delete
-                              </button>
-                            )}
                         </div>
                       </div>
                     ))}
                   </div>
-                </div>
-              ))
-            )}
-          </div>
-        </div>
-      </div>
 
-      <Modal
-        isOpen={isModalOpen}
-        onRequestClose={closeModal}
-        contentLabel="Media Modal"
-        className="media-modal"
-        overlayClassName="media-modal-overlay"
-      >
-        <button className="close-modal-btn" onClick={closeModal}>
-          x
-        </button>
-        {selectedMedia && selectedMedia.endsWith(".mp4") ? (
-          <video controls className="modal-media">
-            <source
-              src={`http://localhost:8080${selectedMedia}`}
-              type="video/mp4"
-            />
-            Your browser does not support the video tag.
-          </video>
-        ) : (
-          <img
-            src={`http://localhost:8080${selectedMedia}`}
-            alt="Full Media"
-            className="modal-media"
-          />
+                  <div className="post-add-comment">
+                    <input
+                      type="text"
+                      className="post-comment-input"
+                      placeholder="Add a comment..."
+                      value={newComment[post.id] || ""}
+                      onChange={(e) =>
+                        setNewComment({
+                          ...newComment,
+                          [post.id]: e.target.value,
+                        })
+                      }
+                      onKeyPress={(e) => {
+                        if (e.key === "Enter") {
+                          handleAddComment(post.id);
+                        }
+                      }}
+                    />
+                    <button
+                      className="post-comment-submit"
+                      onClick={() => handleAddComment(post.id)}
+                    >
+                      <MessageCircle size={18} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         )}
-      </Modal>
+
+        {/* Modal for displaying media */}
+        <Modal
+          isOpen={isModalOpen}
+          onRequestClose={closeModal}
+          className="posts-modal-content"
+          overlayClassName="posts-modal"
+        >
+          {selectedMedia && (
+            <>
+              {selectedMedia.includes(".mp4") ? (
+                <video
+                  className="posts-modal-video"
+                  src={selectedMedia}
+                  controls
+                  autoPlay
+                />
+              ) : (
+                <img
+                  className="posts-modal-image"
+                  src={selectedMedia}
+                  alt="Post media"
+                />
+              )}
+              <button className="posts-modal-close" onClick={closeModal}>
+                <X size={24} />
+              </button>
+            </>
+          )}
+        </Modal>
+      </main>
     </div>
   );
 }
