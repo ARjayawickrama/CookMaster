@@ -23,6 +23,7 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+
     @Autowired
     private NotificationRepository notificationRepository;
 
@@ -102,6 +103,7 @@ public class UserController {
         return userRepository.existsByEmail(email);
     }
 
+
     @PutMapping("/user/{userID}/follow")
     public ResponseEntity<?> followUser(@PathVariable String userID, @RequestBody Map<String, String> request) {
         String followUserID = request.get("followUserID");
@@ -122,6 +124,7 @@ public class UserController {
         }).orElseThrow(() -> new UserNotFoundException("User not found: " + userID));
     }
 
+    
     @PutMapping("/user/{userID}/unfollow")
     public ResponseEntity<?> unfollowUser(@PathVariable String userID, @RequestBody Map<String, String> request) {
         String unfollowUserID = request.get("unfollowUserID");

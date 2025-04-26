@@ -7,6 +7,7 @@ function NotificationsPage() {
   const [notifications, setNotifications] = useState([]);
   const userId = localStorage.getItem('userID');
 
+
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
@@ -24,6 +25,7 @@ function NotificationsPage() {
       console.error('User ID is not available');
     }
   }, [userId]);
+
 
   const handleMarkAsRead = async (id) => {
     try {
@@ -43,6 +45,7 @@ function NotificationsPage() {
     }
   };
 
+  
   return (
     <div>
       <div className='continer'>

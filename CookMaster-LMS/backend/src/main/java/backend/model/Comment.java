@@ -1,5 +1,6 @@
 package backend.model;
 
+
 public class Comment {
     private String id;
     private String userID;
@@ -10,9 +11,11 @@ public class Comment {
         return id;
     }
 
+
     public void setId(String id) {
         this.id = id;
     }
+
 
     public String getUserID() {
         return userID;
