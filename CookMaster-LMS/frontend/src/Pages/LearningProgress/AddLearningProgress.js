@@ -64,128 +64,219 @@ function AddLearningProgress() {
       <div className="add-learning-progress-content">
         <div className="add-learning-progress-card">
           <div className="add-learning-progress-header">
-            <IoMdAdd className="header-icon" />
+          <IoMdAdd 
+  className="header-icon" 
+  style={{ 
+    color: '#ff7733', 
+    fontSize: '28px', 
+    cursor: 'pointer', 
+    marginLeft: '8px', 
+    transition: 'all 0.3s ease-in-out', // Smooth transition for hover effects
+    padding: '8px', // Increased padding around the icon
+    borderRadius: '50%', // Rounded edges for a circular background
+    boxShadow: '0 4px 15px rgba(0, 0, 0, 0.15)', // Softer and more prominent shadow
+    backgroundColor: 'rgba(255, 119, 51, 0.1)', // Light background color on the icon
+    display: 'inline-flex', // Ensures it stays inline with text or other icons
+    alignItems: 'center', // Centers icon vertically
+    justifyContent: 'center', // Centers icon horizontally
+    width: '40px', // Increased width for a larger clickable area
+    height: '40px', // Increased height for a larger clickable area
+  }} 
+  onMouseEnter={(e) => {
+    e.target.style.transform = 'scale(1.15)'; // Slightly enlarge icon on hover
+    e.target.style.backgroundColor = 'rgba(255, 119, 51, 0.2)'; // Darker background on hover
+  }} 
+  onMouseLeave={(e) => {
+    e.target.style.transform = 'scale(1)'; // Return to normal size on mouse leave
+    e.target.style.backgroundColor = 'rgba(255, 119, 51, 0.1)'; // Reset background color
+  }} 
+/>
+
+
+
+
             <h2>Add Learning Progress</h2>
             <p>Track your skill development journey</p>
           </div>
 
           <form onSubmit={handleSubmit} className="add-learning-progress-form">
-            <div className="form-row">
-              <div className="form-group">
-                <label htmlFor="skillTitle">Skill Title*</label>
-                <input
-                  type="text"
-                  id="skillTitle"
-                  name="skillTitle"
-                  placeholder="Enter skill title (e.g., React JS)"
-                  value={formData.skillTitle}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+  <div className="form-row">
+    <div className="form-group">
+      <label
+        htmlFor="skillTitle"
+        style={{
+          display: "block",
+          marginBottom: "0.5rem",
+          fontWeight: "600",
+          color: "#e67e22",
+        }}
+      >
+        Skill Title*
+      </label>
+      <input
+        type="text"
+        id="skillTitle"
+        name="skillTitle"
+        placeholder="Enter dish name (e.g., Lasagna)"
+        value={formData.skillTitle}
+        onChange={handleChange}
+        required
+      />
+    </div>
 
-              <div className="form-group">
-                <label htmlFor="field">Field*</label>
-                <select
-                  id="field"
-                  name="field"
-                  value={formData.field}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="" disabled>
-                    Select your field
-                  </option>
-                  <option value="Frontend Development">
-                    Frontend Development
-                  </option>
-                  <option value="Programming Language">
-                    Programming Language
-                  </option>
-                  <option value="Backend Development">
-                    Backend Development
-                  </option>
-                  <option value="UI/UX">UI/UX</option>
-                  <option value="Quality Assurance">Quality Assurance</option>
-                </select>
-              </div>
-            </div>
+    <div className="form-group">
+      <label
+        htmlFor="field"
+        style={{
+          display: "block",
+          marginBottom: "0.5rem",
+          fontWeight: "600",
+          color: "#e67e22",
+        }}
+      >
+        Field*
+      </label>
+      <select
+        id="field"
+        name="field"
+        value={formData.field}
+        onChange={handleChange}
+        required
+      >
+        <option value="" disabled>
+          Select cooking category
+        </option>
+        <option value="Baking">Baking</option>
+        <option value="Grilling">Grilling</option>
+        <option value="Stir-Fry">Stir-Fry</option>
+        <option value="Roasting">Roasting</option>
+        <option value="Steaming">Steaming</option>
+        <option value="Frying">Frying</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+  </div>
 
-            <div className="form-group">
-              <label htmlFor="description">Description*</label>
-              <textarea
-                id="description"
-                name="description"
-                placeholder="Describe what you're learning and your goals..."
-                value={formData.description}
-                onChange={handleChange}
-                rows="4"
-                required
-              />
-            </div>
+  <div className="form-group">
+    <label
+      htmlFor="description"
+      style={{
+        display: "block",
+        marginBottom: "0.5rem",
+        fontWeight: "600",
+        color: "#e67e22",
+      }}
+    >
+      Cooking Description*
+    </label>
+    <textarea
+      id="description"
+      name="description"
+      placeholder="Describe your cooking process, ingredients, techniques..."
+      value={formData.description}
+      onChange={handleChange}
+      rows="4"
+      required
+    />
+  </div>
 
-            <div className="form-row">
-              <div className="form-group">
-                <label htmlFor="startDate">Start Date*</label>
-                <input
-                  type="date"
-                  id="startDate"
-                  name="startDate"
-                  value={formData.startDate}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+  <div className="form-row">
+    <div className="form-group">
+      <label
+        htmlFor="startDate"
+        style={{
+          display: "block",
+          marginBottom: "0.5rem",
+          fontWeight: "600",
+          color: "#e67e22",
+        }}
+      >
+        Start Date*
+      </label>
+      <input
+        type="date"
+        id="startDate"
+        name="startDate"
+        value={formData.startDate}
+        onChange={handleChange}
+        required
+      />
+    </div>
 
-              <div className="form-group">
-                <label htmlFor="endDate">End Date*</label>
-                <input
-                  type="date"
-                  id="endDate"
-                  name="endDate"
-                  value={formData.endDate}
-                  onChange={(e) => {
-                    const { name, value } = e.target;
-                    if (new Date(value) < new Date(formData.startDate)) {
-                      alert("End date cannot be earlier than start date.");
-                      return;
-                    }
-                    handleChange(e);
-                  }}
-                  required
-                />
-              </div>
+    <div className="form-group">
+      <label
+        htmlFor="endDate"
+        style={{
+          display: "block",
+          marginBottom: "0.5rem",
+          fontWeight: "600",
+          color: "#e67e22",
+        }}
+      >
+        End Date*
+      </label>
+      <input
+        type="date"
+        id="endDate"
+        name="endDate"
+        value={formData.endDate}
+        onChange={(e) => {
+          const { name, value } = e.target;
+          if (new Date(value) < new Date(formData.startDate)) {
+            alert("End date cannot be earlier than start date.");
+            return;
+          }
+          handleChange(e);
+        }}
+        required
+      />
+    </div>
 
-              <div className="form-group">
-                <label htmlFor="level">Progress Level (0-100)*</label>
-                <div className="level-input-container">
-                  <input
-                    type="number"
-                    id="level"
-                    name="level"
-                    min="0"
-                    max="100"
-                    placeholder="50"
-                    value={formData.level}
-                    onChange={(e) => {
-                      const { name, value } = e.target;
-                      if (value < 0 || value > 100) {
-                        alert("Level must be between 0 and 100.");
-                        return;
-                      }
-                      handleChange(e);
-                    }}
-                    required
-                  />
-                  <span>%</span>
-                </div>
-              </div>
-            </div>
+    <div className="form-group">
+      <label
+        htmlFor="level"
+        style={{
+          display: "block",
+          marginBottom: "0.5rem",
+          fontWeight: "600",
+          color: "#e67e22",
+        }}
+      >
+        Progress Level (0-100)*
+      </label>
+      <div className="level-input-container">
+        <input
+          type="number"
+          id="level"
+          name="level"
+          min="0"
+          max="100"
+          placeholder="50"
+          value={formData.level}
+          onChange={(e) => {
+            const { name, value } = e.target;
+            if (value < 0 || value > 100) {
+              alert("Level must be between 0 and 100.");
+              return;
+            }
+            handleChange(e);
+          }}
+          required
+        />
+        <span>%</span>
+      </div>
+    </div>
+  </div>
 
-            <button type="submit" className="submit-button">
-              Save Learning Progress
-            </button>
-          </form>
+  <button
+    type="submit"
+    className="submit-button"
+    style={{ backgroundColor: "#ff7733", color: "white" }}
+  >
+    Save Learning Progress
+  </button>
+</form>
+
         </div>
       </div>
     </div>

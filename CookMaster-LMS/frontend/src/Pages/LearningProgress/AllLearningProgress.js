@@ -99,13 +99,14 @@ function AllLearningProgress() {
             </h1>
 
             <div style={{ display: "flex", gap: "1rem" }}>
-              <button
-                className="actionButton_add"
-                onClick={() => (window.location.href = "/addLearningProgress")}
-              >
-                {" "}
-                <FaPen className="mr-2" />{" "}
-              </button>
+            <button
+  className="actionButton_add"
+  style={{ backgroundColor: "#ff7733", color: "white" }}
+  onClick={() => (window.location.href = "/addLearningProgress")}
+>
+  <FaPen className="mr-2" />
+</button>
+
 
               <button
                 style={{
@@ -424,7 +425,7 @@ function AllLearningProgress() {
                         gap: "0.5rem",
                       }}
                     >
-                      <FaBookOpen /> Cooking Notes
+                      <FaBookOpen /> Notes
                     </p>
                     <p
                       style={{
