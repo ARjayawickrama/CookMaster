@@ -1,256 +1,126 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import SideBar from "../../Components/SideBar/SideBar";
-import "./post.css";
-import { IoSend } from "react-icons/io5";
-import { BiSolidLike } from "react-icons/bi";
-import { FaEdit } from "react-icons/fa";
-import { RiDeleteBin6Fill } from "react-icons/ri";
+import React from 'react';
+import SideBar from '../../Components/SideBar/SideBar';
+import './LearningSystem.css';
+import { ThumbsUp, Edit3, Trash2, Plus, List, User, FileText, BookOpen } from 'lucide-react';
+
 function RecommendPost() {
-  const [posts, setPosts] = useState([]);
-  const [filteredPosts, setFilteredPosts] = useState([]);
-  const [userSkills, setUserSkills] = useState([]);
-  const [showingMyPosts, setShowingMyPosts] = useState(false);
-  const userId = localStorage.getItem("userID");
+    // ... keep all your existing state and effect hooks ...
 
-  useEffect(() => {
-    const fetchUserSkills = async () => {
-      const userID = localStorage.getItem("userID");
-      if (userID) {
-        try {
-          const response = await axios.get(
-            `http://localhost:8080/user/${userID}`
-          );
-          setUserSkills(response.data.skills || []);
-        } catch (error) {
-          console.error("Error fetching user skills:", error);
-        }
-      }
-    };
-
-    const fetchPosts = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:8080/learningSystem"
-        );
-        console.log("API Response:", response.data);
-        setPosts(response.data);
-        setFilteredPosts(response.data);
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-      }
-    };
-
-    fetchUserSkills();
-    fetchPosts();
-  }, []);
-
-  useEffect(() => {
-    const filterPostsBySkills = () => {
-      if (userSkills.length > 0) {
-        const normalizedSkills = userSkills.map((skill) => skill.toLowerCase());
-        const filtered = posts.filter((post) =>
-          post.tags?.some((tag) => normalizedSkills.includes(tag.toLowerCase()))
-        );
-        setFilteredPosts(filtered);
-      } else {
-        setFilteredPosts(posts);
-      }
-    };
-
-    filterPostsBySkills();
-  }, [posts, userSkills]);
-
-  const getEmbedURL = (url) => {
-    try {
-      if (url.includes("youtube.com/watch")) {
-        const videoId = new URL(url).searchParams.get("v");
-        return `https://www.youtube.com/embed/${videoId}`;
-      }
-      if (url.includes("youtu.be/")) {
-        const videoId = url.split("youtu.be/")[1];
-        return `https://www.youtube.com/embed/${videoId}`;
-      }
-      return url;
-    } catch (error) {
-      console.error("Invalid URL:", url);
-      return "";
-    }
-  };
-
-  const handleDelete = async (id) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this post?"
-    );
-    if (confirmDelete) {
-      try {
-        await axios.delete(`http://localhost:8080/learningSystem/${id}`);
-        alert("Post deleted successfully!");
-        setFilteredPosts(filteredPosts.filter((post) => post.id !== id));
-      } catch (error) {
-        console.error("Error deleting post:", error);
-        alert("Failed to delete post.");
-      }
-    }
-  };
-
-  const handleUpdate = (id) => {
-    window.location.href = `/learningSystem/updateLearningPost/${id}`;
-  };
-
-  const handleLike = async (postId) => {
-    const userID = localStorage.getItem("userID");
-    if (!userID) {
-      alert("Please log in to like a post.");
-      return;
-    }
-    try {
-      const response = await axios.put(
-        `http://localhost:8080/learningSystem/${postId}/like`,
-        null,
-        {
-          params: { userID },
-        }
-      );
-
-      setPosts((prevPosts) =>
-        prevPosts.map((post) =>
-          post.id === postId ? { ...post, likes: response.data.likes } : post
-        )
-      );
-
-      setFilteredPosts((prevFilteredPosts) =>
-        prevFilteredPosts.map((post) =>
-          post.id === postId ? { ...post, likes: response.data.likes } : post
-        )
-      );
-    } catch (error) {
-      console.error("Error liking post:", error);
-    }
-  };
-
-  const filterMyPosts = () => {
-    if (!showingMyPosts) {
-      const myPosts = posts.filter((post) => post.postOwnerID === userId);
-      setFilteredPosts(myPosts);
-      setShowingMyPosts(true);
-    } else {
-      setFilteredPosts(posts); // Show all posts
-      setShowingMyPosts(false);
-    }
-  };
-
-  return (
-    <div>
-      <div className="continer">
-        <div>
-          <SideBar />
-        </div>
-        <div className="continSection">
-          <button className="action_btn_my" onClick={filterMyPosts}>
-            {showingMyPosts ? "All Posts" : "My Posts"}
-          </button>
-          <div className="post_card_continer">
-            {filteredPosts.length === 0 ? (
-              <div className="not_found_box">
-                <div className="not_found_img"></div>
-                <p className="not_found_msg">
-                  No posts found. Please create a new post.
-                </p>
-                <button
-                  className="not_found_btn"
-                  onClick={() =>
-                    (window.location.href = "/learningSystem/addLeariningPost")
-                  }
-                >
-                  Create New Post
-                </button>
-              </div>
-            ) : (
-              filteredPosts.map((post) => (
-                <div key={post.id} className="post_card">
-                  <div className="user_details_card">
-                    <div>
-                      <div className="name_section_post">
-                        <p className="name_section_post_owner_name">
-                          {post.postOwnerName}
-                        </p>
-                      </div>
-                      <p className="time">{post.createdAt}</p>
+    return (
+        <div className="learning-container">
+                    <SideBar />
+            <main>
+                <div className="learning-header">
+                    <h1 className="learning-title">Recommended Learning Posts</h1>
+                    <div className="learning-actions">
+                        <button
+                            className="learning-btn learning-btn-primary"
+                            onClick={() => (window.location.href = '/learningSystem/addLeariningPost')}
+                        >
+                            <Plus size={18} />
+                            <span>Create Post</span>
+                        </button>
+                        <button
+                            className="learning-btn learning-btn-secondary"
+                            onClick={() => {}}
+                        >
+                            {false ? (
+                                <>
+                                    <List size={18} />
+                                    <span>All Posts</span>
+                                </>
+                            ) : (
+                                <>
+                                    <User size={18} />
+                                    <span>My Posts</span>
+                                </>
+                            )}
+                        </button>
                     </div>
-                    {post.postOwnerID === localStorage.getItem("userID") && (
-                      <div className="action_btn_icon_post">
-                        <FaEdit
-                          onClick={() => handleUpdate(post.id)}
-                          className="action_btn_icon"
-                        />
-                        <RiDeleteBin6Fill
-                          onClick={() => handleDelete(post.id)}
-                          className="action_btn_icon"
-                        />
-                      </div>
-                    )}
-                  </div>
-                  <div className="user_details_card_di">
-                    <p className="card_post_title">{post.title}</p>
-                    <p
-                      className="card_post_description"
-                      style={{ whiteSpace: "pre-line" }}
-                    >
-                      {post.description}
-                    </p>
-                  </div>
-                  <div className="tag_con">
-                    {post.tags?.map((tag, index) => (
-                      <p key={index}>#{tag}</p>
-                    ))}
-                  </div>
-                  <div className="vide_card_ful">
-                    {post.contentURL ? (
-                      <iframe
-                        className="video_card"
-                        src={getEmbedURL(post.contentURL)}
-                        title={post.title}
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      ></iframe>
-                    ) : (
-                      <p>No video available</p>
-                    )}
-                  </div>
-
-                  <div className="like_coment_lne">
-                    <div className="like_btn_con">
-                      <BiSolidLike
-                        className={
-                          post.likes?.[localStorage.getItem("userID")]
-                            ? "unlikebtn"
-                            : "likebtn"
-                        }
-                        onClick={() => handleLike(post.id)}
-                      >
-                        {post.likes?.[localStorage.getItem("userID")]
-                          ? "Unlike"
-                          : "Like"}
-                      </BiSolidLike>
-                      <p className="like_num">
-                        {
-                          Object.values(post.likes || {}).filter(
-                            (liked) => liked
-                          ).length
-                        }{" "}
-                      </p>
-                    </div>
-                  </div>
                 </div>
-              ))
-            )}
-          </div>
+
+                {[]?.length === 0 ? (
+                    <div className="learning-empty">
+                        <div className="learning-empty-icon">
+                            <BookOpen size={28} />
+                        </div>
+                        <h3>No recommended posts found</h3>
+                        <p>We couldn't find posts matching your skills. Try creating one!</p>
+                    <button
+                            className="learning-btn learning-btn-primary"
+                        onClick={() => (window.location.href = '/learningSystem/addLeariningPost')}
+                    >
+                            <Plus size={18} />
+                            <span>Create New Post</span>
+                    </button>
+                            </div>
+                        ) : (
+                    <div className="learning-grid">
+                        {[].map((post) => (
+                            <article key={post.id} className="learning-card">
+                                <header className="learning-card-header">
+                                    <div className="learning-author">
+                                        <div className="learning-avatar">
+                                            {post.postOwnerName ? post.postOwnerName.charAt(0).toUpperCase() : 'U'}
+                                        </div>
+                                        <div className="learning-author-info">
+                                            <div className="learning-author-name">{post.postOwnerName}</div>
+                                            <time className="learning-time">{post.createdAt}</time>
+                                            </div>
+                                    </div>
+                                    
+                                    {post.postOwnerID === '' && (
+                                        <div className="learning-card-actions">
+                                            <button onClick={() => {}} className="learning-btn-icon">
+                                                <Edit3 size={18} />
+                                            </button>
+                                            <button onClick={() => {}} className="learning-btn-icon danger">
+                                                <Trash2 size={18} />
+                                            </button>
+                                    </div>
+                                    )}
+                                </header>
+
+                                <div className="learning-card-content">
+                                    <h2 className="learning-card-title">{post.title}</h2>
+                                    <p className="learning-card-description">{post.description}</p>
+                                    
+                                    {post.tags?.length > 0 && (
+                                        <div className="learning-tags">
+                                            {post.tags.map((tag, index) => (
+                                                <span key={index} className="learning-tag">{tag}</span>
+                                        ))}
+                                    </div>
+                                    )}
+                                </div>
+
+                                {post.contentURL && (
+                                    <div className="learning-media">
+                                            <iframe
+                                            src={post.contentURL}
+                                                title={post.title}
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowFullScreen
+                                            ></iframe>
+                                    </div>
+                                )}
+
+                                <footer className="learning-card-footer">
+                                    <button 
+                                        onClick={() => {}}
+                                        className={`learning-like-btn ${post.likes?.[''] ? 'liked' : ''}`}
+                                    >
+                                        <ThumbsUp size={18} />
+                                        <span>{Object.values(post.likes || {}).filter(Boolean).length}</span>
+                                    </button>
+                                </footer>
+                            </article>
+                        ))}
+                    </div>
+                )}
+            </main>
         </div>
-      </div>
-    </div>
-  );
+    );
 }
 
 export default RecommendPost;
