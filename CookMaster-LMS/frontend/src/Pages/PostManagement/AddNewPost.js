@@ -1,98 +1,110 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { Upload, Image as ImageIcon, Video as VideoIcon, X, Plus, Send, Type, FileText, Loader } from 'lucide-react';
-import SideBar from '../../Components/SideBar/SideBar';
-import './AddNewPost.css';
+import React, { useState } from "react";
+import axios from "axios";
+import {
+  Upload,
+  X,
+  Plus,
+  Send,
+  Type,
+  FileText,
+  Loader,
+  Tag,
+} from "lucide-react";
+import SideBar from "../../Components/SideBar/SideBar";
+import "./AddNewPost.css";
 
 function AddNewPost() {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    tags: "",
+    includePoll: false,
+  });
   const [media, setMedia] = useState([]);
   const [mediaPreviews, setMediaPreviews] = useState([]);
-  const userID = localStorage.getItem('userID');
   const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  const userID = localStorage.getItem("userID");
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleMediaChange = (e) => {
     const files = Array.from(e.target.files);
     const maxFileSize = 50 * 1024 * 1024;
+    const errors = {};
 
-    let imageCount = 0;
-    let videoCount = 0;
-    const previews = [];
+    if (files.length > 3) {
+      errors.media = "Maximum 3 files allowed";
+      setErrors(errors);
+      return;
+    }
 
-    for (const file of files) {
+    const validFiles = files.filter((file) => {
       if (file.size > maxFileSize) {
-        alert(`File ${file.name} exceeds the maximum size of 50MB.`);
-        return;
+        errors.media = `File ${file.name} exceeds 50MB limit`;
+        return false;
       }
-
-      if (file.type.startsWith('image/')) {
-        imageCount++;
-      } else if (file.type === 'video/mp4') {
-        videoCount++;
-
-        const video = document.createElement('video');
-        video.preload = 'metadata';
-        video.src = URL.createObjectURL(file);
-
-        video.onloadedmetadata = () => {
-          URL.revokeObjectURL(video.src);
-          if (video.duration > 30) {
-            alert(`Video ${file.name} exceeds the maximum duration of 30 seconds.`);
-            return;
-          }
-        };
-      } else {
-        alert(`Unsupported file type: ${file.type}`);
-        return;
+      if (!file.type.match(/image\/(jpeg|png|jpg)|video\/mp4/)) {
+        errors.media = `Unsupported file type: ${file.type}`;
+        return false;
       }
+      return true;
+    });
 
-      previews.push({ type: file.type, url: URL.createObjectURL(file) });
-    }
-
-    if (imageCount > 3) {
-      alert('You can upload a maximum of 3 images.');
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors);
       return;
     }
 
-    if (videoCount > 1) {
-      alert('You can upload only 1 video.');
-      return;
-    }
-
-    setMedia(files);
-    setMediaPreviews(previews);
-  };
-
-  const removeMedia = (index) => {
-    const newMedia = [...media];
-    const newPreviews = [...mediaPreviews];
-    
-    newMedia.splice(index, 1);
-    newPreviews.splice(index, 1);
-    
-    setMedia(newMedia);
-    setMediaPreviews(newPreviews);
+    setErrors({});
+    setMedia(validFiles);
+    setMediaPreviews(
+      validFiles.map((file) => ({
+        type: file.type,
+        url: URL.createObjectURL(file),
+      }))
+    );
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append('userID', userID);
-    formData.append('title', title);
-    formData.append('description', description);
-    media.forEach((file) => formData.append('mediaFiles', file));
+    setIsLoading(true);
+    setErrors({});
+
+    // Validate tags format
+    if (formData.tags && !/^[a-zA-Z0-9,\s]*$/.test(formData.tags)) {
+      setErrors({ tags: "Tags can only contain letters, numbers, and commas" });
+      setIsLoading(false);
+      return;
+    }
+
+    const formDataToSend = new FormData();
+    formDataToSend.append("userID", userID);
+    formDataToSend.append("title", formData.title);
+    formDataToSend.append("description", formData.description);
+    formDataToSend.append("tags", formData.tags);
+
+    media.forEach((file) => formDataToSend.append("mediaFiles", file));
 
     try {
-      setIsLoading(true);
-      await axios.post('http://localhost:8080/posts', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-      alert('Post created successfully!');
-      window.location.reload();
+      const response = await axios.post(
+        "http://localhost:8080/posts",
+        formDataToSend,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+      alert("Post created successfully!");
+      window.location.href = "/allPost";
     } catch (error) {
-      console.error(error);
-      alert('Failed to create post.');
+      console.error("Error creating post:", error);
+      setErrors({
+        submit: error.response?.data?.message || "Failed to create post",
+      });
     } finally {
       setIsLoading(false);
     }
@@ -107,8 +119,9 @@ function AddNewPost() {
             <Plus size={24} />
             <h1>Create New Post</h1>
           </div>
-          
+
           <form onSubmit={handleSubmit} className="add-post-form">
+            {/* Title */}
             <div className="form-group">
               <label className="form-label">
                 <Type size={18} />
@@ -117,13 +130,15 @@ function AddNewPost() {
               <input
                 className="form-input"
                 type="text"
-                placeholder="Enter an engaging title for your post"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                name="title"
+                placeholder="Enter post title"
+                value={formData.title}
+                onChange={handleInputChange}
                 required
               />
             </div>
-            
+
+            {/* Description */}
             <div className="form-group">
               <label className="form-label">
                 <FileText size={18} />
@@ -131,54 +146,58 @@ function AddNewPost() {
               </label>
               <textarea
                 className="form-textarea"
-                placeholder="Write your post content here..."
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                name="description"
+                placeholder="Write your post content"
+                value={formData.description}
+                onChange={handleInputChange}
                 required
                 rows={6}
               />
             </div>
 
-            <div className="media-upload-section">
+            {/* Media Upload */}
+            <div className="form-group">
               <label className="media-upload-label" htmlFor="media-upload">
                 <Upload size={24} />
                 <div className="media-upload-text">
                   <strong>Click to upload</strong> or drag and drop
                   <br />
-                  Images or videos (max 5 files)
+                  Images or videos (max 3 files, 50MB each)
                 </div>
               </label>
               <input
                 id="media-upload"
                 type="file"
-                accept="image/*,video/*"
+                accept="image/*,video/mp4"
                 multiple
                 onChange={handleMediaChange}
-                style={{ display: 'none' }}
+                style={{ display: "none" }}
               />
+
+              {errors.media && (
+                <div className="error-message">{errors.media}</div>
+              )}
 
               {mediaPreviews.length > 0 && (
                 <div className="media-preview-grid">
                   {mediaPreviews.map((preview, index) => (
                     <div key={index} className="media-preview-item">
-                      {preview.type.startsWith('image/') ? (
-                        <img
-                          src={preview.url}
-                          alt={`Preview ${index + 1}`}
-                        />
+                      {preview.type.startsWith("image/") ? (
+                        <img src={preview.url} alt={`Preview ${index}`} />
                       ) : (
-                        <video
-                          src={preview.url}
-                          muted
-                          loop
-                          onMouseOver={e => e.target.play()}
-                          onMouseOut={e => e.target.pause()}
-                        />
+                        <video src={preview.url} controls />
                       )}
                       <button
                         type="button"
                         className="media-remove-btn"
-                        onClick={() => removeMedia(index)}
+                        onClick={() => {
+                          const newMedia = [...media];
+                          const newPreviews = [...mediaPreviews];
+                          newMedia.splice(index, 1);
+                          newPreviews.splice(index, 1);
+                          setMedia(newMedia);
+                          setMediaPreviews(newPreviews);
+                        }}
                       >
                         <X size={14} />
                       </button>
@@ -187,19 +206,25 @@ function AddNewPost() {
                 </div>
               )}
             </div>
-            
+
+            {errors.submit && (
+              <div className="error-message">{errors.submit}</div>
+            )}
+
             <div className="form-actions">
-              <button 
-                type="button" 
+              <button
+                type="button"
                 className="form-btn form-btn-secondary"
-                onClick={() => window.location.href = '/allPost'}
+                onClick={() => (window.location.href = "/allPost")}
               >
                 <X size={18} />
                 Cancel
               </button>
-              <button 
-                type="submit" 
-                className={`form-btn form-btn-primary ${isLoading ? 'loading' : ''}`}
+              <button
+                type="submit"
+                className={`form-btn form-btn-primary ${
+                  isLoading ? "loading" : ""
+                }`}
                 disabled={isLoading}
               >
                 {isLoading ? (

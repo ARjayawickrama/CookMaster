@@ -452,6 +452,7 @@ function AllPost() {
                 <div className="post-content">
                   <h2 className="post-title">{post.title}</h2>
                   <p className="post-description">{post.description}</p>
+                  <p className="post-description">{post.tags}</p>
 
                   {post.media && post.media.length > 0 && (
                     <div className="post-media-grid">
