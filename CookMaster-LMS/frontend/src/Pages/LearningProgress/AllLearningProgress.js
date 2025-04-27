@@ -67,7 +67,7 @@ function AllLearningProgress() {
   };
 
   return (
-    <div style={{ backgroundColor: "#fff9f2", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "#fff9f2", minHeight: "100vh", marginTop:"80px" }}>
       <div style={{ display: "flex", fontFamily: "'Poppins', sans-serif" }}>
         <div>
           <SideBar />
@@ -100,12 +100,12 @@ function AllLearningProgress() {
 
             <div style={{ display: "flex", gap: "1rem" }}>
             <button
-  className="actionButton_add"
-  style={{ backgroundColor: "#ff7733", color: "white" }}
-  onClick={() => (window.location.href = "/addLearningProgress")}
+              className="actionButton_add"
+              style={{ backgroundColor: "#ff7733", color: "white" }}
+              onClick={() => (window.location.href = "/addLearningProgress")}
 >
-  <FaPen className="mr-2" />
-</button>
+             <FaPen className="mr-2" />
+            </button>
 
 
               <button
