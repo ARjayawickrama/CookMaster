@@ -9,11 +9,11 @@ public class NotificationModel {
     @Id
     @GeneratedValue
     private String id;
-    private String userId; // The user who owns this notification
-    private String message; // Notification message
-    private boolean read; // Whether the notification has been read
-    private String createdAt; // Timestamp of the notification
-
+    private String userId; 
+    private String message; 
+    private boolean read; 
+    private String createdAt; 
+    
     public NotificationModel() {}
 
     public NotificationModel(String userId, String message, boolean read, String createdAt) {
@@ -62,4 +62,6 @@ public class NotificationModel {
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
+    
+    
 }
