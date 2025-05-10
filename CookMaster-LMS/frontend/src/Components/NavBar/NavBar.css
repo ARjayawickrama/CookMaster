@@ -1,18 +1,7 @@
 /* NavBar.css - Modern Facebook UI */
 @import url('https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@400;500;600;700&display=swap');
 
-:root {
-  --fb-blue: #1877f2;
-  --fb-blue-hover: #166fe5;
-  --fb-gray: #65676b;
-  --fb-light-gray: #e4e6eb;
-  --fb-bg-gray: #f0f2f5;
-  --fb-white: #ffffff;
-  --fb-black: #1c1e21;
-  --fb-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  --fb-radius: 8px;
-  --fb-transition: all 0.2s ease;
-}
+
 
 .nav_con {
   width: 100%;
@@ -237,8 +226,8 @@
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
   .nav_con {
-    background: #18191a;
-    border-bottom-color: #3e4042;
+    background: #ffffff;
+
   }
 
   .nav_item_icon,
@@ -248,7 +237,7 @@
 
   .nav_item_icon:hover,
   .nav_item_icon_noty:hover {
-    background: #3a3b3c;
+  
     color: var(--fb-blue);
   }
 

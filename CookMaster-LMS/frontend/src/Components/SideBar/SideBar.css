@@ -1,17 +1,3 @@
-/* SideBar.css - Facebook-like UI */
-:root {
-  --fb-blue: #1877f2;
-  --fb-blue-hover: #166fe5;
-  --fb-gray: #65676b;
-  --fb-light-gray: #e4e6eb;
-  --fb-bg-gray: #f0f2f5;
-  --fb-white: #ffffff;
-  --fb-black: #1c1e21;
-  --fb-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  --fb-radius: 8px;
-  --fb-transition: all 0.2s ease;
-}
-
 .side_bar {
   position: fixed;
   background: var(--fb-white);
@@ -25,9 +11,6 @@
   flex-direction: column;
   z-index: 1000;
   overflow-y: auto;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 .side_logoo {
@@ -68,7 +51,6 @@
   gap: 10px;
   position: relative;
   background: transparent;
-  margin: 2px 0;
 }
 
 .side_bar_nav_item:hover {
@@ -92,10 +74,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   color: var(--fb-gray);
   transition: var(--fb-transition);
-  border-radius: 50%;
 }
 
 .side_bar_nav_item--active i {
@@ -104,7 +85,6 @@
 
 .side_bar_nav_item:hover i {
   color: var(--fb-blue);
-  background: var(--fb-light-gray);
 }
 
 /* Divider */
@@ -116,11 +96,10 @@
 
 /* Section header */
 .sidebar_section_header {
-  font-size: 1.0625rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--fb-gray);
   padding: 12px 12px 8px;
-  margin-top: 8px;
 }
 
 /* Responsive behavior */
@@ -144,7 +123,7 @@
   .side_bar_nav_item i {
     width: 28px;
     height: 28px;
-    font-size: 1.125rem;
+    font-size: 1rem;
   }
 
   .side_bar_nav_item span {
@@ -155,46 +134,4 @@
   .sidebar_section_header {
     display: none;
   }
-}
-
-/* Scrollbar styling */
-.side_bar::-webkit-scrollbar {
-  width: 8px;
-}
-
-.side_bar::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.side_bar::-webkit-scrollbar-thumb {
-  background: #bcc0c4;
-  border-radius: 4px;
-}
-
-.side_bar::-webkit-scrollbar-thumb:hover {
-  background: #8b8d90;
-}
-
-/* Active state enhancements */
-.side_bar_nav_item--active::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 3px;
-  height: 20px;
-  background: var(--fb-blue);
-  border-radius: 0 2px 2px 0;
-}
-
-/* Hover animation for icons */
-@keyframes iconPulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
-}
-
-.side_bar_nav_item:hover i {
-  animation: iconPulse 0.3s ease;
 }

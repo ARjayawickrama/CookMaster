@@ -10,7 +10,7 @@
   --fb-green-hover: #36a420;
   --fb-gray: #65676b;
   --fb-light-gray: #ffffff;
-  --fb-bg-gray: #ffffff;
+  --fb-bg-gray: #f0f2f5;
   --fb-white: #ffffff;
   --fb-black: #1c1e21;
   --fb-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
@@ -20,7 +20,81 @@
   --recipe-orange: #ff6b6b;
   --recipe-orange-hover: #ff8e53;
 }
+/* Notification Styles */
+.post-notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
 
+.post-notification.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.post-notification.success {
+  background: #1877f2;
+  color: white;
+  border-left: 4px solid #166fe5;
+}
+
+.post-notification.error {
+  background: #f02849;
+  color: white;
+  border-left: 4px solid #d92d40;
+}
+
+/* Loading Spinner */
+.fb-loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #1877f2;
+  border-radius: 50%;
+  animation: fb-spin 0.8s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes fb-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Button Loading State */
+.fb-button.loading {
+  position: relative;
+  pointer-events: none;
+}
+
+.fb-button.loading span {
+  visibility: hidden;
+}
+
+.fb-button.loading::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  border: 2px solid #fff;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: fb-spin 0.8s linear infinite;
+}
 .posts-container {
   display: flex;
   min-height: 100vh;
@@ -489,5 +563,161 @@
 
   .post-comments-section {
     padding: 12px;
+  }
+}
+
+/* Confirmation Dialog Styles */
+.confirmation-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--fb-white);
+  border-radius: var(--fb-radius-lg);
+  padding: 24px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  animation: dialogFadeIn 0.3s ease-out;
+}
+
+.confirmation-dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+  animation: overlayFadeIn 0.3s ease-out;
+}
+
+.confirmation-dialog-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--fb-black);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.confirmation-dialog-message {
+  color: var(--fb-gray);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.confirmation-dialog-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.confirmation-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: var(--fb-radius);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.confirmation-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.confirmation-btn:hover::before {
+  transform: translateX(100%);
+}
+
+.confirmation-btn-yes {
+  background: linear-gradient(135deg, var(--fb-blue), var(--fb-blue-hover));
+  color: var(--fb-white);
+  box-shadow: 0 2px 8px rgba(24, 119, 242, 0.25);
+}
+
+.confirmation-btn-yes:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3);
+}
+
+.confirmation-btn-no {
+  background: var(--fb-light-gray);
+  color: var(--fb-gray);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.confirmation-btn-no:hover {
+  background: var(--fb-gray-100);
+  color: var(--fb-black);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.confirmation-btn:active {
+  transform: translateY(0);
+}
+
+@keyframes dialogFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes overlayFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Dark Mode Support for Confirmation Dialog */
+@media (prefers-color-scheme: dark) {
+  .confirmation-dialog {
+    background: var(--fb-gray-600);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .confirmation-dialog-title {
+    color: var(--fb-white);
+  }
+
+  .confirmation-dialog-message {
+    color: var(--fb-gray-300);
+  }
+
+  .confirmation-btn-no {
+    background: var(--fb-gray-500);
+    color: var(--fb-gray-300);
+  }
+
+  .confirmation-btn-no:hover {
+    background: var(--fb-gray-400);
+    color: var(--fb-white);
   }
 }
