@@ -3,14 +3,19 @@ import "./SideBar.css";
 import NavBar from "../NavBar/NavBar";
 import {
   FaHome,
-  FaFire,
-  FaBook,
+  FaRocket,
+  FaGraduationCap,
   FaLightbulb,
   FaUserFriends,
   FaFlag,
   FaCalendarAlt,
   FaBookmark,
   FaChevronDown,
+  FaUsers,
+  FaStore,
+  FaVideo,
+  FaGamepad,
+  FaHistory,
 } from "react-icons/fa";
 
 function SideBar() {
@@ -41,7 +46,7 @@ function SideBar() {
           onClick={() => (window.location.href = "/allPost")}
         >
           <i>
-            <FaFire />
+            <FaRocket />
           </i>
           <span>BoostPost</span>
         </div>
@@ -55,7 +60,7 @@ function SideBar() {
           onClick={() => (window.location.href = "/allLearningProgress")}
         >
           <i>
-            <FaBook />
+            <FaGraduationCap />
           </i>
           <span>LearnTrack</span>
         </div>
@@ -86,27 +91,39 @@ function SideBar() {
       <div className="side_bar_nav_item_con">
         <div className="side_bar_nav_item">
           <i>
-            <FaUserFriends />
+            <FaUsers />
           </i>
-          <span>Friends</span>
+          <span>Groups</span>
         </div>
         <div className="side_bar_nav_item">
           <i>
-            <FaFlag />
+            <FaStore />
           </i>
-          <span>Pages</span>
+          <span>Marketplace</span>
         </div>
         <div className="side_bar_nav_item">
           <i>
-            <FaCalendarAlt />
+            <FaVideo />
           </i>
-          <span>Events</span>
+          <span>Watch</span>
+        </div>
+        <div className="side_bar_nav_item">
+          <i>
+            <FaHistory />
+          </i>
+          <span>Memories</span>
         </div>
         <div className="side_bar_nav_item">
           <i>
             <FaBookmark />
           </i>
           <span>Saved</span>
+        </div>
+        <div className="side_bar_nav_item">
+          <i>
+            <FaGamepad />
+          </i>
+          <span>Gaming</span>
         </div>
         <div className="side_bar_nav_item">
           <i>
