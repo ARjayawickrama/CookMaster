@@ -30,11 +30,11 @@ function AllPost() {
   const [showMyPosts, setShowMyPosts] = useState(false); // Toggle for "My Posts"
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMedia, setSelectedMedia] = useState(null);
-  const [followedUsers, setFollowedUsers] = useState([]); // State to track followed users
-  const [newComment, setNewComment] = useState({}); // State for new comments
-  const [editingComment, setEditingComment] = useState({}); // State for editing comments
+  const [followedUsers, setFollowedUsers] = useState([]);
+  const [newComment, setNewComment] = useState({});
+  const [editingComment, setEditingComment] = useState({});
   const navigate = useNavigate();
-  const loggedInUserID = localStorage.getItem("userID"); // Get the logged-in user's ID
+  const loggedInUserID = localStorage.getItem("userID");
 
   useEffect(() => {
     // Fetch all posts from the backend

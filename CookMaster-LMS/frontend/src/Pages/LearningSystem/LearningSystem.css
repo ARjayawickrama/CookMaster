@@ -6,12 +6,12 @@
   --secondary: #38B2AC; /* Teal */
   --background: #F7FAFC; /* Lightest gray */
   --background-light: #FFFFFF; /* White */
-  --text: #2D3748; /* Dark gray */
+  --text: #f9f9f9; /* Dark gray */
   --text-light: #718096; /* Medium gray */
   --text-lighter: #A0AEC0; /* Light gray */
   --error: #E53E3E; /* Red */
   --success: #48BB78; /* Green */
-  --warning: #DD6B20; /* Orange */
+  --warning: #040302; /* Orange */
   --border: #E2E8F0; /* Light gray border */
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -54,6 +54,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .learning-title {
+  color: white;
   font-size: 2rem;
   font-weight: 800;
   letter-spacing: -0.025em;
@@ -144,6 +145,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Card Styles */
 .learning-grid {
+  
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 1.5rem;
@@ -333,7 +335,7 @@ h1, h2, h3, h4, h5, h6 {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(255, 10, 10, 0.5);
   backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
@@ -379,12 +381,14 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1.5rem;
   font-weight: 700;
   margin: 0;
+  color: white;
 }
 
 .learning-form-subtitle {
   font-size: 0.95rem;
-  opacity: 0.9;
+  
   margin: 0.5rem 0 0;
+  color: white;
 }
 
 .learning-close-btn {
@@ -723,6 +727,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   
   .learning-title {
+    color: white;
     font-size: 1.75rem;
   }
   

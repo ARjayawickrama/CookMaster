@@ -1,25 +1,35 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { Plus, X, FileText, Tag, Globe, AlertCircle, Loader, ArrowLeft, BookOpen } from 'lucide-react';
-import './LearningSystem.css';
-import SideBar from '../../Components/SideBar/SideBar';
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import {
+  Plus,
+  X,
+  FileText,
+  Tag,
+  Globe,
+  AlertCircle,
+  Loader,
+  ArrowLeft,
+  BookOpen,
+} from "lucide-react";
+import "./LearningSystem.css";
+import SideBar from "../../Components/SideBar/SideBar";
 
 function AddLeariningPost() {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [contentURL, setContentURL] = useState('');
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [contentURL, setContentURL] = useState("");
   const [tags, setTags] = useState([]);
-  const [tagInput, setTagInput] = useState('');
+  const [tagInput, setTagInput] = useState("");
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
   const handleAddTag = () => {
-    if (tagInput.trim() !== '') {
+    if (tagInput.trim() !== "") {
       setTags([...tags, tagInput.trim()]);
-      setTagInput('');
-      if (errors.tags) setErrors({...errors, tags: ''});
+      setTagInput("");
+      if (errors.tags) setErrors({ ...errors, tags: "" });
     }
   };
 
@@ -29,36 +39,43 @@ function AddLeariningPost() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const postOwnerID = localStorage.getItem('userID');
-    const postOwnerName = localStorage.getItem('userFullName');
-    
+    const postOwnerID = localStorage.getItem("userID");
+    const postOwnerName = localStorage.getItem("userFullName");
+
     // Validate form
     const newErrors = {};
-    if (!title.trim()) newErrors.title = 'Title is required';
-    if (!description.trim()) newErrors.description = 'Description is required';
-    if (!contentURL.trim()) newErrors.contentURL = 'Content URL is required';
-    if (tags.length < 2) newErrors.tags = 'Please add at least two tags';
-    
+    if (!title.trim()) newErrors.title = "Title is required";
+    if (!description.trim()) newErrors.description = "Description is required";
+    if (!contentURL.trim()) newErrors.contentURL = "Content URL is required";
+    if (tags.length < 2) newErrors.tags = "Please add at least two tags";
+
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
-    
+
     if (!postOwnerID) {
-      alert('Please log in to add a post.');
-      navigate('/'); 
+      alert("Please log in to add a post.");
+      navigate("/");
       return;
     }
-    
+
     setIsSubmitting(true);
-    const newPost = { title, description, contentURL, tags, postOwnerID, postOwnerName }; 
-    
+    const newPost = {
+      title,
+      description,
+      contentURL,
+      tags,
+      postOwnerID,
+      postOwnerName,
+    };
+
     try {
-      await axios.post('http://localhost:8080/learningSystem', newPost);
-      navigate('/learningSystem/allLearningPost');
+      await axios.post("http://localhost:8080/learningSystem", newPost);
+      navigate("/learningSystem/allLearningPost");
     } catch (error) {
-      console.error('Error adding post:', error);
-      alert('Failed to add post.');
+      console.error("Error adding post:", error);
+      alert("Failed to add post.");
     } finally {
       setIsSubmitting(false);
     }
@@ -70,24 +87,52 @@ function AddLeariningPost() {
       <main>
         <div className="learning-header">
           <div className="learning-header-content">
-            <button 
-              className="learning-back-btn" 
-              onClick={() => navigate('/learningSystem/allLearningPost')}
+            <button
+              onClick={() => navigate("/learningSystem/allLearningPost")}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                backgroundColor: "#16a34a",
+                color: "white",
+                padding: "8px 16px",
+                borderRadius: "12px",
+                border: "none",
+                boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                cursor: "pointer",
+                transition: "background-color 0.3s ease",
+              }}
+              onMouseOver={(e) =>
+                (e.currentTarget.style.backgroundColor = "#15803d")
+              } // green-700 on hover
+              onMouseOut={(e) =>
+                (e.currentTarget.style.backgroundColor = "#16a34a")
+              }
             >
               <ArrowLeft size={18} />
               Back to Posts
             </button>
-            <h1 className="learning-title">Create  Post</h1>
-            <p className="learning-subtitle">Share your knowledge with the community</p>
+
+            <h1 className="learning-title">Create Post</h1>
           </div>
         </div>
-        
-        <div className="learning-form">
+
+        <div
+          className="learning-form"
+          style={{
+            
+          
+            maxWidth: "700px",
+            margin: "auto",
+          }}
+        >
           <div className="learning-form-header">
             <h2 className="learning-form-title">New Post</h2>
-            <p className="learning-form-subtitle">Share valuable resources with your peers</p>
+            <p className="learning-form-subtitle">
+              Share valuable resources with your peers
+            </p>
           </div>
-          
+
           <form onSubmit={handleSubmit} className="learning-form-content">
             <div className="learning-form-group">
               <label className="learning-label">
@@ -96,11 +141,11 @@ function AddLeariningPost() {
               </label>
               <input
                 type="text"
-                className={`learning-input ${errors.title ? 'error' : ''}`}
+                className={`learning-input ${errors.title ? "error" : ""}`}
                 value={title}
                 onChange={(e) => {
                   setTitle(e.target.value);
-                  if (errors.title) setErrors({...errors, title: ''});
+                  if (errors.title) setErrors({ ...errors, title: "" });
                 }}
                 placeholder="Enter a descriptive title for your post"
                 required
@@ -120,11 +165,12 @@ function AddLeariningPost() {
               </label>
               <input
                 type="url"
-                className={`learning-input ${errors.contentURL ? 'error' : ''}`}
+                className={`learning-input ${errors.contentURL ? "error" : ""}`}
                 value={contentURL}
                 onChange={(e) => {
                   setContentURL(e.target.value);
-                  if (errors.contentURL) setErrors({...errors, contentURL: ''});
+                  if (errors.contentURL)
+                    setErrors({ ...errors, contentURL: "" });
                 }}
                 placeholder="https://example.com/article"
                 required
@@ -135,7 +181,9 @@ function AddLeariningPost() {
                   {errors.contentURL}
                 </div>
               )}
-              <small className="learning-input-help">YouTube links will be embedded automatically</small>
+              <small className="learning-input-help">
+                YouTube links will be embedded automatically
+              </small>
             </div>
 
             <div className="learning-form-group">
@@ -143,13 +191,13 @@ function AddLeariningPost() {
                 <Tag size={18} />
                 Tags
               </label>
-              <div className={`learning-tags ${errors.tags ? 'error' : ''}`}>
+              <div className={`learning-tags ${errors.tags ? "error" : ""}`}>
                 {tags.map((tag, index) => (
                   <div key={index} className="learning-tag">
                     {tag}
-                    <button 
-                      type="button" 
-                      onClick={() => handleRemoveTag(index)} 
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveTag(index)}
                       className="learning-tag-remove"
                       aria-label={`Remove tag ${tag}`}
                     >
@@ -165,11 +213,13 @@ function AddLeariningPost() {
                   value={tagInput}
                   onChange={(e) => setTagInput(e.target.value)}
                   placeholder="Add tags (press Enter)"
-                  onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddTag())}
+                  onKeyPress={(e) =>
+                    e.key === "Enter" && (e.preventDefault(), handleAddTag())
+                  }
                 />
-                <button 
-                  type="button" 
-                  onClick={handleAddTag} 
+                <button
+                  type="button"
+                  onClick={handleAddTag}
                   className="learning-btn-secondary"
                 >
                   Add
@@ -181,7 +231,9 @@ function AddLeariningPost() {
                   {errors.tags}
                 </div>
               )}
-              <small className="learning-input-help">Add at least 2 tags to categorize your post</small>
+              <small className="learning-input-help">
+                Add at least 2 tags to categorize your post
+              </small>
             </div>
 
             <div className="learning-form-group">
@@ -190,11 +242,14 @@ function AddLeariningPost() {
                 Description
               </label>
               <textarea
-                className={`learning-textarea ${errors.description ? 'error' : ''}`}
+                className={`learning-textarea ${
+                  errors.description ? "error" : ""
+                }`}
                 value={description}
                 onChange={(e) => {
                   setDescription(e.target.value);
-                  if (errors.description) setErrors({...errors, description: ''});
+                  if (errors.description)
+                    setErrors({ ...errors, description: "" });
                 }}
                 placeholder="Write a detailed description of this learning resource"
                 rows={5}
@@ -209,16 +264,16 @@ function AddLeariningPost() {
             </div>
 
             <div className="learning-form-actions">
-              <button 
-                type="button" 
+              <button
+                type="button"
                 className="learning-btn learning-btn-secondary"
-                onClick={() => navigate('/learningSystem/allLearningPost')}
+                onClick={() => navigate("/learningSystem/allLearningPost")}
                 disabled={isSubmitting}
               >
                 Cancel
               </button>
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 className="learning-btn learning-btn-primary"
                 disabled={isSubmitting}
               >

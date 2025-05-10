@@ -4,7 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600&family=Dancing+Script:wght@700&display=swap');
 
 :root {
-  --primary: #E74C3C; /* Tomato red */
+  --primary: #fff6f5; /* Tomato red */
   --primary-light: #FF6B57; /* Lighter red */
   --secondary: #F39C12; /* Orange */
   --accent: #27AE60; /* Fresh green */
