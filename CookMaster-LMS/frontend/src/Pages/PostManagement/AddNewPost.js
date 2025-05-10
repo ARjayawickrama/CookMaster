@@ -117,18 +117,55 @@ function AddNewPost() {
         <div className="add-post-card">
           <div className="add-post-header">
             <Plus size={24} />
-            <h1>Create New Post</h1>
+            <h1 className="CreateNewPost">Create New Post</h1>
           </div>
 
           <form onSubmit={handleSubmit} className="add-post-form">
             {/* Title */}
-            <div className="form-group">
-              <label className="form-label">
-                <Type size={18} />
+            <div
+              style={{
+                marginBottom: "1.5rem",
+                position: "relative",
+              }}
+            >
+              <label
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                  color: "#2d3436",
+                  fontSize: "0.875rem",
+                  fontWeight: "600",
+                  marginBottom: "0.5rem",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.5px",
+                }}
+              >
+                <Type size={25} style={{ color: "#4a90e2" }} />
                 Post Title
               </label>
               <input
-                className="form-input"
+                style={{
+                  width: "100%",
+                  padding: "0.875rem 1.25rem",
+                  border: "2px solid #e3e8f2",
+                  borderRadius: "8px",
+                  backgroundColor: "#ffffff",
+                  fontSize: "1rem",
+                  color: "#2d3436",
+                  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                  boxShadow: "0 1px 2px rgba(0, 0, 0, 0.05)",
+                  boxSizing: "border-box",
+                  outline: "none",
+                  ":focus": {
+                    borderColor: "#4a90e2",
+                    boxShadow: "0 0 0 3px rgba(74, 144, 226, 0.2)",
+                  },
+                  "::placeholder": {
+                    color: "#94a3b8",
+                    opacity: "1",
+                  },
+                }}
                 type="text"
                 name="title"
                 placeholder="Enter post title"
@@ -137,17 +174,67 @@ function AddNewPost() {
                 required
               />
             </div>
-
             {/* Description */}
-            <div className="form-group">
-              <label className="form-label">
-                <FileText size={18} />
+            <div
+              style={{
+                marginBottom: "1.5rem",
+                position: "relative",
+              }}
+            >
+              <label
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.75rem",
+                  color: "#2d3436",
+                  fontSize: "0.875rem",
+                  fontWeight: "600",
+                  marginBottom: "1rem",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.5px",
+                  paddingLeft: "4px",
+                }}
+              >
+                <FileText
+                  size={25}
+                  style={{
+                    color: "#4a90e2",
+                    strokeWidth: "1.5",
+                    transform: "translateY(-1px)",
+                  }}
+                />
                 Description
               </label>
+
               <textarea
-                className="form-textarea"
+                style={{
+                  width: "100%",
+                  padding: "1.25rem",
+                  border: "2px solid #e3e8f2",
+                  borderRadius: "12px",
+                  backgroundColor: "#ffffff",
+                  fontSize: "1rem",
+                  lineHeight: "1.6",
+                  color: "#2d3436",
+                  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.03)",
+                  outline: "none",
+                  minHeight: "180px",
+                  resize: "vertical",
+                  fontFamily: "inherit",
+                  ":focus": {
+                    borderColor: "#4a90e2",
+                    boxShadow: "0 0 0 4px rgba(74, 144, 226, 0.15)",
+                    backgroundColor: "#f8faff",
+                  },
+                  "::placeholder": {
+                    color: "#94a3b8",
+                    fontStyle: "italic",
+                    letterSpacing: "0.3px",
+                  },
+                }}
                 name="description"
-                placeholder="Write your post content"
+                placeholder="Write your post content..."
                 value={formData.description}
                 onChange={handleInputChange}
                 required
@@ -158,11 +245,11 @@ function AddNewPost() {
             {/* Media Upload */}
             <div className="form-group">
               <label className="media-upload-label" htmlFor="media-upload">
-                <Upload size={24} />
+                <Upload size={25} />
                 <div className="media-upload-text">
                   <strong>Click to upload</strong> or drag and drop
                   <br />
-                  Images or videos (max 3 files, 50MB each)
+                  Images or videos ( 50MB )
                 </div>
               </label>
               <input

@@ -1,13 +1,4 @@
 /* AddNewPost.css - Enhanced Cooking/Recipe Theme */
-.add-post-container {
-  display: flex;
-  min-height: 100vh;
-  background-color: var(--background);
-  background-image: url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=1935&auto=format&fit=crop');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-}
 
 .add-post-content {
   flex: 1;
@@ -44,6 +35,9 @@
   gap: 16px;
   position: relative;
   overflow: hidden;
+}
+.CreateNewPost{
+  color: white;
 }
 
 .add-post-header::before {
@@ -369,4 +363,5 @@
   .recipe-meta-fields {
     grid-template-columns: 1fr;
   }
+  
 }
