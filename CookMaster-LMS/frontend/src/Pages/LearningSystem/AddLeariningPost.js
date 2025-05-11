@@ -228,22 +228,24 @@ function AddLeariningPost() {
                 ))}
               </div>
               <div className="learning-tags-input">
-                <input
-                  type="text"
-                  className="learning-input"
-                  value={tagInput}
-                  onChange={(e) => setTagInput(e.target.value)}
-                  placeholder="Add tags (press Enter)"
-                  onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddTag())}
-                />
-                <button 
-                  type="button" 
-                  onClick={handleAddTag} 
-                  className="learning-btn-secondary"
-                >
-                  Add
-                </button>
-              </div>
+  <input
+    type="text"
+    className="learning-input"
+    value={tagInput}
+    onChange={(e) => setTagInput(e.target.value)}
+    placeholder="Add tags (press Enter)"
+    onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddTag())}
+    style={{ color: 'black' }} // Inline style to set text color to black
+  />
+  <button 
+    type="button" 
+    onClick={handleAddTag} 
+    className="learning-btn-secondary"
+  >
+    Add
+  </button>
+</div>
+
               {errors.tags && (
                 <div className="error-message">
                   <AlertCircle size={16} />

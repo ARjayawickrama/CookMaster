@@ -2,8 +2,8 @@ import React, { useRef, useState, useEffect } from "react";
 import axios from "axios";
 import { chatbotMessages } from "../ChatBot/messages"; // ✅ Correct for named exports
 
-import assistantAvatar from "../../assets/assistant.png";
-import chatbotIcon from "../../assets/assistant.png";
+import assistantAvatar from "../../assets/1.png";
+import chatbotIcon from "../../assets/1.png";
 import {
   FaTimes,
   FaPaperPlane,
@@ -40,14 +40,15 @@ const Chatbot = () => {
 
   // Facebook-inspired color theme
   const theme = {
-    primary: "#1877f2", // Facebook blue
-    secondary: "#42b72a", // Facebook green
-    accent: "#ff69b4",
-    background: "#f0f2f5", // Facebook background
-    card: "#ffffff",
-    text: "#050505",
-    textSecondary: "#65676b",
-  };
+  primary: "#155E95",       
+  secondary: "#3674B5",      // Facebook green
+  accent: "#ff69b4",         // Pink accent (your custom touch)
+  background: "white",     // Facebook-like light background
+  card: "white",           // Card background (white)
+  text: "#050505",           // Primary dark text
+  textSecondary: "#65676b",  // Muted/secondary text
+};
+
 
   // Load chat history from localStorage
   useEffect(() => {
