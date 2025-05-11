@@ -73,19 +73,19 @@ function UpdateLearningProgress() {
               borderRadius: "15px",
               padding: "2rem",
               boxShadow: "0 5px 15px rgba(0,0,0,0.08)",
-              borderTop: "5px solid #ff9a3c",
+              borderTop: "5px solid #1877F2",
             }}
           >
             <h1
               style={{
-                color: "#e67e22",
+                color: "#1877F2",
                 marginBottom: "1.5rem",
                 display: "flex",
                 alignItems: "center",
                 gap: "0.5rem",
               }}
             >
-              <FaUtensils style={{ color: "#ff7733" }} />
+              <FaUtensils style={{ color: "#1877F2" }} />
               Update Recipe Progress
             </h1>
 
@@ -96,7 +96,7 @@ function UpdateLearningProgress() {
                     display: "block",
                     marginBottom: "0.5rem",
                     fontWeight: "600",
-                    color: "#e67e22",
+                    color: "#1877F2",
                   }}
                 >
                   Recipe Name
@@ -108,12 +108,6 @@ function UpdateLearningProgress() {
                     borderRadius: "8px",
                     border: "1px solid #ddd",
                     fontSize: "1rem",
-                    transition: "border 0.3s ease",
-                    ":focus": {
-                      outline: "none",
-                      borderColor: "#ff9a3c",
-                      boxShadow: "0 0 0 2px rgba(255, 154, 60, 0.2)",
-                    },
                   }}
                   name="skillTitle"
                   placeholder="e.g. Spaghetti Carbonara"
@@ -129,7 +123,7 @@ function UpdateLearningProgress() {
                     display: "block",
                     marginBottom: "0.5rem",
                     fontWeight: "600",
-                    color: "#e67e22",
+                    color: "#1877F2",
                   }}
                 >
                   Cooking Notes
@@ -142,12 +136,6 @@ function UpdateLearningProgress() {
                     border: "1px solid #ddd",
                     fontSize: "1rem",
                     minHeight: "120px",
-                    transition: "border 0.3s ease",
-                    ":focus": {
-                      outline: "none",
-                      borderColor: "#ff9a3c",
-                      boxShadow: "0 0 0 2px rgba(255, 154, 60, 0.2)",
-                    },
                   }}
                   name="description"
                   placeholder="Describe your cooking process, ingredients, and tips..."
@@ -163,7 +151,7 @@ function UpdateLearningProgress() {
                     display: "block",
                     marginBottom: "0.5rem",
                     fontWeight: "600",
-                    color: "#e67e22",
+                    color: "#1877F2",
                   }}
                 >
                   Cuisine Type
@@ -177,11 +165,10 @@ function UpdateLearningProgress() {
                     fontSize: "1rem",
                     appearance: "none",
                     backgroundImage:
-                      'url(\'data:image/svg+xml;charset=US-ASCII,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M5 8l5 5 5-5z" fill="%23e67e22"/></svg>\')',
+                      'url(\'data:image/svg+xml;charset=US-ASCII,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M5 8l5 5 5-5z" fill="%231877F2"/></svg>\')',
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "right 0.8rem center",
                     backgroundSize: "16px",
-                    transition: "border 0.3s ease",
                   }}
                   name="field"
                   value={formData.field}
@@ -214,13 +201,12 @@ function UpdateLearningProgress() {
                 <div>
                   <label
                     style={{
-                      display: "block",
-                      marginBottom: "0.5rem",
-                      fontWeight: "600",
-                      color: "#e67e22",
                       display: "flex",
                       alignItems: "center",
                       gap: "0.5rem",
+                      fontWeight: "600",
+                      color: "#1877F2",
+                      marginBottom: "0.5rem",
                     }}
                   >
                     <FaCalendarAlt /> First Attempt
@@ -232,7 +218,6 @@ function UpdateLearningProgress() {
                       borderRadius: "8px",
                       border: "1px solid #ddd",
                       fontSize: "1rem",
-                      transition: "border 0.3s ease",
                     }}
                     name="startDate"
                     type="date"
@@ -245,13 +230,12 @@ function UpdateLearningProgress() {
                 <div>
                   <label
                     style={{
-                      display: "block",
-                      marginBottom: "0.5rem",
-                      fontWeight: "600",
-                      color: "#e67e22",
                       display: "flex",
                       alignItems: "center",
                       gap: "0.5rem",
+                      fontWeight: "600",
+                      color: "#1877F2",
+                      marginBottom: "0.5rem",
                     }}
                   >
                     <FaCalendarAlt /> Last Attempt
@@ -263,7 +247,6 @@ function UpdateLearningProgress() {
                       borderRadius: "8px",
                       border: "1px solid #ddd",
                       fontSize: "1rem",
-                      transition: "border 0.3s ease",
                     }}
                     name="endDate"
                     type="date"
@@ -286,13 +269,12 @@ function UpdateLearningProgress() {
               <div style={{ marginBottom: "2rem" }}>
                 <label
                   style={{
-                    display: "block",
-                    marginBottom: "0.5rem",
-                    fontWeight: "600",
-                    color: "#e67e22",
                     display: "flex",
                     alignItems: "center",
                     gap: "0.5rem",
+                    fontWeight: "600",
+                    color: "#1877F2",
+                    marginBottom: "0.5rem",
                   }}
                 >
                   <FaPercent /> Mastery Level
@@ -305,7 +287,6 @@ function UpdateLearningProgress() {
                     borderRadius: "8px",
                     border: "1px solid #ddd",
                     fontSize: "1rem",
-                    transition: "border 0.3s ease",
                   }}
                   name="level"
                   placeholder="0-100"
@@ -343,7 +324,7 @@ function UpdateLearningProgress() {
               <button
                 type="submit"
                 style={{
-                  backgroundColor: "#ff7733",
+                  backgroundColor: "#1877F2",
                   color: "white",
                   border: "none",
                   padding: "0.8rem 1.8rem",
@@ -352,12 +333,14 @@ function UpdateLearningProgress() {
                   fontSize: "1rem",
                   fontWeight: "600",
                   transition: "all 0.2s ease",
-                  boxShadow: "0 3px 8px rgba(230, 126, 34, 0.4)",
+                  boxShadow: "0 3px 8px rgba(24, 119, 242, 0.4)",
                   width: "100%",
-                  ":hover": {
-                    backgroundColor: "#e65c00",
-                    transform: "translateY(-2px)",
-                  },
+                }}
+                onMouseOver={(e) => {
+                  e.target.style.backgroundColor = "#125dc2";
+                }}
+                onMouseOut={(e) => {
+                  e.target.style.backgroundColor = "#1877F2";
                 }}
               >
                 Update Recipe
