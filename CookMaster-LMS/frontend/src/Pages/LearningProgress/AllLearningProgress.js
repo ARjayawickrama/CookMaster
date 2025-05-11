@@ -80,13 +80,13 @@ function AllLearningProgress() {
               justifyContent: "space-between",
               marginBottom: "2rem",
               alignItems: "center",
-              borderBottom: "2px solid #ff9a3c",
+              borderBottom: "2px solid #1877F2",
               paddingBottom: "1rem",
             }}
           >
             <h1
               style={{
-                color: "#e67e22",
+                color: "#1877F2",
                 margin: 0,
                 fontSize: "1.8rem",
                 display: "flex",
@@ -94,23 +94,22 @@ function AllLearningProgress() {
                 gap: "0.5rem",
               }}
             >
-              <FaUtensils style={{ color: "#ff7733" }} />
+              <FaUtensils style={{ color: "#1877F2" }} />
               My Cooking Progress
             </h1>
 
             <div style={{ display: "flex", gap: "1rem" }}>
-            <button
-              className="actionButton_add"
-              style={{ backgroundColor: "#ff7733", color: "white" }}
-              onClick={() => (window.location.href = "/addLearningProgress")}
->
-             <FaPen className="mr-2" />
-            </button>
-
+              <button
+                className="actionButton_add"
+                style={{ backgroundColor: "#1877F2", color: "white" }}
+                onClick={() => (window.location.href = "/addLearningProgress")}
+              >
+                <FaPen className="mr-2" />
+              </button>
 
               <button
                 style={{
-                  backgroundColor: showMyPosts ? "#e74c3c" : "#27ae60",
+                  backgroundColor: showMyPosts ? "#e74c3c" : "#1877F2",
                   color: "white",
                   border: "none",
                   padding: "0.6rem 1.2rem",
@@ -144,7 +143,7 @@ function AllLearningProgress() {
                   background: "white",
                   borderRadius: "15px",
                   boxShadow: "0 3px 15px rgba(0,0,0,0.05)",
-                  borderTop: "5px solid #ff9a3c",
+                  borderTop: "5px solid #1877F2",
                 }}
               >
                 <div
@@ -171,7 +170,7 @@ function AllLearningProgress() {
                 </p>
                 <button
                   style={{
-                    backgroundColor: "#ff7733",
+                    backgroundColor: "#1877F2",
                     color: "white",
                     border: "none",
                     padding: "0.8rem 1.8rem",
@@ -180,7 +179,7 @@ function AllLearningProgress() {
                     fontSize: "1rem",
                     fontWeight: "600",
                     transition: "all 0.2s ease",
-                    boxShadow: "0 3px 8px rgba(230, 126, 34, 0.4)",
+                    boxShadow: "0 3px 8px rgba(24, 119, 242, 0.4)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -190,10 +189,10 @@ function AllLearningProgress() {
                     (window.location.href = "/addLearningProgress")
                   }
                   onMouseOver={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#e65c00")
+                    (e.currentTarget.style.backgroundColor = "#125dc2")
                   }
                   onMouseOut={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#ff7733")
+                    (e.currentTarget.style.backgroundColor = "#1877F2")
                   }
                 >
                   <FaPlus style={{ marginRight: "0.5rem" }} />
@@ -210,13 +209,9 @@ function AllLearningProgress() {
                     padding: "1.5rem",
                     boxShadow: "0 5px 15px rgba(0,0,0,0.08)",
                     transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                    borderTop: "5px solid #ff9a3c",
+                    borderTop: "5px solid #1877F2",
                     position: "relative",
                     overflow: "hidden",
-                    ":hover": {
-                      transform: "translateY(-5px)",
-                      boxShadow: "0 8px 20px rgba(0,0,0,0.12)",
-                    },
                   }}
                 >
                   {/* Difficulty Ribbon */}
@@ -278,7 +273,6 @@ function AllLearningProgress() {
                     </div>
                   )}
 
-                  {/* Recipe Header */}
                   <div
                     style={{
                       display: "flex",
@@ -295,7 +289,7 @@ function AllLearningProgress() {
                       }}
                     >
                       <FaUserCircle
-                        style={{ fontSize: "1.8rem", color: "#e67e22" }}
+                        style={{ fontSize: "1.8rem", color: "#1877F2" }}
                       />
                       <p
                         style={{
@@ -314,7 +308,7 @@ function AllLearningProgress() {
                         <FaEdit
                           style={{
                             fontSize: "1.2rem",
-                            color: "#e67e22",
+                            color: "#1877F2",
                             cursor: "pointer",
                             transition: "all 0.2s ease",
                           }}
@@ -347,17 +341,16 @@ function AllLearningProgress() {
                     )}
                   </div>
 
-                  {/* Recipe Image Placeholder */}
                   <div
                     style={{
                       height: "180px",
-                      backgroundColor: "#fdebd0",
+                      backgroundColor: "#eaf1fb",
                       borderRadius: "10px",
                       marginBottom: "1rem",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      color: "#e67e22",
+                      color: "#1877F2",
                       fontSize: "1.2rem",
                     }}
                   >
@@ -365,11 +358,10 @@ function AllLearningProgress() {
                     Recipe Photo
                   </div>
 
-                  {/* Recipe Title */}
                   <h3
                     style={{
                       fontSize: "1.4rem",
-                      color: "#e67e22",
+                      color: "#1877F2",
                       margin: "0 0 0.5rem 0",
                       fontFamily: "'Playfair Display', serif",
                     }}
@@ -377,7 +369,6 @@ function AllLearningProgress() {
                     {progress.skillTitle}
                   </h3>
 
-                  {/* Cuisine Type Tags */}
                   <div
                     style={{
                       display: "flex",
@@ -388,8 +379,8 @@ function AllLearningProgress() {
                   >
                     <span
                       style={{
-                        backgroundColor: "#fdebd0",
-                        color: "#d35400",
+                        backgroundColor: "#eaf1fb",
+                        color: "#0e5dc1",
                         padding: "0.3rem 0.8rem",
                         borderRadius: "20px",
                         fontSize: "0.8rem",
@@ -412,12 +403,11 @@ function AllLearningProgress() {
                     </span>
                   </div>
 
-                  {/* Cooking Instructions */}
                   <div style={{ marginBottom: "1.2rem" }}>
                     <p
                       style={{
                         fontWeight: "600",
-                        color: "#e67e22",
+                        color: "#1877F2",
                         marginBottom: "0.5rem",
                         fontSize: "0.95rem",
                         display: "flex",
@@ -440,7 +430,6 @@ function AllLearningProgress() {
                     </p>
                   </div>
 
-                  {/* Recipe Footer */}
                   <div
                     style={{
                       display: "flex",
@@ -459,7 +448,7 @@ function AllLearningProgress() {
                         gap: "0.5rem",
                       }}
                     >
-                      <HiCalendarDateRange style={{ color: "#e67e22" }} />
+                      <HiCalendarDateRange style={{ color: "#1877F2" }} />
                       <span>Cooked on: {progress.startDate}</span>
                     </div>
                     <div
@@ -469,7 +458,7 @@ function AllLearningProgress() {
                         gap: "0.5rem",
                       }}
                     >
-                      <FaClock style={{ color: "#e67e22" }} />
+                      <FaClock style={{ color: "#1877F2" }} />
                       <span>Prep: 30 mins</span>
                     </div>
                   </div>
