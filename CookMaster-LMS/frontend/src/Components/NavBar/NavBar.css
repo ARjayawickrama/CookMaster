@@ -1,76 +1,124 @@
+/* NavBar.css - Modern Facebook UI */
+@import url('https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@400;500;600;700&display=swap');
+
+
 
 .nav_con {
   width: 100%;
-  margin: 0 auto;
-  background-color: #ffffff;
+  background: var(--fb-white);
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 10;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  box-shadow: var(--fb-shadow);
+  height: 56px;
+  border-bottom: 1px solid var(--fb-light-gray);
 }
 
 .navbar {
-  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+  height: 100%;
   display: flex;
-  padding: 15px 25px;
   align-items: center;
   justify-content: space-between;
-  background-color: #f8f9fa; 
-  border-bottom: 2px solid #e0e0e0; 
+  padding: 0 16px;
 }
-
 
 .nav_item_set {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 40px;
   width: 100%;
+  height: 100%;
+  padding: 0 8px;
 }
 
 .nav_item_icon {
-  font-size: 28px;
-  color: #555555;
+  font-size: 22px;
+  color: var(--fb-gray);
   cursor: pointer;
-  transition: color 0.3s ease, transform 0.2s ease;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  position: relative;
+  transition: var(--fb-transition);
+  background: transparent;
 }
-
 
 .nav_item_icon:hover {
-  color: #007bff; 
-  transform: scale(1.1); 
+  background: var(--fb-light-gray);
+  color: var(--fb-blue);
+  transform: translateY(-1px);
 }
 
+.nav_item_icon:active {
+  transform: translateY(0);
+}
 
 .nav_item_icon_noty {
-  font-size: 28px;
-  color: #ff4500; 
+  font-size: 22px;
+  color: var(--fb-gray);
   cursor: pointer;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  position: relative;
+  transition: var(--fb-transition);
+  background: transparent;
 }
 
+.nav_item_icon_noty:hover {
+  background: var(--fb-light-gray);
+  color: var(--fb-blue);
+  transform: translateY(-1px);
+}
+
+.nav_item_icon_noty:active {
+  transform: translateY(0);
+}
+
+.nav_item_icon_noty::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  background: #e41e3f;
+  border-radius: 50%;
+  border: 2px solid var(--fb-white);
+  box-shadow: 0 0 0 2px var(--fb-white);
+}
 
 .nav_bar_item {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 25px;
+  gap: 4px;
 }
 
+/* User Card Styles */
 .user-card {
   position: absolute;
   top: 60px;
-  right: 20px;
-  width: 280px;
-  background: #ffffff;
-  padding: 20px;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1); /* subtle shadow for depth */
-  border-radius: 10px;
-  z-index: 10;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  transform: translateY(20px);
+  right: 16px;
+  width: 320px;
+  background: var(--fb-white);
+  border-radius: var(--fb-radius);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
   opacity: 0;
   visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid var(--fb-light-gray);
+  overflow: hidden;
 }
 
 .user-card.show {
@@ -81,37 +129,129 @@
 
 /* User Card Button */
 .user-card button {
-  margin-top: 15px;
   width: 100%;
-  padding: 12px;
-  background-color: #007bff;
-  color: white;
+  padding: 10px 16px;
   border: none;
   border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9375rem;
   cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: var(--fb-transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
-/* Button Hover Effect */
-.user-card button:hover {
-  background-color: #0056b3;
-  transform: scale(1.05); /* slight scale-up effect for buttons */
+.user-card button:first-of-type {
+  background: var(--fb-blue);
+  color: var(--fb-white);
 }
 
-/* General Button Hover */
-.user-card button:active {
-  transform: scale(1.02);
+.user-card button:first-of-type:hover {
+  background: var(--fb-blue-hover);
+  transform: translateY(-1px);
 }
 
-/* Responsive Adjustments for Smaller Screens */
+.user-card button:last-of-type {
+  background: var(--fb-light-gray);
+  color: var(--fb-black);
+  margin-top: 8px;
+}
+
+.user-card button:last-of-type:hover {
+  background: #d8dadf;
+  transform: translateY(-1px);
+}
+
+/* Animation for notification icon */
+@keyframes notificationPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.nav_item_icon_noty {
+  animation: notificationPulse 2s infinite;
+}
+
+/* Hover effect for nav items */
+.nav_item_icon::before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 20px;
+  height: 2px;
+  background: var(--fb-blue);
+  border-radius: 2px;
+  transition: transform 0.2s ease;
+}
+
+.nav_item_icon:hover::before {
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
+  .nav_con {
+    height: 52px;
+  }
+
   .navbar {
-    padding: 12px 20px;
+    padding: 0 12px;
+  }
+
+  .nav_item_icon,
+  .nav_item_icon_noty {
+    width: 32px;
+    height: 32px;
+    font-size: 20px;
+  }
+
+  .nav_item_icon_noty::after {
+    width: 6px;
+    height: 6px;
+    top: 5px;
+    right: 5px;
   }
 
   .user-card {
-    width: 90%;
-    top: 70px;
+    width: calc(100% - 32px);
+    right: 16px;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .nav_con {
+    background: #ffffff;
+
+  }
+
+  .nav_item_icon,
+  .nav_item_icon_noty {
+    color: #b0b3b8;
+  }
+
+  .nav_item_icon:hover,
+  .nav_item_icon_noty:hover {
+  
+    color: var(--fb-blue);
+  }
+
+  .user-card {
+    background: #242526;
+    border-color: #3e4042;
+  }
+
+  .user-card button:last-of-type {
+    background: #3a3b3c;
+    color: #e4e6eb;
+  }
+
+  .user-card button:last-of-type:hover {
+    background: #4e4f50;
   }
 }

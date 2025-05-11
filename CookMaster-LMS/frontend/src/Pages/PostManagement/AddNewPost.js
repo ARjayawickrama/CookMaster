@@ -9,6 +9,8 @@ import {
   FileText,
   Loader,
   Tag,
+  AlertCircle,
+  Check,
 } from "lucide-react";
 import SideBar from "../../Components/SideBar/SideBar";
 import "./AddNewPost.css";
@@ -24,6 +26,7 @@ function AddNewPost() {
   const [mediaPreviews, setMediaPreviews] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   const userID = localStorage.getItem("userID");
 
@@ -72,6 +75,10 @@ function AddNewPost() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setShowConfirmation(true);
+  };
+
+  const handleConfirmSubmit = async () => {
     setIsLoading(true);
     setErrors({});
 
@@ -79,6 +86,7 @@ function AddNewPost() {
     if (formData.tags && !/^[a-zA-Z0-9,\s]*$/.test(formData.tags)) {
       setErrors({ tags: "Tags can only contain letters, numbers, and commas" });
       setIsLoading(false);
+      setShowConfirmation(false);
       return;
     }
 
@@ -107,6 +115,7 @@ function AddNewPost() {
       });
     } finally {
       setIsLoading(false);
+      setShowConfirmation(false);
     }
   };
 
@@ -243,6 +252,48 @@ function AddNewPost() {
           </form>
         </div>
       </div>
+
+      {showConfirmation && (
+        <>
+          <div className="confirmation-dialog-overlay" />
+          <div className="confirmation-dialog">
+            <div className="confirmation-dialog-title">
+              <AlertCircle size={24} />
+              Confirm Post Publication
+            </div>
+            <div className="confirmation-dialog-message">
+              Are you sure you want to publish this post? This action cannot be undone.
+            </div>
+            <div className="confirmation-dialog-actions">
+              <button
+                className="confirmation-btn confirmation-btn-no"
+                onClick={() => setShowConfirmation(false)}
+                disabled={isLoading}
+              >
+                <X size={18} />
+                No, Cancel
+              </button>
+              <button
+                className="confirmation-btn confirmation-btn-yes"
+                onClick={handleConfirmSubmit}
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <>
+                    <Loader size={18} />
+                    Publishing...
+                  </>
+                ) : (
+                  <>
+                    <Check size={18} />
+                    Yes, Publish
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }
