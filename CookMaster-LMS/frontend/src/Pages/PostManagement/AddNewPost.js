@@ -171,7 +171,7 @@ function AddNewPost() {
                 <div className="media-upload-text">
                   <strong>Click to upload</strong> or drag and drop
                   <br />
-                  Images or videos (max 3 files, 50MB each)
+                  Images or videos (50MB each)
                 </div>
               </label>
               <input
@@ -262,7 +262,8 @@ function AddNewPost() {
               Confirm Post Publication
             </div>
             <div className="confirmation-dialog-message">
-              Are you sure you want to publish this post? This action cannot be undone.
+              Are you sure you want to publish this post? This action cannot be
+              undone.
             </div>
             <div className="confirmation-dialog-actions">
               <button

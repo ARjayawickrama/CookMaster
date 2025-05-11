@@ -443,35 +443,56 @@ main {
 
 .post-comment-actions {
   display: flex;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .post-comment-actions button {
   background: transparent;
   border: none;
-  color: #6c757d;
   cursor: pointer;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   display: flex;
   align-items: center;
-  gap: 0.3rem;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  transition: all 0.2s;
+  gap: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  color: var(--text-secondary);
 }
 
 .post-comment-actions button:hover {
-  background-color: #f1f5f9;
-  color: #4361ee;
+  transform: translateY(-1px);
 }
 
-.post-comment-actions button.danger:hover {
+.post-comment-actions button.edit-btn {
+  background-color: rgba(67, 97, 238, 0.08);
+  color: var(--primary);
+}
+
+.post-comment-actions button.edit-btn:hover {
+  background-color: rgba(67, 97, 238, 0.15);
+  box-shadow: 0 2px 8px rgba(67, 97, 238, 0.1);
+}
+
+.post-comment-actions button.delete-btn {
+  background-color: rgba(220, 53, 69, 0.08);
   color: #dc3545;
+}
+
+.post-comment-actions button.delete-btn:hover {
+  background-color: rgba(220, 53, 69, 0.15);
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.1);
 }
 
 .post-comment-actions button svg {
   width: 14px;
   height: 14px;
+  transition: transform 0.2s ease;
+}
+
+.post-comment-actions button:hover svg {
+  transform: scale(1.1);
 }
 
 /* Comment Edit Form */

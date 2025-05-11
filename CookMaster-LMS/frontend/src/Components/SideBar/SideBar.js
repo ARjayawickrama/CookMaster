@@ -107,30 +107,6 @@ function SideBar() {
           </i>
           <span>Watch</span>
         </div>
-        <div className="side_bar_nav_item">
-          <i>
-            <FaHistory />
-          </i>
-          <span>Memories</span>
-        </div>
-        <div className="side_bar_nav_item">
-          <i>
-            <FaBookmark />
-          </i>
-          <span>Saved</span>
-        </div>
-        <div className="side_bar_nav_item">
-          <i>
-            <FaGamepad />
-          </i>
-          <span>Gaming</span>
-        </div>
-        <div className="side_bar_nav_item">
-          <i>
-            <FaChevronDown />
-          </i>
-          <span>See More</span>
-        </div>
       </div>
     </div>
   );

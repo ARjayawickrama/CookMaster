@@ -8,9 +8,9 @@
   --fb-blue-hover: #166fe5;
   --fb-green: #42b72a;
   --fb-green-hover: #36a420;
-  --fb-gray: #65676b;
+  --fb-gray: #0635f0;
   --fb-light-gray: #ffffff;
-  --fb-bg-gray: #f0f2f5;
+  --fb-bg-gray: #ffffff;
   --fb-white: #ffffff;
   --fb-black: #1c1e21;
   --fb-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
@@ -342,30 +342,138 @@
 .post-action-buttons {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
+  padding: 8px 16px;
 }
 
 .post-action-btn {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px;
-  border-radius: 4px;
+
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 20px;
   border: none;
   background: transparent;
   color: var(--fb-gray);
   font-weight: 600;
   font-size: 0.9375rem;
   cursor: pointer;
-  transition: var(--fb-transition);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  
+  overflow: hidden;
+}
+
+.post-action-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.post-action-btn:hover::before {
+  transform: translateX(100%);
 }
 
 .post-action-btn:hover {
-  background: var(--fb-light-gray);
+  transform: translateY(-2px);
 }
 
-.post-action-btn.liked {
-  color: var(--fb-blue);
+.post-action-btn.like-btn {
+  color: #e91e63;
+}
+
+.post-action-btn.like-btn:hover {
+  background: rgba(233, 30, 99, 0.1);
+  box-shadow: 0 2px 8px rgba(233, 30, 99, 0.15);
+}
+
+.post-action-btn.like-btn.liked {
+  color: #e91e63;
+  background: rgba(233, 30, 99, 0.1);
+}
+
+.post-action-btn.comment-btn {
+  color: #2196f3;
+}
+
+.post-action-btn.comment-btn:hover {
+  background: rgba(33, 150, 243, 0.1);
+  box-shadow: 0 2px 8px rgba(33, 150, 243, 0.15);
+}
+
+.post-action-btn.share-btn {
+  color: #4caf50;
+}
+
+.post-action-btn.share-btn:hover {
+  background: rgba(76, 175, 80, 0.1);
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.15);
+}
+
+.post-action-btn svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+.post-action-btn:hover svg {
+  transform: scale(1.1);
+}
+
+.post-action-btn span {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Add a subtle animation for the buttons */
+@keyframes buttonPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.post-action-btn:active {
+  animation: buttonPulse 0.3s ease;
+}
+
+/* Share button specific styles */
+.post-action-btn.share-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.post-action-btn.share-btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(76, 175, 80, 0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.post-action-btn.share-btn:hover::after {
+  opacity: 1;
+}
+
+/* Like button animation */
+@keyframes likeAnimation {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.post-action-btn.like-btn.liked svg {
+  animation: likeAnimation 0.3s ease;
 }
 
 .post-comments-section {
@@ -719,5 +827,235 @@
   .confirmation-btn-no:hover {
     background: var(--fb-gray-400);
     color: var(--fb-white);
+  }
+}
+
+.post-comment-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.post-comment-actions button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.post-comment-actions button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.post-comment-actions button:hover::before {
+  transform: translateX(100%);
+}
+
+.post-comment-actions button.edit-btn {
+  background: rgba(24, 119, 242, 0.1);
+  color: var(--fb-blue);
+}
+
+.post-comment-actions button.edit-btn:hover {
+  background: rgba(24, 119, 242, 0.15);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(24, 119, 242, 0.15);
+}
+
+.post-comment-actions button.delete-btn {
+  background: rgba(240, 40, 73, 0.1);
+  color: #f02849;
+}
+
+.post-comment-actions button.delete-btn:hover {
+  background: rgba(240, 40, 73, 0.15);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(240, 40, 73, 0.15);
+}
+
+.post-comment-actions button svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.2s ease;
+}
+
+.post-comment-actions button:hover svg {
+  transform: scale(1.1);
+}
+
+.post-comment-actions button:active {
+  transform: translateY(0);
+}
+
+/* Enhanced Post Action Buttons with Superb Color Themes */
+.post-action-btn.edit-btn {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 198, 255, 0.3);
+}
+
+.post-action-btn.edit-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.post-action-btn.edit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 198, 255, 0.4);
+  background: linear-gradient(135deg, #00c6ff, #0072ff, #00c6ff);
+  background-size: 200% 200%;
+  animation: gradientFlow 3s ease infinite;
+}
+
+.post-action-btn.edit-btn:hover::before {
+  transform: translateX(100%);
+}
+
+.post-action-btn.edit-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(0, 198, 255, 0.2);
+}
+
+.post-action-btn.edit-btn svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.post-action-btn.edit-btn:hover svg {
+  transform: rotate(15deg) scale(1.1);
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+}
+
+.post-action-btn.delete-btn {
+  background: linear-gradient(135deg, #ff416c, #ff4b2b);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(255, 65, 108, 0.3);
+}
+
+.post-action-btn.delete-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.post-action-btn.delete-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 65, 108, 0.4);
+  background: linear-gradient(135deg, #ff416c, #ff4b2b, #ff416c);
+  background-size: 200% 200%;
+  animation: gradientFlow 3s ease infinite;
+}
+
+.post-action-btn.delete-btn:hover::before {
+  transform: translateX(100%);
+}
+
+.post-action-btn.delete-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(255, 65, 108, 0.2);
+}
+
+.post-action-btn.delete-btn svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.post-action-btn.delete-btn:hover svg {
+  transform: rotate(-15deg) scale(1.1);
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+}
+
+/* Button Animation */
+@keyframes buttonPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.post-action-btn:active {
+  animation: buttonPulse 0.3s ease;
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .post-action-btn.edit-btn {
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    box-shadow: 0 4px 15px rgba(0, 198, 255, 0.4);
+  }
+
+  .post-action-btn.edit-btn:hover {
+    box-shadow: 0 6px 20px rgba(0, 198, 255, 0.5);
+  }
+
+  .post-action-btn.delete-btn {
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4);
+  }
+
+  .post-action-btn.delete-btn:hover {
+    box-shadow: 0 6px 20px rgba(255, 65, 108, 0.5);
   }
 }

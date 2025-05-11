@@ -480,25 +480,25 @@ function AllPost() {
                   <div className="post-action-buttons">
                     <button
                       onClick={() => handleLike(post.id)}
-                      className={`post-action-btn ${
+                      className={`post-action-btn like-btn ${
                         post.likes?.[loggedInUserID] ? "liked" : ""
                       }`}
                     >
                       <Heart
                         size={18}
-                        fill={post.likes?.[loggedInUserID] ? "#493D9E" : "none"}
+                        fill={post.likes?.[loggedInUserID] ? "#e91e63" : "none"}
                       />
                       <span>
                         {Object.values(post.likes || {}).filter(Boolean).length}
                       </span>
                     </button>
 
-                    <button className="post-action-btn">
+                    <button className="post-action-btn comment-btn">
                       <MessageCircle size={18} />
                       <span>{post.comments?.length || 0}</span>
                     </button>
 
-                    <button className="post-action-btn">
+                    <button className="post-action-btn share-btn">
                       <Share size={18} />
                       <span>Share</span>
                     </button>
