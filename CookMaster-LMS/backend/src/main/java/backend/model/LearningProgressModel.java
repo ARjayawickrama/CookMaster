@@ -17,12 +17,13 @@ public class LearningProgressModel {
     private String startDate;
     private String endDate;
     private String level;
+    private String media;
 
     public LearningProgressModel() {
 
     }
 
-    public LearningProgressModel(String id, String postOwnerID, String postOwnerName, String skillTitle, String description, String field, String startDate, String endDate, String level) {
+    public LearningProgressModel(String id, String postOwnerID, String postOwnerName, String skillTitle, String description, String field, String startDate, String endDate, String level, String media) {
         this.id = id;
         this.postOwnerID = postOwnerID;
         this.postOwnerName = postOwnerName;
@@ -32,6 +33,7 @@ public class LearningProgressModel {
         this.startDate = startDate;
         this.endDate = endDate;
         this.level = level;
+        this.media = media;
     }
 
     public String getId() {
@@ -104,5 +106,13 @@ public class LearningProgressModel {
 
     public void setLevel(String level) {
         this.level = level;
+    }
+
+    public String getMedia() {
+        return media;
+    }
+
+    public void setMedia(String media) {
+        this.media = media;
     }
 }
