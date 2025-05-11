@@ -341,22 +341,34 @@ function AllLearningProgress() {
                     )}
                   </div>
 
-                  <div
-                    style={{
-                      height: "180px",
-                      backgroundColor: "#eaf1fb",
-                      borderRadius: "10px",
-                      marginBottom: "1rem",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "#1877F2",
-                      fontSize: "1.2rem",
-                    }}
-                  >
-                    <FaImage style={{ marginRight: "0.5rem" }} />
-                    Recipe Photo
-                  </div>
+                  {/* Progress Bar */}
+<div
+  style={{
+    height: "10px",
+    width: "100%",
+    backgroundColor: "#e0e0e0",
+    borderRadius: "10px",
+    overflow: "hidden",
+    margin: "0.5rem 0 1rem 0",
+  }}
+>
+  <div
+    style={{
+      width: `${progress.level}%`,
+      height: "100%",
+      backgroundColor:
+        progress.level < 30
+          ? "#27ae60"
+          : progress.level < 70
+          ? "#f39c12"
+          : "#e74c3c",
+      transition: "width 0.4s ease-in-out",
+    }}
+  ></div>
+</div>
+
+
+                  
 
                   <h3
                     style={{
