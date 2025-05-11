@@ -20,7 +20,7 @@ import {
 import SideBar from "../../Components/SideBar/SideBar";
 import Modal from "react-modal";
 import "./PostManagement.css";
-
+import Chatbot from "../../Components/ChatBot/Chatbot";
 Modal.setAppElement("#root");
 
 function AllPost() {
@@ -655,6 +655,7 @@ function AllPost() {
             </>
           )}
         </Modal>
+        <Chatbot />
       </main>
     </div>
   );
